@@ -1,0 +1,11 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+migrations/
+venv/
+
+### react ###
+node_modules/
