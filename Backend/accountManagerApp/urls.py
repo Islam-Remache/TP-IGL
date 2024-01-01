@@ -10,9 +10,15 @@ urlpatterns = [
     path('getUtilisateur/', views.GetUtilisateurView.as_view(), name='GetUtilisateur'),
     path('test/', views.test, name='test'), 
     path('ajouterAuFavories/<int:idArticle>/',views.AjouterAuFavoriesView.as_view(), name='ajouterAuFavories'),
-    path('supprimerDuFavories/int:idArticle>/',views.SupprimerDuFavoriesView.as_view(), name='supprimerDuFavories'),
+    path('supprimerDuFavories/<int:idArticle>/',views.SupprimerDuFavoriesView.as_view(), name='supprimerDuFavories'),
     path('nbUtilisateurs/', views.GetNbUtilisateursView.as_view(), name='nbUtilisateur'), 
     path('nbModerateurs/', views.GetNbModerateursView.as_view(), name='nbModerateurs'),
     path('getAllModerateurs/', views.GetAllModerateurView.as_view(), name='getAllModrateurs'),
     path('getAdministrateur/', views.GetAdministrateurView.as_view(), name='getAdministrateur'),
+    path('getModerateur/', views.GetModerateurView.as_view(), name='getModerateur'),
+    path('ajouterModerateur/', views.CreateModerateurView.as_view(), name='ajouterModerateur'),
+    path('supprimerModerateur/<int:idModerateur>/',views.SupprimerModerateur.as_view(), name='supprimerModerateur'),
+    path('modifierModerateur/<int:idModerateur>/',views.ModifierModerateurView.as_view(), name='modifierModerateur'),
+
+    #path('signUp2/', views.SignUpView2.as_view(), name='signUp'),
 ]
