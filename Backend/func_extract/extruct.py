@@ -1,122 +1,151 @@
-# this python script meant to extract the text from the pdf file
-# and print it out in the terminal
-# the problem is that the pdf must have a very specific format in order to work
-# for example the title must have to be fitted in a specific box
-# and the same goes for the other fields , so if the pdf is not in the right format
-# the script will not work
+"""
+for instant the title and the abstract and the keywords extraction is working but not for all documents 
+"""
 
 
-import typing
-from decimal import Decimal
-from borb.pdf import Document
-from borb.pdf import PDF
-from borb.pdf.canvas.geometry.rectangle import Rectangle
-from borb.toolkit import LocationFilter
-from borb.toolkit import RegularExpressionTextExtraction
-from borb.toolkit import SimpleTextExtraction
+import PyPDF2
+from pdfminer.layout import LTTextContainer, LTChar
+from pdfminer.high_level import extract_pages
+from pathlib import Path
+from typing import Iterable, Any
+
+def extract_title_from_pdf(pdf_file_path):
+    path = Path(pdf_file_path).expanduser()
+    pages = extract_pages(path)
+    #go to the first page
+    page = next(pages)
+    # get the biggest font size and the text that has this font size
+    biggest_font_size = 0
+    biggest_font_size_text = ""
+    for element in page:
+        #we will not count the headers of the page 
+        #so any element that is inside a rectangle will not be counted
+        if isinstance(element, LTTextContainer):
+            for text_line in element:
+                if isinstance(text_line, LTTextContainer):
+                    for character in text_line:
+                        if isinstance(character, LTChar):
+                            if character.size > biggest_font_size:
+                                biggest_font_size = character.size
+                elif isinstance(text_line, LTChar):
+                    if text_line.size > biggest_font_size:
+                        biggest_font_size = text_line.size
+    # now we have the biggest_font_size , we will get the text that has this font size
+    # note that the title might be in multiple lines 
+    # we have also the problem where the title in this function can remove white spaces between words
+    # so we will take in mind the white spaces between words
+    for element in page:
+        if isinstance(element, LTTextContainer):
+            for text_line in element:
+                if isinstance(text_line, LTTextContainer):
+                    for character in text_line:
+                        if biggest_font_size_text !="" and character.get_text() == " ": 
+                                biggest_font_size_text += character.get_text()
+                                continue
+                        if biggest_font_size_text !="" and character.get_text() == "\n": 
+                                biggest_font_size_text += " "
+                                continue
+                        if isinstance(character, LTChar):
+                            if character.size == biggest_font_size:
+                                biggest_font_size_text += character.get_text()
+                elif isinstance(text_line, LTChar):
+                    if biggest_font_size_text !="" and text_line.get_text() == " ": 
+                                biggest_font_size_text += text_line.get_text()
+                                continue
+                    if biggest_font_size_text !="" and text_line.get_text() == "\n": 
+                                biggest_font_size_text += " "
+                                continue
+                    if text_line.size == biggest_font_size:
+                        biggest_font_size_text += text_line.get_text()
+    # remove the white spaces at the beginning and at the end of the string
+    biggest_font_size_text = biggest_font_size_text.strip()
+    return biggest_font_size_text
+def extract_sections_from_pdf(pdf_file_path):
+    path = pdf_file_path
+    pages = extract_pages(path)
+    
+    # Iterate through the pages
+    for page_num, page in enumerate(pages, start=1):
+        # Check if the page number is 1 (assuming abstract and keywords are on the first page)
+        content = []
+        if page_num == 1:
+            abstract = False
+            keywords = False
+            abstract_content = None
+            keywords_content = None
+            # Iterate through the elements on the page
+            for element in page:
+                if isinstance(element, LTTextContainer):
+                    text = element.get_text()
+                    if abstract:
+                        abstract_content = text
+                        abstract = False
+                    if keywords:
+                        keywords_content = text
+                        keywords = False
+
+                    # Check for the abstract in the text to lowercase
+                    if abstract_content== None and "abstract" in text.lower():
+                        #so the next element is the abstract content
+                        #there is a chance that the content of the abstract is in the same element 
+                        #so we will check if the length of the text is more than 10 for refrence 
+                        if len(text) > 10:
+                            abstract_content = text
+                            continue
+                        abstract = True
+                        continue
+                    if keywords_content == None and "keywords" in text.lower():
+                        #so the next element is the keywords content
+                        #there is a chance that the content of the keywords is in the same element 
+                        #so we will check if the length of the text is more than 10 for refrence 
+                        if len(text) > 10:
+                            keywords_content = text
+                            continue
+                        keywords = True
+                        continue
+    #find the word "Abstract" or "ABSTRACT" or "abstract" in begining of the abstract_content
+    #and remove it 
+    if abstract_content != None:
+        abstract_content = abstract_content.replace("Abstract", "")
+        abstract_content = abstract_content.replace("ABSTRACT", "")
+        abstract_content = abstract_content.replace("abstract", "")
+    #find the word "Keywords" or "KEYWORDS" or "keywords" in begining of the keywords_content
+    #and remove it
+    if keywords_content != None:
+        keywords_content = keywords_content.replace("Keywords", "")
+        keywords_content = keywords_content.replace("KEYWORDS", "")
+        keywords_content = keywords_content.replace("keywords", "")
+        
+                    
+    
+    #remove any "\n" and replace it with " " 
+        # if the last word in the line ends with "-" then just remove the "-" and continue the word in the next line
+    if abstract_content != None:
+        abstract_content = abstract_content.replace("\n", " ")
+        abstract_content = abstract_content.replace("- ", "")
+    if keywords_content != None:
+        keywords_content = keywords_content.replace("\n", " ")
+        keywords_content = keywords_content.replace("- ", "")
+    
+    print("Abstract : \n" ,abstract_content)
+    print("keywords : \n", keywords_content)
 
 
-def get_document_boxes(start: str, end: str):
-    doc: typing.Optional[Document] = None
-    # constract the stirng to search for
-    search_string = start + ".*" + end
-    l: RegularExpressionTextExtraction = RegularExpressionTextExtraction(search_string)
-    with open("test.pdf", "rb") as in_file_handle:
-        doc = PDF.loads(in_file_handle, [l])
-    # check whether we have read a Document
-    assert doc is not None
-    # get width of the page
-    w: Decimal = doc.get_page(0).get_page_info().get_width()
-
-    # check whether we have found a match
-    if len(l.get_matches()) == 0:
-        return ['no match found']
-
-    bounding_boxes = []
-    # print matching groups
-    for i, m in enumerate(l.get_matches()[0]):
-        for r in m.get_bounding_boxes():
-            r1: Rectangle = Rectangle(
-                Decimal(r.get_x()),
-                Decimal(r.get_y()),
-                Decimal(r.get_width()),
-                Decimal(r.get_height()),
-            )
-            bounding_boxes.append(r1)
-    return bounding_boxes
 
 
-def get_document_from_boxes(bounding_boxes):
-    # get x,y,width,height from bounding boxes
-    # as a string array containing and int values for each float
-    # in the bounding box
-    bounding_boxes_str = []
-    result = ''
-    for r in bounding_boxes:
-        # convert decimal to int
-        x = int(r.get_x())
-        y = int(r.get_y())
-        width = int(r.get_width())
-        height = int(r.get_height())
-        bounding_boxes_str.append(str(x))
-        bounding_boxes_str.append(str(y))
-        bounding_boxes_str.append(str(width))
-        bounding_boxes_str.append(str(height))
-
-        r1: Rectangle = Rectangle(
-            Decimal(bounding_boxes_str[0]),
-            Decimal(bounding_boxes_str[1]),
-            Decimal(bounding_boxes_str[2]),
-            Decimal(bounding_boxes_str[3]),
-        )
-        # define SimpleTextExtraction
-        l0: SimpleTextExtraction = SimpleTextExtraction()
-
-        # apply a LocationFilter on top of SimpleTextExtraction
-        l1: LocationFilter = LocationFilter(r1)
-        l1.add_listener(l0)
-
-        # read the Document
-        doc: typing.Optional[Document] = None
-        with open("test.pdf", "rb") as in_file_handle:
-            doc = PDF.loads(in_file_handle, [l1])
-
-        # check whether we have read a Document
-        assert doc is not None
-
-        # print the text inside the Rectangle of interest
-        s = l0.get_text()[0]
-        # allow only one space between words
-        # if there is more than one space, replace it with | to be able to split
-        # if there is no space at the beginning of the string, add one
-        s = s + ' '
-        if s[0] != ' ':
-            s = ' ' + s
-        s = s.replace('  ', '|')
-        result += s
-        result = result.replace('  ', '|')
-    print(result)
+def extract_content_in_range(page, start_y, end_y):
+    """
+    Extracts text content within a specified vertical range on a page.
+    """
+    content = ""
+    for element in page:
+        if isinstance(element, LTTextContainer) and start_y <= element.y1 <= end_y:
+            content += element.get_text()
+    return content
 
 
-def main():
-    searching_string = [
-        '[tT]itle',
-        '[aA]uthor',
-        '[lL]’institution',
-        '[aA]bstract',
-        '[kK]eywords',
-        '[iI]ntroduction',
-        '[bB]ody'
-    ]
-    bounding_boxes = []
-    for i in range(0, len(searching_string)):
-        bounding_boxes = get_document_boxes(searching_string[i], searching_string[i])
-        if bounding_boxes[0] == 'no match found':
-            print(bounding_boxes[0])
-            return
-        else:
-            get_document_from_boxes(bounding_boxes)
-
-
-if __name__ == "__main__":
-    main()
+# Example usage:
+pdf_file_path = "./tests/Article_01.pdf"
+title = extract_title_from_pdf(pdf_file_path)
+print(title)
+extract_sections_from_pdf(pdf_file_path)
