@@ -1,7 +1,6 @@
 """
-for instant the title and the abstract and the keywords extraction is working but not for all documents 
+for instant the title and the abstract and the keywords extraction is working 
 """
-
 
 import PyPDF2
 from pdfminer.layout import LTTextContainer, LTChar
@@ -73,32 +72,49 @@ def extract_sections_from_pdf(pdf_file_path):
             keywords = False
             abstract_content = None
             keywords_content = None
+            abstract_boundig_box = None
+            keywords_boundig_box = None
             # Iterate through the elements on the page
             for element in page:
                 if isinstance(element, LTTextContainer):
                     text = element.get_text()
-                    if abstract:
+                    if text.strip() == "" or text.strip() == "\n" :
+                        continue
+                    # check if the element is below the abstract word 
+                    # so it must start with the same x coordinate and the y coordinate must be lower than the y coordinate of the abstract word
+                    if abstract == True and int(element.bbox[0]) == int(abstract_boundig_box[0]) and int(element.bbox[1]) < int(abstract_boundig_box[1]):
                         abstract_content = text
                         abstract = False
-                    if keywords:
+                        continue
+                    # check if the element is below the keywords word
+                    # so it must start with the same x coordinate and the y coordinate must be bigger than the y coordinate of the keywords word
+                    if keywords == True and int(element.bbox[0]) == int(keywords_boundig_box[0]) and int(element.bbox[1]) > int(keywords_boundig_box[1]):
                         keywords_content = text
                         keywords = False
+                        continue
 
                     # Check for the abstract in the text to lowercase
-                    if abstract_content== None and "abstract" in text.lower():
+                    # it may also appear in diffrent styles like this A B S T R A C T
+                        # so we must take that in mind
+                    if abstract_content== None and "abstract" in text.lower().replace(" ", ""):
                         #so the next element is the abstract content
                         #there is a chance that the content of the abstract is in the same element 
                         #so we will check if the length of the text is more than 10 for refrence 
-                        if len(text) > 10:
+                        if len(text.strip()) > 16:
                             abstract_content = text
                             continue
                         abstract = True
+                        # we will get the text form the element that sit directly blow the word "abstract"
+                        # and check if the element is in the same column or not
+                        # we will get the bounding box of the element by getting the bounding box of the first character in the element
+                        # we will get the bounding box of the element that sit directly blow the word "abstract"
+                        abstract_boundig_box = element.bbox
                         continue
-                    if keywords_content == None and "keywords" in text.lower():
+                    if keywords_content == None and "keywords" in text.lower().replace(" ", ""):
                         #so the next element is the keywords content
                         #there is a chance that the content of the keywords is in the same element 
                         #so we will check if the length of the text is more than 10 for refrence 
-                        if len(text) > 10:
+                        if len(text) > 20:
                             keywords_content = text
                             continue
                         keywords = True
@@ -109,13 +125,14 @@ def extract_sections_from_pdf(pdf_file_path):
         abstract_content = abstract_content.replace("Abstract", "")
         abstract_content = abstract_content.replace("ABSTRACT", "")
         abstract_content = abstract_content.replace("abstract", "")
+        abstract_content = abstract_content.replace("A B S T R A C T", "")
     #find the word "Keywords" or "KEYWORDS" or "keywords" in begining of the keywords_content
     #and remove it
     if keywords_content != None:
         keywords_content = keywords_content.replace("Keywords", "")
         keywords_content = keywords_content.replace("KEYWORDS", "")
         keywords_content = keywords_content.replace("keywords", "")
-        
+
                     
     
     #remove any "\n" and replace it with " " 
@@ -124,11 +141,21 @@ def extract_sections_from_pdf(pdf_file_path):
         abstract_content = abstract_content.replace("\n", " ")
         abstract_content = abstract_content.replace("- ", "")
     if keywords_content != None:
-        keywords_content = keywords_content.replace("\n", " ")
+        keywords_content = keywords_content.replace("-\n", "")
+        keywords_content = keywords_content.replace("\n", ",")
         keywords_content = keywords_content.replace("- ", "")
+        keywords_content = keywords_content.replace(":", "")
+        
     
-    print("Abstract : \n" ,abstract_content)
-    print("keywords : \n", keywords_content)
+    # convert the keywords_content to a list of keywords
+    if keywords_content != None:
+        keywords_content = keywords_content.split(",")
+        #remove any white spaces at the beginning and at the end of the keywords
+        for i in range(len(keywords_content)):
+            keywords_content[i] = keywords_content[i].strip()
+        #remove any empty keywords
+        keywords_content = list(filter(None, keywords_content))
+    return abstract_content, keywords_content
 
 
 
@@ -145,7 +172,6 @@ def extract_content_in_range(page, start_y, end_y):
 
 
 # Example usage:
-pdf_file_path = "./tests/Article_01.pdf"
+pdf_file_path = "./tests/Article_13.pdf"
 title = extract_title_from_pdf(pdf_file_path)
-print(title)
-extract_sections_from_pdf(pdf_file_path)
+abstract, keywords = extract_sections_from_pdf(pdf_file_path)
