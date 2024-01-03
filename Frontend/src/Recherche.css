@@ -1,0 +1,152 @@
+body {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  margin: 0;
+}
+.hello {
+  color: #000080;
+  text-shadow: 0px 0px 1.75px #000080;
+  font-size: 60px;
+}
+.intro {
+  width: 70%;
+  margin-left: 15%;
+  margin-bottom: 50px;
+  text-shadow: 0px 0px 1.75px grey;
+  font-size: 30px;
+}
+.searchBar {
+  width: 85%;
+  height: 80px;
+  background-color: #f3f7ff;
+  margin-left: 7.5%;
+  border: solid black 2px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+
+  box-shadow: 0px 0px 1.5px grey;
+}
+.categories2 ul {
+  cursor: pointer;
+  background-color: #e7e7e7;
+  list-style: none;
+  width: 45%;
+  padding-bottom: 5px;
+  text-align: left;
+  padding-top: 5px;
+  margin-left: 46.5%;
+  margin-top: 0;
+}
+.categories2 ul li {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: auto;
+  width: 80%;
+}
+.categories2 ul li:hover {
+  border-bottom: solid grey 2px;
+  font-weight: bold;
+}
+.search_input {
+  border: none;
+  border-radius: 10px;
+  height: 45px;
+  width: 80%;
+  font-size: 20px;
+  background-color: #f3f7ff;
+}
+.search_input:focus {
+  outline: none;
+}
+.search_icon {
+  margin-top: 5px;
+  font-size: 35px;
+  color: black;
+}
+.categories {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 7.5%;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.mob {
+  display: none;
+}
+.categories .art {
+  border: solid black 2px;
+  border-radius: 20px;
+  background-color: #f3f7ff;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  box-shadow: 0px 0px 1.5px grey;
+  height: 60px;
+  margin-top: 50px;
+}
+.categories .art p {
+  margin-left: 20px;
+  margin-right: 40px;
+  text-shadow: 0px 0px 1.75px grey;
+  font-size: 20px;
+}
+.categories .art:hover {
+  font-weight: bolder;
+  font-size: 11px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  cursor: grab;
+}
+.categories .art .icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.secondary-div {
+  width: 70%;
+  margin-left: 15%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.secondary-div img {
+  width: 40%;
+}
+.secondary-div p {
+  width: 60%;
+  font-size: 35px;
+  text-shadow: 0px 0px 1.75px grey;
+}
+.options {
+  color: black;
+}
+@media only screen and (max-width: 700px) {
+  .hello {
+    font-size: 40px;
+    margin-top: 40px;
+  }
+  .intro {
+    font-size: 25px;
+  }
+  .categories {
+    display: none;
+  }
+  .searchBar {
+    border-color: grey;
+    border-width: 1px;
+  }
+  .secondary-div p {
+    font-size: 25px;
+  }
+  .mob {
+    display: block;
+  }
+}
