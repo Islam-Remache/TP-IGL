@@ -1,7 +1,7 @@
 """
-for instant the title and the abstract and the keywords extraction is working 
+this script can extract the title , abstract , keywords , authors and institutions from a pdf file
+but it is not perfect , it can malfunction in some cases
 """
-
 import PyPDF2
 from pdfminer.layout import LTTextContainer, LTChar
 from pdfminer.high_level import extract_pages
@@ -62,22 +62,28 @@ def extract_title_from_pdf(pdf_file_path):
 def extract_sections_from_pdf(pdf_file_path):
     path = pdf_file_path
     pages = extract_pages(path)
+    abstract = False
+    keywords = False
+    abstract_content = None
+    keywords_content = None
+    abstract_boundig_box = None
+    keywords_boundig_box = None
+    title = extract_title_from_pdf(pdf_file_path)
+    title_boundig_box = None
+    authors_inst = []
     
     # Iterate through the pages
     for page_num, page in enumerate(pages, start=1):
         # Check if the page number is 1 (assuming abstract and keywords are on the first page)
         content = []
         if page_num == 1:
-            abstract = False
-            keywords = False
-            abstract_content = None
-            keywords_content = None
-            abstract_boundig_box = None
-            keywords_boundig_box = None
             # Iterate through the elements on the page
             for element in page:
                 if isinstance(element, LTTextContainer):
                     text = element.get_text()
+                    # get the bounding box of the title 
+                    if title_boundig_box == None and title.replace(" ", "") in text.replace("\n","").replace(" ", ""):
+                        title_boundig_box = element.bbox
                     if text.strip() == "" or text.strip() == "\n" :
                         continue
                     # check if the element is below the abstract word 
@@ -102,11 +108,16 @@ def extract_sections_from_pdf(pdf_file_path):
                         #so we will check if the length of the text is more than 10 for refrence 
                         if len(text.strip()) > 16:
                             abstract_content = text
+                            abstract_boundig_box = element.bbox
                             continue
                         abstract = True
                         # we will get the text form the element that sit directly blow the word "abstract"
+                        # note that the pdf file might be in tow columns so we need to get the bounding box of the element
                         # and check if the element is in the same column or not
+                        # if the element is in the same column then we will get the text from it
+                        # if the element is in the other column then we will get the text from the next element
                         # we will get the bounding box of the element by getting the bounding box of the first character in the element
+                        # and the bounding box of the last character in the element
                         # we will get the bounding box of the element that sit directly blow the word "abstract"
                         abstract_boundig_box = element.bbox
                         continue
@@ -116,35 +127,27 @@ def extract_sections_from_pdf(pdf_file_path):
                         #so we will check if the length of the text is more than 10 for refrence 
                         if len(text) > 20:
                             keywords_content = text
+                            keywords_boundig_box = element.bbox
                             continue
                         keywords = True
+                        keywords_boundig_box = element.bbox
                         continue
     #find the word "Abstract" or "ABSTRACT" or "abstract" in begining of the abstract_content
     #and remove it 
     if abstract_content != None:
-        abstract_content = abstract_content.replace("Abstract", "")
-        abstract_content = abstract_content.replace("ABSTRACT", "")
-        abstract_content = abstract_content.replace("abstract", "")
-        abstract_content = abstract_content.replace("A B S T R A C T", "")
+        abstract_content = abstract_content.replace("Abstract", "").replace("ABSTRACT", "").replace("abstract", "").replace("a b s t r a c t", "").replace("A B S T R A C T", "")
     #find the word "Keywords" or "KEYWORDS" or "keywords" in begining of the keywords_content
     #and remove it
     if keywords_content != None:
-        keywords_content = keywords_content.replace("Keywords", "")
-        keywords_content = keywords_content.replace("KEYWORDS", "")
-        keywords_content = keywords_content.replace("keywords", "")
-
+        keywords_content = keywords_content.replace("Keywords", "").replace("KEYWORDS", "").replace("keywords", "")
                     
     
     #remove any "\n" and replace it with " " 
         # if the last word in the line ends with "-" then just remove the "-" and continue the word in the next line
     if abstract_content != None:
-        abstract_content = abstract_content.replace("\n", " ")
-        abstract_content = abstract_content.replace("- ", "")
+        abstract_content = abstract_content.replace("\n", " ").replace("- ", "")
     if keywords_content != None:
-        keywords_content = keywords_content.replace("-\n", "")
-        keywords_content = keywords_content.replace("\n", ",")
-        keywords_content = keywords_content.replace("- ", "")
-        keywords_content = keywords_content.replace(":", "")
+        keywords_content = keywords_content.replace("-\n", "").replace("\n", ",").replace("- ", "").replace(":", "")
         
     
     # convert the keywords_content to a list of keywords
@@ -155,7 +158,73 @@ def extract_sections_from_pdf(pdf_file_path):
             keywords_content[i] = keywords_content[i].strip()
         #remove any empty keywords
         keywords_content = list(filter(None, keywords_content))
-    return abstract_content, keywords_content
+    # extract the authors and the institutions at once 
+    # what we know is that the authors and the institutions are between the title and what ever come first between the abstract and the keywords
+    # to get that we extract the elements that has y coordinate between the y coordinate of the title and the max y coordinate between the abstract or the keywords
+    pages = extract_pages(path)
+    if abstract_boundig_box != None and keywords_boundig_box != None:
+        max_y = max(abstract_boundig_box[3], keywords_boundig_box[3])
+    elif abstract_boundig_box != None:
+        max_y = abstract_boundig_box[3]
+    elif keywords_boundig_box != None:
+        max_y = keywords_boundig_box[3]
+    for page_num, page in enumerate(pages, start=1):
+        # Check if the page number is 1 (assuming abstract and keywords are on the first page)
+        content = []
+        if page_num == 1:
+            # Iterate through the elements on the page
+            for element in page:
+                if isinstance(element, LTTextContainer):
+                    text = element.get_text()
+                    print("first cond",int(element.bbox[3]) < int(title_boundig_box[1]))
+                    print("second cond",int(element.bbox[1]) > int(max_y))
+
+                    # the bbox of the title is in the form of (x0, y0, x1, y1)
+                    # while x0 and y0 are the coordinates of the bottom left corner of the bbox
+                    # and x1 and y1 are the coordinates of the top right corner of the bbox
+                    # we will check if the y coordinate of the element is between the y coordinate of the title and the max y coordinate between the abstract or the keywords
+                    if int(element.bbox[3]) < int(title_boundig_box[1]) and int(element.bbox[1]) > int(max_y): 
+                        authors_inst += text.split("\n")
+    #remove any empty authors
+    authors_inst = list(filter(None, authors_inst))
+    #now ceparate the authors from the institutions
+    authors = []
+    institutions = [""]*len(authors_inst)
+    # ok so the author is the first string , the second string is the institution
+    # all the strings that comes after the first string are the institution name devided untile we find an email adress , then the next string is the author and so on 
+    # for example :
+    # author1 , instit1_p1 , instit1_p2, ... , xxx@xxx.xx , author2 , ...
+    # we detect the email adress if it has @ in it 
+    # the the split will be like this :
+    # authors = [author1, author2, ...]
+    # institutions = [instit1_p1+" "+instit1_p2+" "+..., instit2_p1+" "+instit2_p2+" "+..., ...]
+    # and skip the email adress
+    i = 0
+    while i < len(authors_inst)-1:
+        if "@" in authors_inst[i]:
+            authors.append(authors_inst[i+1])
+            i+=2
+            continue
+        if i==0:
+            authors.append(authors_inst[i])
+            i+=1
+            continue
+        #add the string to institution of index len(authors)-1 
+        institutions[len(authors)-1] += authors_inst[i] + " "
+        i+=1
+
+    #remove any empty institutions
+    institutions = list(filter(None, institutions))
+    #remove any white spaces at the beginning and at the end of the authors
+    for i in range(len(authors)):
+        authors[i] = authors[i].strip()
+    #remove any white spaces at the beginning and at the end of the institutions
+    for i in range(len(institutions)):
+        institutions[i] = institutions[i].strip()
+    #remove any empty authors
+    authors = list(filter(None, authors))
+        
+    return abstract_content, keywords_content , authors, institutions
 
 
 
@@ -170,8 +239,17 @@ def extract_content_in_range(page, start_y, end_y):
             content += element.get_text()
     return content
 
+    
+
+
 
 # Example usage:
-pdf_file_path = "./tests/Article_13.pdf"
+pdf_file_path = "./tests/Article_01.pdf"
 title = extract_title_from_pdf(pdf_file_path)
-abstract, keywords = extract_sections_from_pdf(pdf_file_path)
+abstract, keywords, authors, institutions = extract_sections_from_pdf(pdf_file_path)
+print("title : ", title)
+print("abstract : ", abstract)
+print("keywords : ", keywords)
+print("authors : ", authors)
+print("institutions : ", institutions)
+
