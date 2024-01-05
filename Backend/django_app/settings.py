@@ -25,7 +25,21 @@ SECRET_KEY = 'django-insecure-ds=n(*4m+-zm%^r06+@36da57ll8y_n2_sh#@4d2ls=#vaegy6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = [
+    'https://appname.herokuapp.com'
+]
+
+ALLOWED_HOSTS = ['localhost']
+
+ELASTICSEARCH_DSL = {
+    'default':{
+        'hosts':'https://localhost:443',
+        'basic_auth':('elastic', 'EV9jCh2p_sklaPX2E0GL'),
+        'verify_certs':False,
+       
+
+    }
+}
 
 
 # Application definition
@@ -40,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'accountManagerApp',
+    'ArticlesManager.apps.ElasticArticlesManagerConfig',
+    'django_elasticsearch_dsl'
 ]
 
 MIDDLEWARE = [
