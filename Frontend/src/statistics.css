@@ -1,0 +1,109 @@
+#body3 {
+  text-align: left;
+}
+header {
+  font-size: 35px;
+  font-weight: bold;
+  margin-left: 4%;
+  color: #000080;
+  text-shadow: 0px 0px 0.75px #000080;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+.verbe {
+  font-size: 22.5px;
+}
+.stats {
+  width: 90%;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.stats div {
+  width: 25%;
+  height: 160px;
+  background-color: #e5fcf5;
+  border-radius: 0px 10px 10px 10px;
+  box-shadow: -6px 0px 0px #2d44be;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+#body3 .icon {
+  font-size: 50px;
+  margin-top: 25px;
+}
+.stats div article {
+  font-weight: bolder;
+  font-size: 25px;
+  padding-top: 65px;
+  text-shadow: 0px 0px 2px grey;
+}
+.activity {
+  background-color: #e5fcf5;
+  width: 92.5%;
+  margin-left: 2.5%;
+  height: 100px;
+  box-shadow: 0px 0px 3px grey;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  padding-left: 40px;
+  align-items: center;
+}
+.activity .userIcon {
+  font-size: 40px;
+  margin-left: 15px;
+}
+.activity h2 {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+@media only screen and (max-width: 700px) {
+  .stats div {
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    height: 200px;
+    margin-bottom: 20px;
+    box-shadow: -8px 0px 0px #2d44be;
+  }
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+  .stats div article {
+    padding-top: 0;
+    margin-bottom: 20px;
+  }
+  #body3 {
+    text-align: center;
+  }
+  header {
+    margin-left: -4%;
+  }
+  .activity {
+    width: 82.5%;
+    margin-left: 7.5%;
+    height: 180px;
+    flex-direction: column;
+    padding-top: 2.5%;
+    text-align: center;
+    padding-left: 2.5%;
+  }
+  .activity h2 {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+@media only screen and (max-width: 900px) and (min-width: 700px) {
+  .stats div {
+    width: 30%;
+  }
+  .activity {
+    width: 90%;
+    margin-left: 2.5%;
+  }
+}
