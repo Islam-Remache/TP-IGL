@@ -30,3 +30,7 @@ class ModerateurSerializer(serializers.ModelSerializer):
     class Meta:
         model = Moderateur
         fields = ['user', 'fullname', 'imageUrl']
+class OperationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Operation
+        fields = ['id', 'moderateurImageUrl', 'moderateurFullName', 'titreArticle', 'typeOperation']

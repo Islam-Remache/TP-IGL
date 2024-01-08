@@ -204,10 +204,27 @@ class ModifierModerateurView(APIView): #****************************************
         moderateur.save()
         return Response({'message': f'Moderatuer with id : {idModerateur} Updated successful'}, status=status.HTTP_200_OK)
 
+class CreerOperationView(APIView):
+    def post(self, request, titreArticle, typeOperation):
+        if request.user.is_authenticated:
+            idModerateur = request.user.id
+            moderateur = Moderateur.objects.get(id = idModerateur)
+            operation = Operation.objects.create(moderateurImageUrl = moderateur.imageUrl, moderateurFullName = moderateur.fullname, titreArticle = titreArticle, typeOperation = typeOperation)
+            operation_serializer = OperationSerializer(operation)
+            return Response({'message': 'Create Operation successful', 'operation': operation_serializer.data}, status=status.HTTP_201_CREATED)
+        else :
+            return Response({'message': 'Moderateur is not authenticated'}, status=status.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED)
+    
+class GetAllOperationsView(APIView):
+    def get(self, request):
+        allOperations = Operation.objects.all()
+        serializer = OperationSerializer(allOperations, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 '''
-Just to create an admin
+
+#Just to create a moderateur
 class SignUpView2(APIView): 
     def post(self, request):
         fullname = request.data.get('fullname')
@@ -218,10 +235,10 @@ class SignUpView2(APIView):
             return Response({'message': 'Invalid data. Please provide fullname, email, and password.'}, status=status.HTTP_400_BAD_REQUEST)
 
         user_to_auth = User.objects.create_user(email, email, password)
-        administrateur = Administrateur.objects.create(id=user_to_auth.id, user=user_to_auth, fullname=fullname)
-        administrateur_serializer = AdministrateurSerializer(administrateur)
+        moderateur = Moderateur.objects.create(id=user_to_auth.id, user=user_to_auth, fullname=fullname)
+        administrateur_serializer = ModerateurSerializer(moderateur)
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-        return Response({'message': 'Sign up successful', 'Admin': administrateur_serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'Sign up successful', 'Moderateur': administrateur_serializer.data}, status=status.HTTP_201_CREATED)
 '''

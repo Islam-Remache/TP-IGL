@@ -34,3 +34,11 @@ class Administrateur(models.Model):
     fullname = models.CharField(max_length = 30)
     def __str__(self) :
         return f'(id Administrateur) : {self.id} , Account : [ {self.user.id} , {self.user.email} ] , fullname : {self.fullname}'
+    
+class Operation(models.Model):
+    moderateurImageUrl = models.ImageField(null=True)
+    moderateurFullName = models.TextField(max_length=30)
+    titreArticle = models.TextField(max_length=30)
+    typeOperation = models.IntegerField()
+    def __str__(self):
+        return f'moderateurImageUrl: {self.moderateurImageUrl}, moderateurFullName: {self.moderateurFullName}, titreArticle: {self.titreArticle}, typeOperation: {self.typeOperation}'
