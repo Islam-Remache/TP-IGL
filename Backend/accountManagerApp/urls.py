@@ -19,6 +19,8 @@ urlpatterns = [
     path('ajouterModerateur/', views.CreateModerateurView.as_view(), name='ajouterModerateur'),
     path('supprimerModerateur/<int:idModerateur>/',views.SupprimerModerateur.as_view(), name='supprimerModerateur'),
     path('modifierModerateur/<int:idModerateur>/',views.ModifierModerateurView.as_view(), name='modifierModerateur'),
-
-    #path('signUp2/', views.SignUpView2.as_view(), name='signUp'),
+    path('creerOperation/<str:titreArticle>/<int:typeOperation>/', views.CreerOperationView.as_view(), name='creerOperation'),
+    path('getAllOperations/', views.GetAllOperationsView.as_view(), name='getAllOperations'),
+    #path('signUp2/', views.SignUpView2.as_view(), name='signUp2'),
+    path('testAuth/', views.test, name='test'),
 ]
