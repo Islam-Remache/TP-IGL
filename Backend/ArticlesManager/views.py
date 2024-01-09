@@ -255,3 +255,13 @@ class update_elastic_doc_View(APIView):
                 return Response({"message":f"Failed to update document with ID {IdArticle}."})
         except Exception as e:
             return Response({"message":f"An error occurred: {str(e)}"})
+
+
+class get_nb_articles(APIView):
+    def get(self,request):
+        try:
+            es = ConnectToES()
+            nb = es.count(index=INDEX_NAME)['count']
+            return Response({"nb": nb})
+        except Exception as e:
+            return Response({"message":f"An error occurred: {str(e)}"})

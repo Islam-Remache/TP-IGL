@@ -9,5 +9,7 @@ urlpatterns = [
     path('getNonValid/', views.get_non_valid_elastic_docs_View.as_view(), name='getNonValid'),
     path('Delete/<str:IdArticle>/', views.delete_elastic_doc_View.as_view(), name='Delete'),
     path('Update/<str:IdArticle>/', views.update_elastic_doc_View.as_view(), name='Update'),
+    path('getNbArticles/', views.get_nb_articles.as_view(), name='getNbArticles'),
+
 
 ]
