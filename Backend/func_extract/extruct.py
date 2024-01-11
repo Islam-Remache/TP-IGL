@@ -1,12 +1,21 @@
 """
-this script can extract the title , abstract , keywords , authors and institutions from a pdf file
-but it is not perfect , it can malfunction in some cases
+using gpt3.5 to identify what are those blocs of text that are beeing extracted
+to use it you need to add the .env file to the Backend folder and add the openai api key to it
+the main function to import is process_pdf_file
 """
+
+
+
+
 import PyPDF2
 from pdfminer.layout import LTTextContainer, LTChar
 from pdfminer.high_level import extract_pages
 from pathlib import Path
+from openai import OpenAI
 from typing import Iterable, Any
+from dotenv import load_dotenv
+import replicate
+load_dotenv()
 
 def extract_title_from_pdf(pdf_file_path):
     path = Path(pdf_file_path).expanduser()
@@ -225,10 +234,6 @@ def extract_sections_from_pdf(pdf_file_path):
     authors = list(filter(None, authors))
         
     return abstract_content, keywords_content , authors, institutions
-
-
-
-
 def extract_content_in_range(page, start_y, end_y):
     """
     Extracts text content within a specified vertical range on a page.
@@ -238,18 +243,63 @@ def extract_content_in_range(page, start_y, end_y):
         if isinstance(element, LTTextContainer) and start_y <= element.y1 <= end_y:
             content += element.get_text()
     return content
+    """
+    this function uses gpt3.5 to identify what are those blocs of text that are beeing extracted 
+    """
 
-    
 
 
 
-# Example usage:
-pdf_file_path = "./tests/Article_01.pdf"
-title = extract_title_from_pdf(pdf_file_path)
-abstract, keywords, authors, institutions = extract_sections_from_pdf(pdf_file_path)
-print("title : ", title)
-print("abstract : ", abstract)
-print("keywords : ", keywords)
-print("authors : ", authors)
-print("institutions : ", institutions)
+def extract_sections_from_pdf_gpt3(pdf_file_path):
+    # Extract text from the first page of the PDF
+    text = extract_text_from_pdf(pdf_file_path)
 
+    # Define OpenAI prompt
+    def get_openai_response(prompt):
+        openai = OpenAI()
+        return openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": prompt},
+                {"role": "user", "content": f"\n this is the text : \n{text}"}
+            ],
+        ).choices[0].message.content
+
+    # Get the title of the article
+    title_prompt = "get the title of this article , don't add any title to the response , just the title of the article "
+    title = get_openai_response(title_prompt)
+
+    # Get the authors of the article
+    authors_prompt = "get the authors of this article , don't add any title to the response , just the authors of the article separated by '\n'"
+    authors = get_openai_response(authors_prompt).split("\n")
+
+    # Get the institutions of the authors
+    institutions_prompt = "get the institutions of the authors of this article , don't add any title to the response , just the institutions of the article separated by '\n'"
+    institutions = get_openai_response(institutions_prompt).split("\n")
+
+    # Get the abstract section of the article
+    abstract_prompt = "get the abstract section from this article , don't add any title to the response , just the abstract section of the article "
+    abstract = get_openai_response(abstract_prompt)
+
+    # Get the keywords section of the article
+    keywords_prompt = "get the keywords section from this article , don't add any title to the response , just the keywords section of the article  "
+    keywords = get_openai_response(keywords_prompt).split(",")
+
+    return_dict = {"title": title, "authors": authors, "institutions": institutions, "abstract": abstract, "keywords": keywords}
+    return return_dict
+
+# Function to extract text from a PDF file
+def extract_text_from_pdf(pdf_file_path):
+    path = pdf_file_path
+    pages = extract_pages(path)
+    page = next(pages)
+    text = ""
+    for element in page:
+        if isinstance(element, LTTextContainer):
+            text += element.get_text()
+    return text
+
+
+
+def process_pdf_file(pdf_file_path):
+    return extract_sections_from_pdf_gpt3(pdf_file_path)
