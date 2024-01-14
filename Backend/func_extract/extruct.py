@@ -1,11 +1,3 @@
-"""
-using gpt3.5 to identify what are those blocs of text that are beeing extracted
-to use it you need to add the .env file to the Backend folder and add the openai api key to it
-the main function to import is process_pdf_file
-"""
-
-
-
 
 import PyPDF2
 from pdfminer.layout import LTTextContainer, LTChar
@@ -252,7 +244,7 @@ def extract_content_in_range(page, start_y, end_y):
 
 def extract_sections_from_pdf_gpt3(pdf_file_path):
     # Extract text from the first page of the PDF
-    text = extract_text_from_pdf(pdf_file_path)
+    text = extract_text_from_first_page_of_pdf(pdf_file_path)
 
     # Define OpenAI prompt
     def get_openai_response(prompt):
@@ -278,21 +270,38 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
     institutions = get_openai_response(institutions_prompt).split("\n")
 
     # Get the abstract section of the article
-    abstract_prompt = "get the abstract section from this article , don't add any title to the response , just the abstract section of the article "
+    abstract_prompt = "get the abstract section from this article without any changes , don't add any title to the response , just the abstract section of the article "
     abstract = get_openai_response(abstract_prompt)
 
     # Get the keywords section of the article
-    keywords_prompt = "get the keywords section from this article , don't add any title to the response , just the keywords section of the article  "
+    keywords_prompt = "get the keywords section from this article without any changes  , don't add any title to the response , just the keywords section of the article  "
     keywords = get_openai_response(keywords_prompt).split(",")
+    #get the references section of the article
+    text = extract_text_from_last_page_of_pdf(pdf_file_path)
+    references_prompt = "get the references section from this article without any changes  , don't add any title to the response , just the references section of the article separated by '\n'  "
+    references = get_openai_response(references_prompt).split("\n")
 
-    return_dict = {"title": title, "authors": authors, "institutions": institutions, "abstract": abstract, "keywords": keywords}
+
+
+    return_dict = {"title": title, "authors": authors, "institutions": institutions, "abstract": abstract, "keywords": keywords , "references": references}
     return return_dict
 
-# Function to extract text from a PDF file
-def extract_text_from_pdf(pdf_file_path):
+# Function to extract text from the first page of a PDF file
+def extract_text_from_first_page_of_pdf(pdf_file_path):
     path = pdf_file_path
     pages = extract_pages(path)
     page = next(pages)
+    text = ""
+    for element in page:
+        if isinstance(element, LTTextContainer):
+            text += element.get_text()
+    return text
+# Function to extract text from the last page of a PDF file
+def extract_text_from_last_page_of_pdf(pdf_file_path):
+    path = pdf_file_path
+    pages = extract_pages(path)
+    for page in pages:
+        pass
     text = ""
     for element in page:
         if isinstance(element, LTTextContainer):
@@ -303,3 +312,4 @@ def extract_text_from_pdf(pdf_file_path):
 
 def process_pdf_file(pdf_file_path):
     return extract_sections_from_pdf_gpt3(pdf_file_path)
+
