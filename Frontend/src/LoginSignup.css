@@ -1,0 +1,209 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/*Start Variables */
+:root {
+  --fa-style-family-classic: "Font Awesome 6 Free";
+  --main-color: #000080;
+  --main-color-alt: #0a0a69;
+  --light-main-color: #00008033;
+  --text-color: #000000;
+  --section-background: #ececec;
+  --main-transition: 0.3s;
+}
+/* End Variables */
+html {
+  scroll-behavior: smooth;
+}
+/* body {
+  font-family: "Poppins", sans-serif;
+} */
+*:focus {
+  outline: none;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+.link {
+  text-decoration: none;
+}
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Small */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+/* Medium */
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+/* Large */
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+/* Start Login */
+.hero {
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero .overlay {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(./images/bookmark.jpg);
+  background-size: cover;
+  background-position: center;
+  filter: blur(4px);
+}
+.hero .form-box {
+  width: 380px;
+  height: 480px;
+  position: relative;
+  margin: 6% auto;
+  background-color: var(--section-background);
+  padding: 15px;
+  box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.hero .form-box .button-box {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hero .form-box .toggle-btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  flex-basis: 50%;
+  padding: 15px 0;
+  color: var(--main-color);
+  background-color: transparent;
+  transition: var(--main-transition);
+}
+#btn {
+  position: absolute;
+  width: 159px;
+  height: 4px;
+  background-image: linear-gradient(to right, #000000, #000080, #05055f);
+  border-radius: 4px;
+  left: 8px;
+  bottom: 0;
+  transition: var(--main-transition);
+  z-index: 1;
+}
+.hero .form-box .input-group {
+  position: absolute;
+  top: 80px;
+  width: 280px;
+  transition: var(--main-transition);
+}
+.hero .form-box .input-group .input-field {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 0;
+  margin: 8px 0;
+  border: none;
+  border-bottom: 1px solid #999;
+  outline: none;
+  background-color: transparent;
+  caret-color: var(--main-color);
+}
+.hero .form-box .input-group .submit-btn {
+  display: block;
+  outline: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  width: 85%;
+  padding: 13px 30px;
+  cursor: pointer;
+  color: white;
+  transition: var(--main-transition);
+  /* background-color: var(--main-color); */
+  background-image: linear-gradient(to right, #000000, #000080, #05055f);
+  background-size: 220%;
+  background-position: left;
+  margin: 25px auto;
+  border-radius: 25px;
+}
+.hero .form-box .input-group .submit-btn:hover {
+  background-position: right;
+}
+#login {
+  left: 50px;
+}
+#signup {
+  left: 450px;
+}
+.or {
+  position: absolute;
+  top: 370px;
+  left: 50%;
+  translate: -50%;
+  font-weight: bold;
+}
+.or::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background-image: linear-gradient(to right, #000000, #000080, #05055f);
+  left: -69px;
+  top: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+}
+.or::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background-image: linear-gradient(to right, #05055f, #000080, #000000);
+  right: -172px;
+  top: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+}
+p.alternate {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  translate: -50%;
+  font-size: 14px;
+  font-weight: 500;
+}
+img.gmail {
+  width: 28px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  translate: -50%;
+}
+/* End Login */
