@@ -10,7 +10,10 @@ export const MaybeShowNavbar1 = ({ children }) => {
       location.pathname === "/Favorits" ||
       location.pathname === "/Recherche" ||
       location.pathname === "/Compte" ||
-      location.pathname === "/Correction"
+      location.pathname === "/Correction" ||
+      location.pathname === "/Create" ||
+      location.pathname === "/Edit" ||
+      location.pathname.match(/^\/Update\/.*$/) 
     ) {
       setShowNavBar(false);
     } else {

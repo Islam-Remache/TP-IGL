@@ -1,11 +1,14 @@
 import { useState  } from "react"; //useState hook
 import { Link, NavLink } from "react-router-dom";//Link and NavLink
 import "./Navbar.css";//The styles
+import { useLocation } from "react-router-dom";
 export const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const location = useLocation();
+    const activeLinkId = location.pathname.split("/").pop();
   return (
     <nav>
-      <Link to="/" className="title">
+      <Link to="/User" className="title">
         <span>Sci</span>Search
       </Link>
       <div className="menu" onClick={() => {setMenuOpen(!menuOpen)}}>
@@ -15,15 +18,15 @@ export const Navbar = () => {
       </div>
       <ul className={menuOpen && "open"}>
         <li>
-          <NavLink to="/Home">
+          <NavLink to="/User" className={activeLinkId ==="User" ? 'activation': ''}>
             Acceuil
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Favorits">Favoris</NavLink>
+          <NavLink to="Favorits" className={activeLinkId ==="Favorits" ? 'activation': ''}>Favoris</NavLink>
         </li>
         <li>
-          <NavLink to="/Compte">Mon Compte</NavLink>
+          <NavLink className={activeLinkId ==="Compte" ? 'activation': ''} to="Compte">Mon Compte</NavLink>
         </li>
       </ul>
     </nav>

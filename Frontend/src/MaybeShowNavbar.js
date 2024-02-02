@@ -8,10 +8,13 @@ export const MaybeShowNavbar = ({ children }) => {
       location.pathname === "/LoginSignup" ||
       location.pathname === "/Home" ||
       location.pathname === "/" ||
-      location.pathname === "/moderateur" ||
-      location.pathname === "/statistique" ||
-      location.pathname === "/articles" ||
-      location.pathname === "/Correction"
+      location.pathname === "/Moderateur" ||
+      location.pathname === "/Statistique" ||
+      location.pathname === "/Articles" ||
+      location.pathname === "/Correction" ||
+      location.pathname === "/Create" ||
+      location.pathname === "/Edit" ||
+      location.pathname.match(/^\/Update\/.*$/) 
     ) {
       setShowNavBar(false);
     } else {

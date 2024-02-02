@@ -14,6 +14,11 @@ import { Navbar1Mobile } from "./NavBar1Mobile";
 import {useMediaQuery} from "react-responsive";
 import { Moderateur } from "./Moderateur";
 import { ModerateurMobile } from "./ModerateurMobile";
+import { Create } from "./Create";
+import { Edit } from "./Edit";
+import Dashboard from "./Dashboard";
+import User from "./User";
+import Account from "./Account";
 
 
 
@@ -23,21 +28,42 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <MaybeShowNavbar>
+        {/* <MaybeShowNavbar> 
           <Navbar />
-        </MaybeShowNavbar>
-        <MaybeShowNavbar1 className={isPhone ? "homeContainerMobile" : "homeContainer" }>
+        </MaybeShowNavbar> */}
+        {/* <MaybeShowNavbar1 className={isPhone ? "homeContainerMobile" : "homeContainer" }>
           {isPhone ? <Navbar1Mobile /> : <Navbar1 />}
-        </MaybeShowNavbar1>
+        </MaybeShowNavbar1> */}
         <Routes>
-          <Route path="/recherche" element={<Recherche />} />
-          <Route path="/correction" element={<Correction />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/Admin" element={<Dashboard />} >
+            <Route index element={<Statistics />} />
+            <Route path="Moderateur" element={ isPhone ?<ModerateurMobile /> : <Moderateur />} />
+            <Route path="Edit/:id" element={<Edit />} />
+            <Route path="Articles" element={<> </>} />
+            <Route path="Create" element={<Create />} />
+            {/* <Route path="/Edit" element={<Edit />} /> */}
+          </Route>
+
+          <Route path='/modirateur' >
+            <Route index element={<Correction />} />
+          </Route>
+
+          <Route path="/User" element={<User />}>
+            <Route index element={<Recherche />} />
+            <Route path="Favorits" >
+              <Route index element={<Favorits />} />
+              <Route path=":id" element={<>hello world</>}/>
+            </Route>
+            <Route path="Compte" element={<Account />} />
+          </Route>
+          
+          {/* <Route path="/Home" element={<Home />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="/LoginSignup" element={<LoginSignup />} />
-          <Route path="/Favorits" element={<Favorits />} />
-          <Route path="/Moderateur" element={ isPhone ?<ModerateurMobile /> : <Moderateur />} />
+
+          
+          
+         
           {/* <Route path="*" element={<h1>page not found</h1>} /> */}
         </Routes>
       </Router>

@@ -1,27 +1,11 @@
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  font-family: inherit;
-}
-html {
-  scroll-behavior: smooth;
-}
-*:focus {
+.input-field:focus {
   outline: none;
 }
-button,
-input,
-optgroup,
-select,
-textarea {
+.input-field,
+.toggle-btn {
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
-}
-ul {
-  list-style: none;
-  padding: 0;
 }
 .link {
   text-decoration: none;
@@ -106,6 +90,7 @@ ul {
   display: block;
   outline: none;
   border: none;
+  font-size: 18px;
   font-weight: 500;
   width: 85%;
   padding: 13px 30px;

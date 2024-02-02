@@ -6,7 +6,7 @@
 }
 .favorits .heart {
     padding: 10px;
-    width: 100%;
+    width: calc(100% - 20px);
     text-align: end;
 }
 .favorits .heart .icon {

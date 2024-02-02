@@ -1,0 +1,115 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Korzane Yasser",
+      "email": "ly_korzane@esi.dz"
+    },
+    {
+      "id": "2",
+      "name": "Iarkane Karim",
+      "email": "la_iarkane@esi.dz"
+    },
+    {
+      "id": "3",
+      "name": "Abderraouf",
+      "email": "raouf@raouf.com"
+    },
+    {
+      "id": "5",
+      "name": "Amin",
+      "email": "Amin@Amin.com"
+    },
+    {
+      "id": "873f",
+      "name": "Kamal",
+      "email": "Kamal@Kamal"
+    }
+  ],
+  "favorits": [
+    {
+      "id": "1",
+      "title": "Title1",
+      "author": "Author1",
+      "tags": [
+        "#tag1.1",
+        "#tag1.2",
+        "#tag1.3"
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Title2",
+      "author": "Author2",
+      "tags": [
+        "#tag2.1",
+        "#tag2.2",
+        "#tag2.3",
+        "#tag2.4"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Title3",
+      "author": "Author3",
+      "tags": [
+        "#tag3.1",
+        "#tag3.2"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Title4",
+      "author": "Author4",
+      "tags": [
+        "#tag4.1",
+        "#tag4.2"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Title5",
+      "author": "Author5",
+      "tags": [
+        "#tag5.1",
+        "#tag5.2"
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Title6",
+      "author": "Author6",
+      "tags": [
+        "#tag6.1",
+        "#tag6.2"
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Title7",
+      "author": "Author7",
+      "tags": [
+        "#tag7.1",
+        "#tag7.2"
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Titl8",
+      "author": "Author8",
+      "tags": [
+        "#tag4.1",
+        "#tag4.2"
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Title9",
+      "author": "Author9",
+      "tags": [
+        "#tag8.1",
+        "#tag8.2"
+      ]
+    }
+  ]
+}

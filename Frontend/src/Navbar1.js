@@ -41,31 +41,31 @@ export const Navbar1 = () => {
     //  function change the style of links depend on the active link 
     function navLinkStyle(){
         switch(activeLinkId){
-            case "statistique":
+            case "admin":
                 return style1;
-            case "moderateur":
+            case "Moderateur":
                 return style2;
-            case "articles":
+            case "Articles":
                 return style3;         
         }
     }
     function navLinkStyle2(){
         switch(activeLinkId){
-            case "statistique":
+            case "admin":
                 return style4;
-            case "moderateur":
+            case "Moderateur":
                 return style1;
-            case "articles":
+            case "Articles":
                 return style2;         
         }
     }
     function navLinkStyle3(){
         switch(activeLinkId){
-            case "statistique":
+            case "admin":
                 return style3;
-            case "moderateur":
+            case "Moderateur":
                 return style4;
-            case "articles":
+            case "Articles":
                 return style1;         
         }
     }
@@ -81,9 +81,9 @@ export const Navbar1 = () => {
                 
                 <ul id="links">
                     <div id="linkContainer">
-                        <NavLink style={navLinkStyle} to="/statistique"><FontAwesomeIcon icon={faChartSimple} className="linkIcon" />Statistiques</NavLink>
-                        <NavLink style={navLinkStyle2} to="/moderateur"><FontAwesomeIcon icon={faUsers} className="linkIcon" />Moderateurs</NavLink>
-                        <NavLink style={navLinkStyle3} to="/articles"><FontAwesomeIcon icon={faNewspaper} className="linkIcon" />Uploaded Articles</NavLink>
+                        <NavLink style={navLinkStyle} to="/admin"><FontAwesomeIcon icon={faChartSimple} className="linkIcon" />Statistiques</NavLink>
+                        <NavLink style={navLinkStyle2} to="Moderateur"><FontAwesomeIcon icon={faUsers} className="linkIcon" />Moderateurs</NavLink>
+                        <NavLink style={navLinkStyle3} to="Articles"><FontAwesomeIcon icon={faNewspaper} className="linkIcon" />Uploaded Articles</NavLink>
                     </div>
                     
                 </ul>
