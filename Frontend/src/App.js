@@ -14,7 +14,8 @@ import { Navbar1Mobile } from "./NavBar1Mobile";
 import {useMediaQuery} from "react-responsive";
 import { Moderateur } from "./Moderateur";
 import { ModerateurMobile } from "./ModerateurMobile";
-
+import {UploadedArticles} from "./UploadedArticles"
+import {Details} from "./Details"
 
 
 function App() {
@@ -31,14 +32,16 @@ function App() {
         </MaybeShowNavbar1>
         <Routes>
           <Route path="/recherche" element={<Recherche />} />
+          <Route path="/details" element={<Details />} />
           <Route path="/correction" element={<Correction />} />
-          <Route path="/statistics" element={<Statistics />} />
-          <Route path="/Home" element={<Home />} />
+          <Route path="/articles" element={<UploadedArticles />} />
+          <Route path="/statistique" element={<Statistics />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/" element={<Home />} />
-          <Route path="/LoginSignup" element={<LoginSignup />} />
-          <Route path="/Favorits" element={<Favorits />} />
-          <Route path="/Moderateur" element={ isPhone ?<ModerateurMobile /> : <Moderateur />} />
-          {/* <Route path="*" element={<h1>page not found</h1>} /> */}
+          <Route path="/loginSignup" element={<LoginSignup />} />
+          <Route path="/favorits" element={<Favorits />} />
+          <Route path="/moderateur" element={ isPhone ?<ModerateurMobile /> : <Moderateur />} />
+          <Route path="*" element={<h1>page not found</h1>} />
         </Routes>
       </Router>
     </div>

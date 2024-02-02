@@ -5,12 +5,12 @@ export const MaybeShowNavbar1 = ({ children }) => {
   const [showNavBar, setShowNavBar] = useState(false);
   useEffect(() => {
     if (
-      location.pathname === "/LoginSignup" ||
-      location.pathname === "/Home" ||
-      location.pathname === "/Favorits" ||
-      location.pathname === "/Recherche" ||
-      location.pathname === "/Compte" ||
-      location.pathname === "/Correction"
+      location.pathname === "/loginSignup" ||
+      location.pathname === "/home" ||
+      location.pathname === "/favorits" ||
+      location.pathname === "/recherche" ||
+      location.pathname === "/correction" ||
+      location.pathname === "/details"
     ) {
       setShowNavBar(false);
     } else {

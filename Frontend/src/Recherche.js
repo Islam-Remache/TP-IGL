@@ -51,7 +51,7 @@ export const Recherche = () => {
   const [show2, setShow2] = useState(false);
 
   return (
-    <div>
+    <div id="bcd">
       <h1 className="hello">Chercher Votre Article</h1>
       <div className="intro">
         Effectuez une recherche à travers les informations de l'article. Vous

@@ -43,9 +43,9 @@ export const Navbar1Mobile = () => {
                 <ul id="linksMobile">
                     <div id="linkContainerMobile">
                         {/* i used conditional rendering to render the appropriate style depend on the active link  */}
-                        <div className="betweenLinks" style={activeLinkId==="statistique" ? style1:{} }></div>
+                        <div className="betweenLinks" style={activeLinkId==="statistics" ? style1:{} }></div>
                         <NavLink style={navLinkStyle} to="/statistique"><FontAwesomeIcon icon={faChartSimple} className="linkIconMobile" /></NavLink>
-                        <div className="betweenLinks" style={activeLinkId==="statistique" ? style2 : (activeLinkId==="moderateur" ? style1:{})}></div>
+                        <div className="betweenLinks" style={activeLinkId==="statistics" ? style2 : (activeLinkId==="moderateur" ? style1:{})}></div>
                         <NavLink style={navLinkStyle} to="/moderateur"><FontAwesomeIcon icon={faUsers} className="linkIconMobile" /></NavLink>
                         <div className="betweenLinks" style={activeLinkId==="moderateur" ? style2 : (activeLinkId==="articles" ? style1:{})}></div>
                         <NavLink style={navLinkStyle} to="/articles"><FontAwesomeIcon icon={faNewspaper} className="linkIconMobile" /></NavLink>

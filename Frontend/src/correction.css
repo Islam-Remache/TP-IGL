@@ -8,6 +8,8 @@
 }
 .authorsAndInstitutions {
   height: 330px;
+  overflow: auto;
+  margin-bottom: 20px;
 }
 .firstDiv img {
   width: 35%;
@@ -43,17 +45,27 @@
   font-size: 25px;
 }
 .kWords {
-  width: 90%;
+  width: 85%;
+  overflow: auto;
   margin-left: 5%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  border: #000080 solid 2px;
+  box-shadow: #000080 0px 0px 1.75px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 10px;
+  height: 100px;
+  justify-content: space-evenly;
   align-items: center;
-  height: 80px;
+  flex-wrap: wrap;
+  height: 150px;
+  margin-bottom: 15px;
 }
 .RefsDiv {
   height: 350px;
   text-align: center;
+  overflow: auto;
 }
 h7 {
   font-size: 25px;
@@ -72,7 +84,8 @@ h7 {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 21px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   box-shadow: 0px 0px 1.75px #000080;
   padding-left: 15px;
   padding-right: 15px;
@@ -85,9 +98,7 @@ h7 {
   cursor: grab;
   font-size: 25px;
 }
-.allKeyWords {
-  height: 160px;
-}
+
 .view {
   display: none;
 }
@@ -202,7 +213,7 @@ h7 {
   height: 50px;
   border: solid 2px #000080;
   border-radius: 10px;
-  width: 97.5%;
+  width: 97%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
