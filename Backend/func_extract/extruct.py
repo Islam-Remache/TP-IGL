@@ -281,9 +281,37 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
     references_prompt = "get the references section from this article without any changes  , don't add any title to the response , just the references section of the article separated by '\n'  "
     references = get_openai_response(references_prompt).split("\n")
 
+    auth_inst = []
+    for i in range(len(authors)):
+        if i > len(institutions)-1:
+            nom_inst = ""   
+            #get the email of the institution and separate it from the institution name
+            #the email is the word that contains @
+            for word in institutions[len(institutions)-1].split(" "):
+                if "@" in word:
+                    email = word
+                    continue
+                nom_inst += word + " "
+            aiobj = {"NomComplet": authors[i], "Institution": {"Nom": nom_inst, "Email": email}}
+            auth_inst.append(aiobj)
+        else:
+            aiobj = {"NomComplet": authors[i], "Institution": {"Nom": institutions[i], "Email": ""}}
+            auth_inst.append(aiobj)
+    
 
-
-    return_dict = {"title": title, "authors": authors, "institutions": institutions, "abstract": abstract, "keywords": keywords , "references": references}
+    innerText = getInnerText(pdf_file_path)
+    return_dict = {
+        "Titre": title,
+        "Resume": abstract,
+        "TextIntegral": innerText,
+        "Url": "ici/le/URL",
+        "DatePublication": timezone.now() ,
+        "estValidee": 0,
+        "Image" : "Ici/Url/image",
+        "Auteurs": auth_inst,
+        "MotsCle": keywords,
+        "References": references
+    }
     return return_dict
 
 # Function to extract text from the first page of a PDF file
@@ -307,7 +335,22 @@ def extract_text_from_last_page_of_pdf(pdf_file_path):
         if isinstance(element, LTTextContainer):
             text += element.get_text()
     return text
+#get innerText , just read it in utf-8
+def getInnerText(pdf_file_path):
+    path = pdf_file_path
+    pages = extract_pages(path)
+    text = ""
+    for page in pages:
+        for element in page:
+            if isinstance(element, LTTextContainer):
+                text += element.get_text()
 
+    #if the text is not in utf-8 then we will force it to be in utf-8
+    try:
+        text.encode('utf-8').decode('utf-8')
+    except UnicodeDecodeError:
+        text = text.encode('utf-8').decode('utf-8', 'ignore')
+    return text
 
 
 def process_pdf_file(pdf_file_path):
