@@ -1,22 +1,25 @@
 body {
   font-family: "Poppins", sans-serif;
   margin: 0;
+
 }
+#bcd{text-align: center;}
 .hello {
+  
   color: #000080;
   text-shadow: 0px 0px 1.75px #000080;
-  font-size: 60px;
+  font-size: 50px;
 }
 .intro {
   width: 70%;
   margin-left: 15%;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   text-shadow: 0px 0px 1.75px grey;
-  font-size: 30px;
+  font-size: 25px;
 }
 .searchBar {
   width: 85%;
-  height: 80px;
+  height: 70px;
   background-color: #f3f7ff;
   margin-left: 7.5%;
   border: solid black 2px;
@@ -87,7 +90,7 @@ body {
   padding-top: 5px;
   padding-bottom: 5px;
   box-shadow: 0px 0px 1.5px grey;
-  height: 60px;
+  height: 50px;
   margin-top: 50px;
 }
 .categories .art p {
@@ -115,13 +118,14 @@ body {
   align-items: center;
   margin-bottom: 20px;
   margin-top: 20px;
+  padding-bottom: 20px;
 }
 .secondary-div img {
-  width: 40%;
+  width: 30%;
 }
 .secondary-div p {
   width: 60%;
-  font-size: 35px;
+  font-size: 25px;
   text-shadow: 0px 0px 1.75px grey;
 }
 .options {
