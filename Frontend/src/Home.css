@@ -2,6 +2,10 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: inherit;
+}
+html {
+    scroll-behavior: smooth;
 }
 /*Start Variables */
 :root {
@@ -17,12 +21,13 @@
 html {
   scroll-behavior: smooth;
 }
-body {
-  font-family: "Poppins", sans-serif;
-  text-align: initial;
-}
 *:focus {
   outline: none;
+}
+input {
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
 }
 ul {
   list-style: none;
