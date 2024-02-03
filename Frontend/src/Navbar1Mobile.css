@@ -194,7 +194,7 @@ body{
 
 /* la page de moderateur */
 
-#moderateurPage{
+#ModerateurPage{
     margin: 0px;
     width: 72%;
     padding: 10px 1%;
@@ -353,11 +353,11 @@ thead{
     width: 20px;
     height: 20px;
 }
-#moderateurPageMobile{
+#ModerateurPageMobile{
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-#moderateurPageMobile>h1{
+#ModerateurPageMobile>h1{
     text-align: center;
 }

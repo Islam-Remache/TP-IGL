@@ -62,7 +62,7 @@ nav ul li a:before {
     left: 0;
     transition: .3s;
 }
-.active::before {
+.activation::before {
     width: 100%;
 }
 nav .menu {

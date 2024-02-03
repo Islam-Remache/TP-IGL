@@ -1,47 +1,34 @@
-import { useState } from "react"; //useState hook
-import { Link, NavLink } from "react-router-dom"; //Link and NavLink
-import "./Navbar.css"; //The styles
-import Popup from "./Popup";
+import { useState  } from "react"; //useState hook
+import { Link, NavLink } from "react-router-dom";//Link and NavLink
+import "./Navbar.css";//The styles
+import { useLocation } from "react-router-dom";
 export const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  // this is a state to show or hide the popup
-  const [showPopup, setShowPopup] = useState(false);
-
-  function togglePopup() {
-    setShowPopup(!showPopup);
-  }
-
+    const [menuOpen, setMenuOpen] = useState(false);
+    const location = useLocation();
+    const activeLinkId = location.pathname.split("/").pop();
   return (
     <nav>
-      <Link to="/" className="title">
+      <Link to="/user" className="title">
         <span>Sci</span>Search
       </Link>
-      <div
-        className="menu"
-        onClick={() => {
-          setMenuOpen(!menuOpen);
-        }}
-      >
+      <div className="menu" onClick={() => {setMenuOpen(!menuOpen)}}>
         <span></span>
         <span></span>
         <span></span>
       </div>
       <ul className={menuOpen && "open"}>
         <li>
-          <NavLink to="/recherche">Acceuil</NavLink>
+          <NavLink to="/user" className={activeLinkId ==="user" ? 'activation': ''}>
+            Acceuil
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/favorits">Favoris</NavLink>
+          <NavLink to="Favorits" className={activeLinkId ==="Favorits" ? 'activation': ''}>Favoris</NavLink>
         </li>
         <li>
-          <NavLink onClick={togglePopup}>Mon Compte</NavLink>
+          <NavLink className={activeLinkId ==="Compte" ? 'activation': ''} to="Compte">Mon Compte</NavLink>
         </li>
       </ul>
-           {/* show or hide the pop up depend on the state of showPopup and the div for make the background blur */}
-           {showPopup && <Popup hidePopup={togglePopup} img={require("./images/compteImage.png")} name="Remache Islam" email="li_remache@esi.dz" />}
-            {showPopup && <div className="blurBackground" />}
     </nav>
-    
   );
 };

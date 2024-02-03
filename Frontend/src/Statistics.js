@@ -68,7 +68,7 @@ export const Statistics = () => {
   }, []);
   return (
     <div id="body3">
-      <header>Statistiques</header>
+      {/* <header>Statistiques</header> */}
       <section className="stats">
         <div>
           {art1}
@@ -92,7 +92,7 @@ export const Statistics = () => {
           {use2}
         </div>
       </section>
-      <header>Acitivité récente des modérateurs</header>
+      {/* <header>Acitivité récente des modérateurs</header> */}
       {createActivities()} {/* activities displayes */}
     </div>
   );

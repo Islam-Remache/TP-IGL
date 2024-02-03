@@ -1,28 +1,28 @@
 * {
   font-family: inherit;
 }
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
+body{
+  margin:0;
+  font-family: "Poppins" , sans-serif;
   height: 100vh;
 }
-#root {
+#root{
   height: 100%;
 }
 html {
   scroll-behavior: smooth;
 }
-.homeContainer {
+.homeContainer{
   display: flex;
   height: 100%;
 }
-.homeContainerMobile {
+.homeContainerMobile{
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 /* you can remove this class(pageTitle and pageTitleMobile) after completing the other pages (statistic page, article page) , because this class is for testing and hasn't any relation with moderateur page  */
-.pageTitle {
+.pageTitle{
   margin: 0px;
   padding: 10px 1%;
   margin-left: 27%;
@@ -31,13 +31,13 @@ html {
   justify-content: center;
   align-items: center;
 }
-.pageTitleMobile {
+.pageTitleMobile{
   text-align: center;
 }
 /* desktop version */
 /* navBar */
 /**************************************************************************************************************************/
-#navBar {
+#navBar{
   position: fixed;
   background-color: #000080;
   color: white;
@@ -51,22 +51,23 @@ html {
 }
 /* Logo */
 
-#logo {
+#logo{
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0px;
 }
-#searchIcon {
+#searchIcon{
   width: 100px;
   height: 100px;
 }
-#logo h1 {
+#logo h1{
   font-size: 30px;
 }
 
+
 /* Links */
-#links {
+#links{
   list-style: none;
   padding: 0;
   margin: 0;
@@ -74,7 +75,7 @@ html {
   flex-direction: column;
   width: 100%;
 }
-#links a {
+#links a{
   text-decoration: none;
   color: white;
   display: flex;
@@ -87,37 +88,37 @@ html {
   background-color: #000080;
 }
 
-#divider {
+#divider{
   width: 70%;
 }
-.linkIcon {
+.linkIcon{
   color: orangered;
   width: 30px;
   height: 30px;
 }
-#linkContainer {
+#linkContainer{
   margin-left: 10%;
   background: linear-gradient(to right, #000080 50%, white 50%);
 }
 
 /* Account */
-#account {
+#account{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-#account p {
+#account p{
   margin: 0;
 }
-#account img {
+#account img{
   cursor: pointer;
 }
 
 /* Popup */
 
-.popup {
+.popup{
   width: 250px;
   height: 350px;
   padding: 35px;
@@ -126,7 +127,7 @@ html {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%,-50%);
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
   z-index: 1000;
   transition: all 0.5s ease;
@@ -138,30 +139,30 @@ html {
   border-radius: 10px;
 }
 .blurBackground {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  z-index: 100;
-  transition: all 0.5s ease;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); 
+backdrop-filter: blur(4px);
+z-index: 100;
+transition: all 0.5s ease;
 }
-.popup * {
+.popup *{
   margin: 0;
 }
-#popupImage {
+#popupImage{
   width: 150px;
   height: 100px;
 }
-.infopopup {
+.infopopup{
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: center;
 }
-#exit {
+#exit{
   width: 40px;
   height: 40px;
   display: flex;
@@ -175,40 +176,44 @@ html {
   left: 100%;
   transform: translateX(-100%);
 }
-#exit:hover {
-  background-color: rgb(238, 231, 231);
+#exit:hover{
+  background-color:  rgb(238, 231, 231);
 }
-#popupButton {
+#popupButton{
   width: 150px;
   height: 35px;
   cursor: pointer;
   transition: all 0.1s ease;
 }
-#popupButton:hover {
+#popupButton:hover{
   color: red;
 }
-.popupDivider {
+.popupDivider{
   width: 100%;
 }
 
-/* end of style of navBar */
+/* end of style of navBar */ 
 /*************************************************************************************************************/
 
 /* la page de moderateur */
 
-#moderateurPage {
+#moderateurPage{
   margin: 0px;
-  width: 68%;
+  width: 72%;
   padding: 10px 1%;
-  margin-left: 28%;
+  margin-left: 27% ;
 }
-#head {
+#head{
   display: flex;
-  justify-content: space-between;
+  justify-content:space-between;
   align-items: center;
-  margin-top: 20px;
 }
-#addButton {
+#addButton{
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  color: black;
+  align-items: center;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -218,50 +223,57 @@ html {
   cursor: pointer;
   transition: all 0.1s ease;
 }
-#addButton:hover {
-  color: #000080;
+.btnMobile {
+  position: relative;
+  left: 50%;
+  translate: -50%;
+  bottom: 10px;
 }
-#accounts {
+#addButton:hover{
+  color: #000080 ;
+}
+#accounts{
   width: 100%;
   border-spacing: 0px;
-  margin-top: 40px;
+  margin-top: 60px;
 }
-#nom {
+#nom{
   display: flex;
   gap: 20px;
 }
-thead {
+thead{
   background-color: rgb(201, 196, 196);
   height: 50px;
 }
-.headTable {
+.headTable{
   border: none;
   border-bottom: 2px solid black;
 }
-.check {
+.check{
   width: 20px;
   height: 20px;
 }
-.iconButton {
+.iconButton{
   background-color: transparent;
+  color: black;
   border: none;
   font-size: 22px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
-#edit:hover {
+#edit:hover{
   color: blue;
 }
-#delete:hover {
+#delete:hover{
   color: red;
 }
-.user {
+.user{
   height: 60px;
 }
-.user:hover {
+.user:hover{
   background-color: rgb(238, 231, 231);
 }
-.accountImg {
+.accountImg{
   height: 60px;
   width: 60px;
   border-radius: 50%;
@@ -270,57 +282,57 @@ thead {
 /*************************************************************/
 /* responsive */
 /* navBar style*/
-#navBarMobile {
+#navBarMobile{
   background-color: #000080;
   width: 100%;
   color: white;
   display: flex;
   flex-direction: column;
 }
-#mobileTitle {
+#mobileTitle{
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-#logoMobile {
+#logoMobile{
   display: flex;
   align-items: center;
   gap: 2px;
 }
-#searchIconMobile {
+#searchIconMobile{
   width: 60px;
   height: 40px;
 }
-#mobileTitle img {
+#mobileTitle img{
   width: 60px;
   height: 40px;
 }
-#dividerMobile {
+#dividerMobile{
   width: 80%;
 }
-#linksMobile {
+#linksMobile{
   padding: 0;
 }
-#linkContainerMobile {
+#linkContainerMobile{
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
-#linksMobile {
+#linksMobile{
   margin: 0;
-  background: linear-gradient(to bottom, #000080 50%, white -50%);
+  background: linear-gradient(to bottom,#000080 50%,white -50%);
 }
-.betweenLinks {
+.betweenLinks{
   width: 100%;
   background-color: #000080;
 }
-.linkIconMobile {
+.linkIconMobile{
   color: orangered;
   width: 30px;
   height: 30px;
   padding: 10px;
 }
-#mobileTitle {
+#mobileTitle{
   cursor: pointer;
 }
 
@@ -328,17 +340,10 @@ thead {
 .userMobile {
   margin: 0px 20px;
 }
-#mode {
-  color: #000080;
-  font-size: 35px;
-  font-weight: bold;
-  text-shadow: 0px 0px 1.5px #000080;
-
-}
-.userMobile * {
+.userMobile *{
   margin: 0px;
 }
-.userMobile {
+.userMobile{
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -346,28 +351,28 @@ thead {
   border: black solid 2px;
   padding: 10px 10px;
 }
-.infoUserMobile {
+.infoUserMobile{
   display: flex;
   gap: 5px;
 }
-.iconMobile {
+.iconMobile{
   display: flex;
   justify-content: space-around;
   gap: 60px;
 }
-.infoUserMobile img {
+.infoUserMobile img{
   width: 70px;
   height: 70px;
 }
-.checkMobile {
+.checkMobile{
   width: 20px;
   height: 20px;
 }
-#moderateurPageMobile {
+#moderateurPageMobile{
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
-#moderateurPageMobile > h1 {
+#moderateurPageMobile>h1{
   text-align: center;
 }

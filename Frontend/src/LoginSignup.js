@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import './LoginSignup.css'
 export const LoginSignup = () => {
   function register() {
     let x = document.getElementById("login");
