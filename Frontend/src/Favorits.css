@@ -1,0 +1,62 @@
+.favorits {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    gap: 40px;
+    margin: 17px;
+}
+.favorits .heart {
+    padding: 10px;
+    width: calc(100% - 20px);
+    text-align: end;
+}
+.favorits .heart .icon {
+    color: red;
+    font-size: 25px;
+}
+.favorits .card-container {
+    background-color: white;
+    box-shadow: 0 2px 15px 0px rgba(0,0,0,.1);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: translate var(--main-transition),box-shadow var(--main-transition);
+}
+.favorits .card-container:hover {
+    box-shadow: 0 2px 15px 0px rgba(0,0,0,.2);
+    translate: 0 -10px;
+}
+.favorits .card-container img {
+    max-width: 100%;
+}
+.favorits .card-container .content {
+    padding: 20px;
+}
+.favorits .card-container .content h3 {
+    margin: 0;
+    font-size: 29px;
+}
+.favorits .card-container .content p {
+    margin: 10px 0 0;
+    line-height: 1.5;
+    color: #777;
+}
+.favorits .card-container .info {
+    padding: 20px;
+    border-top: 1px solid #e6e6e7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.favorits .card-container .info .more {
+    text-decoration: none;
+    color: #000080;
+    font-weight: bold;
+}
+.favorits .card-container .info span {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #777;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

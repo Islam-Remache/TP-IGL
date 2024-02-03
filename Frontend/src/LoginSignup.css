@@ -1,60 +1,15 @@
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-/*Start Variables */
-:root {
-  --fa-style-family-classic: "Font Awesome 6 Free";
-  --main-color: #000080;
-  --main-color-alt: #0a0a69;
-  --light-main-color: #00008033;
-  --text-color: #000000;
-  --section-background: #ececec;
-  --main-transition: 0.3s;
-}
-/* End Variables */
-html {
-  scroll-behavior: smooth;
-}
-/* body {
-  font-family: "Poppins", sans-serif;
-} */
-*:focus {
+.input-field:focus {
   outline: none;
 }
-ul {
-  list-style: none;
-  padding: 0;
+.input-field,
+.toggle-btn {
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
 }
 .link {
   text-decoration: none;
 }
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-left: auto;
-  margin-right: auto;
-}
-/* Small */
-@media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
-}
-/* Medium */
-@media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
-}
-/* Large */
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
-}
-/* Start Login */
 .hero {
   position: absolute;
   left: 0;
@@ -79,7 +34,7 @@ ul {
   height: 480px;
   position: relative;
   margin: 6% auto;
-  background-color: var(--section-background);
+  background-color: #ececec;
   padding: 15px;
   box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
@@ -97,13 +52,11 @@ ul {
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
   flex-basis: 50%;
   padding: 15px 0;
-  color: var(--main-color);
+  color: #000080;
   background-color: transparent;
-  transition: var(--main-transition);
+  transition: 0.3s;
 }
 #btn {
   position: absolute;
@@ -113,44 +66,42 @@ ul {
   border-radius: 4px;
   left: 8px;
   bottom: 0;
-  transition: var(--main-transition);
+  transition: 0.3s;
   z-index: 1;
 }
 .hero .form-box .input-group {
   position: absolute;
   top: 80px;
   width: 280px;
-  transition: var(--main-transition);
+  transition: 0.3s;
 }
 .hero .form-box .input-group .input-field {
   width: 100%;
   font-size: 16px;
-  font-weight: 500;
   padding: 15px 0;
   margin: 8px 0;
   border: none;
   border-bottom: 1px solid #999;
   outline: none;
   background-color: transparent;
-  caret-color: var(--main-color);
+  caret-color: #000080;
 }
 .hero .form-box .input-group .submit-btn {
   display: block;
   outline: none;
   border: none;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
   width: 85%;
   padding: 13px 30px;
   cursor: pointer;
   color: white;
-  transition: var(--main-transition);
-  /* background-color: var(--main-color); */
+  transition: 0.3s;
   background-image: linear-gradient(to right, #000000, #000080, #05055f);
   background-size: 220%;
   background-position: left;
-  margin: 25px auto;
-  border-radius: 25px;
+  margin: 28px auto;
+  border-radius: 28px;
 }
 .hero .form-box .input-group .submit-btn:hover {
   background-position: right;
@@ -163,7 +114,7 @@ ul {
 }
 .or {
   position: absolute;
-  top: 370px;
+  top: 364px;
   left: 50%;
   translate: -50%;
   font-weight: bold;
@@ -206,4 +157,3 @@ img.gmail {
   left: 50%;
   translate: -50%;
 }
-/* End Login */

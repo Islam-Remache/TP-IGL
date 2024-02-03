@@ -1,5 +1,5 @@
 import image from "./images/articleCover.PNG"; //import the image articleCover
-import { useState } from "react"; //import the useState hook
+import { useState, useEffect } from "react"; //import the useState hook
 import "./correction.css"; //import the css file
 import { FiDelete } from "react-icons/fi"; //import the delete icon
 import { IoMdAddCircleOutline } from "react-icons/io";
@@ -60,7 +60,6 @@ export const Correction = () => {
     { author: "boughouas mohamed", institution: "esi algiers", id: 3 },
   ]);
   const [author, setAuthor] = useState("");
-  const [institution, setInstitution] = useState("");
 
   const createAuthors = () => {
     return list3.map((element, index) => (
@@ -69,7 +68,7 @@ export const Correction = () => {
 
         <input
           id="inst"
-          onChange={handle4}
+          // onChange={handle4}
           placeholder="the institutuion of the author"
         ></input>
         <FiDelete //delete icon
@@ -81,13 +80,12 @@ export const Correction = () => {
   };
   const add_it3 = () => {
     author !== "" &&
-      list3.length < 5 &&
-      //don't add empty reference and not more than five references
+      //don't add empty reference
       setList3([
         ...list3,
         {
           author: author,
-          institution: institution,
+          institution: "",
           id: list3.length === 0 ? 1 : list3[list3.length - 1].id + 1, //id's should be 0,1,2....etc
         },
       ]);
@@ -96,27 +94,23 @@ export const Correction = () => {
   const handle3 = (event) => {
     setAuthor(event.target.value);
   };
-  const handle4 = (event) => {
-    setInstitution(event.target.value);
-  };
+  // const handle4 = (event) => {
+  //   setInstitution(event.target.value);
+  // };
   const remove3 = (id) => {
     setList3(list3.filter((ele) => ele.id !== id));
   };
 
-  const createKeyWords = (i, j) => {
-    return list.map(
-      (element, index) =>
-        index + 1 >= i &&
-        index + 1 <= j && (
-          <article key={index}>
-            <p>{element.name}</p>
-            <FiDelete //delete icon
-              className="iconDelete"
-              onClick={() => remove(element.id)}
-            />
-          </article>
-        )
-    );
+  const createKeyWords = (i) => {
+    return list.map((element) => (
+      <article>
+        <p>{element.name}</p>
+        <FiDelete //delete icon
+          className="iconDelete"
+          onClick={() => remove(element.id)}
+        />
+      </article>
+    ));
   };
   //create the html elements related to each reference
   const createReferences = () => {
@@ -133,7 +127,7 @@ export const Correction = () => {
   //add the content of the input to the list of keyWords
   const add_it = () => {
     keyWord !== "" &&
-      list.length < 6 && //don't add empty keyWord and don't add more than six keyWords
+      //don't add empty keyWord
       setList([
         ...list,
         {
@@ -146,8 +140,7 @@ export const Correction = () => {
   //add the content of the input to the list of references
   const add_it2 = () => {
     reference !== "" &&
-      list2.length < 5 &&
-      //don't add empty reference and not more than five references
+      //don't add empty reference
       setList2([
         ...list2,
         {
@@ -175,6 +168,17 @@ export const Correction = () => {
   const remove2 = (id) => {
     setList2(list2.filter((ele) => ele.id !== id));
   };
+  useEffect(() => {
+    const savedTitle = localStorage.getItem("title");
+    const savedSubTitle = localStorage.getItem("sub_title");
+
+    if (savedTitle) {
+      setTitle(savedTitle);
+    }
+    if (savedSubTitle) {
+      setSubTitle(savedSubTitle);
+    }
+  }, []);
 
   return (
     <div>
@@ -189,6 +193,7 @@ export const Correction = () => {
                 value={title}
                 onChange={(event) => {
                   setTitle(event.target.value);
+                  localStorage.setItem("title", title);
                 }}
               ></input>
               <label>Sous Titre :</label>
@@ -197,31 +202,19 @@ export const Correction = () => {
                 value={subTitle}
                 onChange={(event) => {
                   setSubTitle(event.target.value);
+                  localStorage.setItem("sub_title", subTitle);
                 }}
               ></input>
               <label>Mots Clés :</label>
             </section>
-            <div className="allKeyWords">
-              <section className="kWords">
-                {list.length === 0 && (
-                  <h7>there are no keyWords for this article</h7>
-                )}
-                {createKeyWords(1, 3)}
-                {/*first section contains only three keyWords */}
-              </section>
-              <section className="kWords">
-                {list.length > 0 &&
-                  list.length <= 3 &&
-                  window.innerWidth > 500 && (
-                    <h7>you can add more keyWords here</h7>
-                  )}
-                {list.length === 0 && window.innerWidth > 500 && (
-                  <h7>you can create new ones in this section</h7>
-                )}
-                {createKeyWords(4, 6)}
-                {/*second section contains only three keyWords */}
-              </section>
-            </div>
+
+            <section className="kWords">
+              {list.length === 0 && (
+                <h7>there are no keyWords for this article</h7>
+              )}
+              {createKeyWords()}
+            </section>
+
             <section className="changing">
               <input
                 type="text"

@@ -1,0 +1,70 @@
+.create-container{
+    height: 100vh;
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+@media (max-width: 800px) {
+    .create-container {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.create-container .box {
+    width: 380px;
+    position: relative;
+    background-color: var(--section-background);
+    padding: 15px;
+    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.create-container .box .form-control {
+    width: 100%;
+    padding: 15px 0;
+    margin: 8px 0;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background-color: transparent;
+    caret-color: #000080;
+}
+.create-container .box .btn {
+    color: #787878;
+    text-transform: uppercase;
+    width: 160px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #999;
+    transition: .3s;
+    overflow: hidden;
+    position: relative;
+    left: 50%;
+    translate: -50%;
+    z-index: 0;
+    cursor: pointer;
+}
+.create-container .box .btn:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #999;
+    transition: .3s;
+    z-index: -1;
+}
+.create-container .box .btn:hover {
+    color: #eee;
+}
+.create-container .box .btn:hover::before {
+    width: 100%;
+}

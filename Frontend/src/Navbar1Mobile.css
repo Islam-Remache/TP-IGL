@@ -1,0 +1,363 @@
+* {
+    font-family: inherit;
+}
+body{
+    margin:0;
+    font-family: "Poppins" , sans-serif;
+    height: 100vh;
+}
+#root{
+    height: 100%;
+}
+.homeContainer{
+    display: flex;
+    height: 100%;
+}
+.homeContainerMobile{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+/* you can remove this class(pageTitle and pageTitleMobile) after completing the other pages (statistic page, article page) , because this class is for testing and hasn't any relation with moderateur page  */
+.pageTitle{
+    margin: 0px;
+    padding: 10px 1%;
+    margin-left: 27%;
+    width: 72%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pageTitleMobile{
+    text-align: center;
+}
+/* desktop version */
+/* navBar */
+/**************************************************************************************************************************/
+#navBar{
+    position: fixed;
+    background-color: #000080;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 27%;
+    height: 100%;
+    border-radius: 0px 15px 15px 0px;
+}
+/* Logo */
+
+#logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+}
+#searchIcon{
+    width: 100px;
+    height: 100px;
+}
+#logo h1{
+    font-size: 30px;
+}
+
+
+/* Links */
+#links{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+#links a{
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 60px;
+    font-size: 18px;
+    padding: 5px 5px 5px 15px;
+    transition: all 0.2s ease;
+    background-color: #000080;
+}
+
+#divider{
+    width: 70%;
+}
+.linkIcon{
+    color: orangered;
+    width: 30px;
+    height: 30px;
+}
+#linkContainer{
+    margin-left: 10%;
+    background: linear-gradient(to right, #000080 50%, white 50%);
+}
+
+/* Account */
+#account{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+#account p{
+    margin: 0;
+}
+#account img{
+    cursor: pointer;
+}
+
+/* Popup */
+
+.popup{
+    width: 250px;
+    height: 350px;
+    padding: 35px;
+    position: relative;
+    background-color: #f3f3f3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: grey solid 2px;
+    border-radius: 10px;
+}
+.blurBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s ease;
+}
+.popup *{
+    margin: 0;
+}
+#popupImage{
+    width: 150px;
+    height: 100px;
+}
+.infopopup{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+#exit{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 30px;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translateX(-100%);
+}
+#exit:hover{
+    background-color:  rgb(238, 231, 231);
+}
+#popupButton{
+    width: 150px;
+    height: 35px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+#popupButton:hover{
+    color: red;
+}
+.popupDivider{
+    width: 100%;
+}
+
+/* end of style of navBar */ 
+/*************************************************************************************************************/
+
+/* la page de moderateur */
+
+#ModerateurPage{
+    margin: 0px;
+    width: 72%;
+    padding: 10px 1%;
+    margin-left: 27% ;
+}
+#head{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+#addButton{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 30px;
+    border: 2px solid;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+#addButton:hover{
+    color: #000080 ;
+}
+#accounts{
+    width: 100%;
+    border-spacing: 0px;
+    margin-top: 60px;
+}
+#nom{
+    display: flex;
+    gap: 20px;
+}
+thead{
+    background-color: rgb(201, 196, 196);
+    height: 50px;
+}
+.headTable{
+    border: none;
+    border-bottom: 2px solid black;
+}
+.check{
+    width: 20px;
+    height: 20px;
+}
+.iconButton{
+    background-color: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+#edit:hover{
+    color: blue;
+}
+#delete:hover{
+    color: red;
+}
+.user{
+    height: 60px;
+}
+.user:hover{
+    background-color: rgb(238, 231, 231);
+}
+.userImage{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+/* end style of desktop version */
+/*************************************************************/
+/* responsive */
+/* navBar style*/
+#navBarMobile{
+    background-color: #000080;
+    width: 100%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+#mobileTitle{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#logoMobile{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+#searchIconMobile{
+    width: 60px;
+    height: 40px;
+}
+#mobileTitle img{
+    width: 60px;
+    height: 40px;
+}
+#dividerMobile{
+    width: 80%;
+}
+#linksMobile{
+    padding: 0;
+}
+#linkContainerMobile{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+#linksMobile{
+    margin: 0;
+    background: linear-gradient(to bottom,#000080 50%,white -50%);
+}
+.betweenLinks{
+    width: 100%;
+    background-color: #000080;
+}
+.linkIconMobile{
+    color: orangered;
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+}
+#mobileTitle{
+    cursor: pointer;
+}
+
+/*Moderateur page style*/
+.userMobile {
+    margin: 0px 20px;
+}
+.userMobile *{
+    margin: 0px;
+}
+.userMobile{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 15px;
+    border: black solid 2px;
+    padding: 10px 10px;
+}
+.infoUserMobile{
+    display: flex;
+    gap: 5px;
+}
+.iconMobile{
+    display: flex;
+    justify-content: space-around;
+    gap: 60px;
+}
+.infoUserMobile img{
+    width: 70px;
+    height: 70px;
+}
+.checkMobile{
+    width: 20px;
+    height: 20px;
+}
+#ModerateurPageMobile{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#ModerateurPageMobile>h1{
+    text-align: center;
+}

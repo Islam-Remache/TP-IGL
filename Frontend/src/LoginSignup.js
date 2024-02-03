@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import "./LoginSignup.css";
+import './LoginSignup.css'
 export const LoginSignup = () => {
   function register() {
-    let x = document.querySelector("#login");
+    let x = document.getElementById("login");
     let y = document.getElementById("signup");
     let z = document.getElementById("btn");
     let c = document.getElementById("connexion");
@@ -15,7 +15,7 @@ export const LoginSignup = () => {
     i.style.opacity = "1";
   }
   function login() {
-    let x = document.querySelector("#login");
+    let x = document.getElementById("login");
     let y = document.getElementById("signup");
     let z = document.getElementById("btn");
     let c = document.getElementById("connexion");

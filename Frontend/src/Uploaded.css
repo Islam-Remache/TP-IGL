@@ -1,0 +1,108 @@
+.Uploaded {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 40px;
+  margin-top: 17px;
+  margin-bottom: 30px;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+#all{width: 70%;margin-left: 28%;padding-top: 25px;}
+.Uploaded .card-container {
+  background-color: white;
+  box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: translate var(--main-transition),
+    box-shadow var(--main-transition);
+}
+.Uploaded .card-container:hover {
+  box-shadow: 0 2px 15px 0px rgba(0, 0, 0, 0.2);
+  translate: 0 -10px;
+}
+.Uploaded .card-container img {
+  max-width: 100%;
+}
+.Uploaded .card-container .content {
+  padding: 20px;
+}
+.Uploaded .card-container .content h3 {
+  margin: 0;
+  font-size: 29px;
+}
+.Uploaded .card-container .content p {
+  margin: 10px 0 0;
+  line-height: 1;
+  color: #777;
+}
+#ua {
+  color: #000080;
+  font-size: 40px;
+  font-weight: bold;
+  text-shadow: 0px 0px 1.5px;
+}
+.head {
+  text-align: left;
+
+  /* margin-top: 15px; */
+  width: 95%;
+  margin-left: 2.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.head #ad {
+  font-size: 60px;
+  color: #000080;
+}
+.file-picker-button {
+  cursor: pointer;
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  display: inline-block;
+}
+
+/* Style the label */
+.file-input-label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Hide the file input */
+.file-input {
+  display: none;
+}
+#ad:hover {
+  cursor: pointer;
+  color: black;
+}
+.Uploaded .card-container .info {
+  padding: 20px;
+  border-top: 1px solid #e6e6e7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Uploaded .card-container .info span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #777;
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media only screen and (max-width: 800px){
+  #all{width: 90%;margin-left: 5%;padding-top: 25px;}
+.card-container{width: 80%;margin-left: 10%;}
+}
+@media only screen and (max-width: 900px) and (min-width: 801px){
+  #all{width: 70%;margin-left: 28%;padding-top: 25px;}
+  .Uploaded{grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));gap: 20px;}
+
+}
