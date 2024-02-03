@@ -100,6 +100,7 @@ class search_elastic_docs_by_txt_View(APIView):
             es = ConnectToES()
             query= request.GET.get('text', '')
             query_list = query.split()
+            print(query_list)
 
             search_body = {
                 "query":{
@@ -147,6 +148,7 @@ class search_elastic_docs_by_txt_View(APIView):
             }
 
             results = es.search(index=INDEX_NAME, body=search_body)
+            print(results['hits']['hits'])
             return Response({ 'Articles Found': results['hits']['hits']})
         except Exception as e:
             return Response({"message":f"An error occurred: {str(e)}"})

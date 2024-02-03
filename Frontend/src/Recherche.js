@@ -7,8 +7,25 @@ import { useEffect, useState } from "react"; //import useState hook
 // import { CiBoxList } from "react-icons/ci";
 import { FaList } from "react-icons/fa";
 // import { CiBoxList } from "react-icons/ci";
+import axios from "./api/axios";;
 
 export const Recherche = () => {
+
+  const [searchInput,setSearchInput]=useState('')
+console.log(searchInput)
+
+  const [result,setResult]=useState([])
+  const handleSearch=(event)=>{
+    setSearchInput(event.target.value)
+  }
+  let getResult=async ()=>{
+    const res = await axios.get("http://localhost:8000/ArticlesManager/search/",{params:{text: searchInput}})
+    setResult(res.data)
+    console.log('jj',res.data)
+  };
+  console.log(result)  
+  
+  
   //state that represents the categories of searches used
   const [arrows, setArrows] = useState([
     { show: true, id: 0, title: "Mots clés" },
@@ -66,13 +83,14 @@ export const Recherche = () => {
           <FaArrowLeft className="mob" onClick={() => setShow2(!show2)} />
         )}
         <input
+         onChange={handleSearch}
           type="search"
           className="search_input"
           placeholder="tapez votre article ici, Example : Software engineering guide"
         ></input>
         <Link href="#">
           {whichIcon === 0 ? (
-            <CiSearch className="search_icon" />
+            <CiSearch className="search_icon" onClick={getResult} />
           ) : (
             <FaList className="options" onClick={() => setDisplay(true)} />
           )}
@@ -95,7 +113,7 @@ export const Recherche = () => {
 
       <div className="categories">
         {/*les critéres de recherche */}
-        {createArticles()}
+        {result.length !==0 && createArticles()}
       </div>
 
       <div className="secondary-div">
