@@ -69,6 +69,11 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Example: Your React app
+   
+]
+
 REST_FRAMEWORK = {'DEFAULT_PERMISSIONS_CLASSES': [
     'rest_framework.permission.AllowAny']}
 
