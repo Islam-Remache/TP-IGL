@@ -8,7 +8,7 @@ export const Navbar = () => {
     const activeLinkId = location.pathname.split("/").pop();
   return (
     <nav>
-      <Link to="/User" className="title">
+      <Link to="/user" className="title">
         <span>Sci</span>Search
       </Link>
       <div className="menu" onClick={() => {setMenuOpen(!menuOpen)}}>
@@ -18,7 +18,7 @@ export const Navbar = () => {
       </div>
       <ul className={menuOpen && "open"}>
         <li>
-          <NavLink to="/User" className={activeLinkId ==="User" ? 'activation': ''}>
+          <NavLink to="/user" className={activeLinkId ==="user" ? 'activation': ''}>
             Acceuil
           </NavLink>
         </li>
