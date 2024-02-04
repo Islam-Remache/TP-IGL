@@ -12,6 +12,13 @@ import dotenv
 dotenv.load_dotenv()
 
 def extract_title_from_pdf(pdf_file_path):
+    """
+    this function to get the title of the pdf file
+    we assume that the title has the biggest font size in the pdf file
+    while taking into considiration that the title might be in multiple lines
+    note that in some pdf files the title is not the biggest text in the pdf file or the title is not in the first page of the pdf file , in that case the function will not work properly
+    """
+
     path = Path(pdf_file_path).expanduser()
     pages = extract_pages(path)
     #go to the first page
@@ -63,6 +70,12 @@ def extract_title_from_pdf(pdf_file_path):
     biggest_font_size_text = biggest_font_size_text.strip()
     return biggest_font_size_text
 def extract_sections_from_pdf(pdf_file_path):
+    """
+    this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
+    it uses the pdfminer library to extract the text from the pdf file
+    so the identification of the sections is based on the position of the text on the page and all the work is been done manually
+    it is very efficient for pdf files that are in the same format and the same structure
+    """
     path = pdf_file_path
     pages = extract_pages(path)
     abstract = False
@@ -245,6 +258,10 @@ def extract_content_in_range(page, start_y, end_y):
 
 
 def extract_sections_from_pdf_gpt3(pdf_file_path):
+    """
+    this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
+    it uses the openai gpt3.5 to extract the sections from the pdf file while maintaining the structure of the sections
+    """
     # Extract text from the first page of the PDF
     text = extract_text_from_first_page_of_pdf(pdf_file_path)
 
@@ -324,6 +341,11 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
 
 # Function to extract text from the first page of a PDF file
 def extract_text_from_first_page_of_pdf(pdf_file_path):
+    """
+    this function take the path of a pdf file and return the text of the first page of the pdf file as a utf-8 string
+    it uses the pdfminer library to extract the text from the pdf file
+    loop through the pages of the pdf file and extract the text from the text containers
+    """
     path = pdf_file_path
     pages = extract_pages(path)
     page = next(pages)
@@ -345,6 +367,10 @@ def extract_text_from_last_page_of_pdf(pdf_file_path):
     return text
 #get innerText , just read it in utf-8
 def getInnerText(pdf_file_path):
+    """this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string
+    it uses the pdfminer library to extract the text from the pdf file
+    loop through the pages of the pdf file and extract the text from the text containers and the characters
+    """
     path = pdf_file_path
     pages = extract_pages(path)
     text = ""
@@ -368,6 +394,10 @@ def getInnerText(pdf_file_path):
     return text.encode("utf-8")
 #Function to get the thumbnail of the file
 def get_thumbnail_from_pdf(pdf_file_path):
+    """this function take the path of a pdf file and return the thumbnail of the first page of the pdf file as a base64 string
+    it uses the fitz library to extract the image of the first page of the pdf file
+    the image is then converted to a base64 string
+    """
     #open the pdf file
     pdf = fitz.open(pdf_file_path)
     #get the first page of the pdf file
@@ -379,11 +409,8 @@ def get_thumbnail_from_pdf(pdf_file_path):
     
 
 def process_pdf_file(pdf_file_path):
+    """this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file"""
     return extract_sections_from_pdf_gpt3(pdf_file_path)
-
-
-path = "./tests/Article_10.pdf"
-print(process_pdf_file(path))
 
 
 
