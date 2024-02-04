@@ -97,6 +97,5 @@ export const Navbar1 = () => {
             {showPopup && <Popup hidePopup={togglePopup} img={require("./images/compteImage.png")} name="Remache Islam" email="li_remache@esi.dz" />}
             {showPopup && <div className="blurBackground" />}
         </>
-        
     )
 }

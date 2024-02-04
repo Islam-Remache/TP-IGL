@@ -6,7 +6,7 @@ import image from "./images/articleCover.PNG"; //import the image articleCover
 export const Details = () => {
   let titre = "Online Accounting Softwaring";
   let sousTitre = "Finding The Right Match";
-  let authors = [
+  let authors = [ 
     ["mohamed", "esi algiers"],
     ["raouf", "esi algiers"],
     ["akthem", "esi algiers"],

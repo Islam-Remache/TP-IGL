@@ -1,7 +1,12 @@
 import "./Favorits.css"; //Facorits styles
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-// import db from "./db.json"; //favorits json file which contain all the favoris articles of the current user
+import "./images/article1.webp"; 
+import "./images/article3.webp"; 
+import "./images/article4.webp"; 
+import "./images/article7.jpg"; 
+import "./images/article8.png"; 
+import "./images/article9.webp"; 
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
  //Heart icon
@@ -13,6 +18,8 @@ export const Favorits = (props) => {
     });
   },[])
   return (
+    <>
+    <h2 className="titleFavoris">Favoris</h2>
     <div className="favorits">
       {favorites.map((record) => {
         return (
@@ -20,20 +27,21 @@ export const Favorits = (props) => {
             <div className="heart">
               <FaHeart className="icon"/>
               </div>
-            <img alt="article-img" src={require("./images/file.png")} />
+            <img className="articleImg" alt="article-img" src={record.src} />
             <div className="content">
               <h3>{record.title}</h3>
               <p>{record.author}</p>
             </div>
             <div className="info">
-              <Link className="more" to={`details/${record.id}`}>
-                Savoir Plus
+              <div title={record.tags}>{record.tags}</div>
+              <Link className="more" to={`Details/${record.id}`}>
+                Plus
               </Link>
-              <span title={record.tags}>{record.tags}</span>
             </div>
           </div>
         );
       })}
     </div>
+    </>
   );
 };

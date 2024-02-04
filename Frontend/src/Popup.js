@@ -1,6 +1,7 @@
 import React,{useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import "./style.css"
 
 export default function Popup(props){
   useEffect(() => {

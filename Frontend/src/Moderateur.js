@@ -28,7 +28,7 @@ export const Moderateur = () => {
   return (
     <div id="moderateurPage">
       <div id="head">
-        <h1>Modérateurs</h1>
+        <h1 className="moderateurTitle">Modérateurs</h1>
         <Link to={"/admin/Create"} id="addButton">
           +
         </Link>
@@ -40,8 +40,8 @@ export const Moderateur = () => {
             <td className="headTable">Nom du moderateur</td>
             <td className="headTable">Adresse Email</td>
             <td className="headTable"></td>
-            <td className="headTable">Modifier</td>
-            <td className="headTable">Supprimer</td>
+            <td className="headTable center">Modifier</td>
+            <td className="headTable center">Supprimer</td>
           </tr>
         </thead>
         <tbody>
@@ -59,8 +59,8 @@ export const Moderateur = () => {
               <td>{user.email}</td>
               <td>
               </td>
-              <td><Link to={`/admin/Edit/${user.id}`} className="iconButton" id="edit"><FontAwesomeIcon icon={faPenToSquare} /></Link></td>
-              <td>
+              <td className="center"><Link to={`/admin/Edit/${user.id}`} className="iconButton" id="edit"><FontAwesomeIcon icon={faPenToSquare} /></Link></td>
+              <td className="center">
                 <button onClick={e=> handleSubmit(user.id)} className="iconButton" id="delete">
                   <FontAwesomeIcon icon={faTrash} />
                 </button>

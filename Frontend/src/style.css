@@ -236,6 +236,7 @@ transition: all 0.5s ease;
   width: 100%;
   border-spacing: 0px;
   margin-top: 60px;
+  border: 2px solid black;
 }
 #nom{
   display: flex;
@@ -248,6 +249,11 @@ thead{
 .headTable{
   border: none;
   border-bottom: 2px solid black;
+  font-weight: bold;
+}
+.moderateurTitle {
+  color: #000080;
+  font-size: 40px;
 }
 .check{
   width: 20px;
@@ -260,6 +266,10 @@ thead{
   font-size: 22px;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+td.center,
+th.center {
+text-align: center;
 }
 #edit:hover{
   color: blue;

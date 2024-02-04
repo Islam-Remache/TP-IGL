@@ -1,3 +1,37 @@
+.titleFavoris {
+    font-size: 47px;
+    width: fit-content;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    color: #000080;
+    text-align: center;
+    position: relative;
+}
+.titleFavoris::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 4px;
+    border-radius: 1px;
+    background-image: linear-gradient(to right, #000000, #000080, #05055f);
+    left: -129px;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: -1;
+}
+.titleFavoris::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 4px;
+    border-radius: 1px;
+    background-image: linear-gradient(to right, #05055f, #000080, #000000);
+    right: -125px;
+    top: 50%;
+    translate: 0 -50%;
+    z-index: -1;
+}
 .favorits {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
@@ -5,20 +39,25 @@
     margin: 17px;
 }
 .favorits .heart {
-    padding: 10px;
     width: calc(100% - 20px);
     text-align: end;
 }
 .favorits .heart .icon {
     color: red;
     font-size: 25px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 .favorits .card-container {
+    display: flex;
+    flex-direction: column;
     background-color: white;
     box-shadow: 0 2px 15px 0px rgba(0,0,0,.1);
     border-radius: 6px;
     overflow: hidden;
-    transition: translate var(--main-transition),box-shadow var(--main-transition);
+    transition: translate .3s,box-shadow .3s;
+    position: relative;
 }
 .favorits .card-container:hover {
     box-shadow: 0 2px 15px 0px rgba(0,0,0,.2);
@@ -33,6 +72,7 @@
 .favorits .card-container .content h3 {
     margin: 0;
     font-size: 29px;
+    color: #000080;
 }
 .favorits .card-container .content p {
     margin: 10px 0 0;
@@ -40,22 +80,32 @@
     color: #777;
 }
 .favorits .card-container .info {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     border-top: 1px solid #e6e6e7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
 }
 .favorits .card-container .info .more {
+    width: fit-content;
     text-decoration: none;
-    color: #000080;
+    color: white;
     font-weight: bold;
+    transition: .3s;
+    padding: 3px 14px;
+    background-color: #000080;
+    border-radius: 30px;
+    font-size: 14px;
 }
-.favorits .card-container .info span {
+.favorits .card-container .info .more:hover {
+    background-color: #191ab0;
+}
+.favorits .card-container .info div {
+    flex: 1;
     font-size: 13px;
     line-height: 1.5;
     color: #777;
-    width: 100px;
+    margin-bottom: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

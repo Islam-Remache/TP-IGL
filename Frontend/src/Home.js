@@ -4,7 +4,7 @@ export const Home = () => {
   return (
     <div>
       {/* <!-- Start Header --> */}
-      <header>
+      <header className="header">
         <Link to={"/"} className="logo">
           <span>Sci</span>Search
         </Link>
