@@ -4,11 +4,9 @@ import "./correction.css"; //import the css file
 import { FiDelete } from "react-icons/fi"; //import the delete icon
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
-import axios from "./api/axios";
+import { axios } from "axios";
 
 export const Correction = () => {
-
-
   //  delele handle function
   const handleDelete = async ()=>{
     let jj = "2bUZ1owB6FhGCMPlXy6E"
@@ -28,6 +26,7 @@ export const Correction = () => {
         },})
       console.log(res)
     }
+
   //the title of the article
   const [title, setTitle] = useState("Online Accounting softwaring");
   //the subtitle of the article
@@ -45,7 +44,6 @@ export const Correction = () => {
     { name: "sea", id: 4 },
     { name: "sky", id: 5 },
   ]);
-
   //all the references of the article
   const [list2, setList2] = useState([
     {
@@ -82,17 +80,13 @@ export const Correction = () => {
     { author: "boughouas mohamed", institution: "esi algiers", id: 3 },
   ]);
   const [author, setAuthor] = useState("");
+  const [institution, setInstitution] = useState("");
 
-  const createAuthors = () => {
+  const createAuthorsAndInstitutions = () => {
     return list3.map((element, index) => (
       <div className="authAnDinst">
         <article id="auth">{element.author}</article>
-
-        <input
-          id="inst"
-          // onChange={handle4}
-          placeholder="the institutuion of the author"
-        ></input>
+        <article id="inst">{element.institution}</article>
         <FiDelete //delete icon
           className="Deleteicon"
           onClick={() => remove3(element.id)}
@@ -102,19 +96,23 @@ export const Correction = () => {
   };
   const add_it3 = () => {
     author !== "" &&
+      institution !== "" &&
       //don't add empty reference
       setList3([
         ...list3,
         {
           author: author,
-          institution: "",
+          institution: institution,
           id: list3.length === 0 ? 1 : list3[list3.length - 1].id + 1, //id's should be 0,1,2....etc
         },
       ]);
   };
 
-  const handle3 = (event) => {
+  const handle31 = (event) => {
     setAuthor(event.target.value);
+  };
+  const handle32 = (event) => {
+    setInstitution(event.target.value);
   };
   // const handle4 = (event) => {
   //   setInstitution(event.target.value);
@@ -158,7 +156,7 @@ export const Correction = () => {
         },
       ]);
   };
-  console.log(list3);
+
   //add the content of the input to the list of references
   const add_it2 = () => {
     reference !== "" &&
@@ -311,13 +309,21 @@ export const Correction = () => {
             </button>
           </section>
           <label>Authors And Institutions :</label>
-          <div className="authorsAndInstitutions">{createAuthors()}</div>
+          <div className="authorsAndInstitutions">
+            {createAuthorsAndInstitutions()}
+          </div>
           <section className="changing3">
             <input
               type="text"
-              onChange={handle3}
+              onChange={handle31}
               className="authHolder"
               placeholder="new author to add"
+            ></input>
+            <input
+              type="text"
+              onChange={handle32}
+              className="instHolder"
+              placeholder="new institution to add"
             ></input>
             <button
               className="add3"
@@ -333,7 +339,9 @@ export const Correction = () => {
 
         <div className="decision">
           <button id="st" onClick={handleUpdate}>Valider</button>
-          <button id="nd" onClick={handleDelete}>Supprimer</button>
+          <button id="nd" onClick={handleDelete}>
+            Supprimer
+          </button>
         </div>
       </form>
     </div>

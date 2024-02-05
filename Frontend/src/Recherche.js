@@ -7,9 +7,11 @@ import { useEffect, useState } from "react"; //import useState hook
 // import { CiBoxList } from "react-icons/ci";
 import { FaList } from "react-icons/fa";
 // import { CiBoxList } from "react-icons/ci";
-import axios from "./api/axios";;
+import axios from "./api/axios";
+import { FaHeart } from "react-icons/fa";
 
 export const Recherche = () => {
+<<<<<<< HEAD
   
   const [searchInput,setSearchInput]=useState('')
 console.log(searchInput)
@@ -22,17 +24,97 @@ console.log(searchInput)
     const res = await axios.get("http://localhost:8000/ArticlesManager/search/",{params:{text: searchInput}})
     setResult(res.data)
     console.log('jj',res.data)
+=======
+  const [searchInput, setSearchInput] = useState("");
+  console.log(searchInput);
+
+  const [result, setResult] = useState([]);
+  const handleSearch = (event) => {
+    setSearchInput(event.target.value);
+>>>>>>> 2863e24700fd116f40493ecdf52e56251e79a697
   };
-  console.log(result)  
-  
-  
+  let getResult = async () => {
+    const res = await axios.get(
+      "http://localhost:8000/ArticlesManager/search/",
+      { params: { text: searchInput } }
+    );
+    setResult(res.data);
+    console.log("jj", res.data);
+  };
+  console.log(result);
+
   //state that represents the categories of searches used
   const [arrows, setArrows] = useState([
-    { show: true, id: 0, title: "Mots clés" },
-    { show: false, id: 1, title: "Auteurs" },
-    { show: false, id: 2, title: "Institutions" },
-    { show: false, id: 3, title: "Dates de publication" },
+    { show: true, id: 0, title: "Mots Clés", name: "MotsCle" },
+    { show: false, id: 1, title: "Auteurs", name: "Auteurs" },
+    { show: false, id: 2, title: "Institutions", name: "Institutions" },
+    {
+      show: false,
+      id: 3,
+      title: "Dates de publication",
+      name: "DatePublication",
+    },
   ]);
+
+  ///
+  /////
+
+  let newResult;
+  let categorie;
+  let filterSearch = () => {
+    categorie = arrows.find((ele) => ele.show).name;
+    if (
+      result.lenght !== 0 &&
+      (categorie === "DatePublication" || categorie === "MotsCle")
+    )
+      newResult = result.filter((ele) => ele[categorie].includes(searchInput));
+    else if (categorie === "Auteurs") {
+      newResult = result.filter((ele) =>
+        ele.Auteurs.some((author) => author.NomComplet === searchInput)
+      );
+    } else if (categorie === "Institutions") {
+      newResult = result.filter((article) =>
+        article.Auteurs.some((author) =>
+          author.Institutions.some(
+            (institution) => institution.Nom === searchInput
+          )
+        )
+      );
+    }
+  };
+  filterSearch();
+  // useEffect(() => {
+  //   filterSearch();
+  // }, [arrows]);
+
+  const display_result = () => {
+    return (
+      <div className="favorits">
+        {newResult &&
+          newResult.map((record) => {
+            return (
+              <div className="card-container">
+                <div className="heart">
+                  <FaHeart className="icon" />
+                </div>
+                <img alt="article-img" src={require("./images/file.png")} />
+                <div className="content">
+                  <h3>{record.title}</h3>
+                  <p>{record.author}</p>
+                </div>
+                <div className="info">
+                  <Link className="more" to={`details/${record.id}`}>
+                    Savoir Plus
+                  </Link>
+                  <span title={record.tags}>{record.tags}</span>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    );
+  };
+
   // change the icon that indicates the type of search used
   const change = (i) => {
     setArrows(
@@ -83,7 +165,7 @@ console.log(searchInput)
           <FaArrowLeft className="mob" onClick={() => setShow2(!show2)} />
         )}
         <input
-         onChange={handleSearch}
+          onChange={handleSearch}
           type="search"
           className="search_input"
           placeholder="tapez votre article ici, Example : Software engineering guide"
@@ -113,13 +195,15 @@ console.log(searchInput)
 
       <div className="categories">
         {/*les critéres de recherche */}
-        {result.length !==0 && createArticles()}
+        {result.length !== 0 && createArticles()}
       </div>
-
-      <div className="secondary-div">
-        <img src={image} alt="not found" />
-        <p>Le moyen rapide pour la recherche des articles scientifiques</p>
-      </div>
+      {display_result()}
+      {result.lenght === 0 && (
+        <div className="secondary-div">
+          <img src={image} alt="not found" />
+          <p>Le moyen rapide pour la recherche des articles scientifiques</p>
+        </div>
+      )}
     </div>
   );
 };
