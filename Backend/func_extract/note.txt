@@ -1,0 +1,3 @@
+notes : 
+- the image is encoded , you can write it to a file to get the image 
+- to test the app just specify the path of the pdf file 
