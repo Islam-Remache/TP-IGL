@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 import "./LoginSignup.css";
 import axios from "./api/axios";
 import React, { useState } from "react";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 export const LoginSignup = () => {
   const [email, setEmail] = useState("");
@@ -12,58 +12,104 @@ export const LoginSignup = () => {
   const navigate = useNavigate();
   function handleLogin(event) {
     event.preventDefault();
-    if(!name) {
-      toast.error("Veuillez entrer votre nom pour vous connecter !");
-    }
-    if(!pass) {
-      toast.error("Veuillez entrer votre mot de pass pour vous connecter !");
-    }
-    axios
-      .post("http://127.0.0.1:8000/logIn/", {
-        email: email,
-        password: pass,
-      })
-      .then((res) => {
-        localStorage.setItem("responseId",res.data.id);
-        console.log(localStorage.getItem('responseId'))
-        if (res.status == "200") {
-          toast.success("Vous avez été authentifié avec succès !");
-          navigate("/user");
+    if (!email) {
+      toast.error(
+        "Veuillez entrer votre adresse e-mail pour vous connecter !",
+        {
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
         }
-      })
-      .catch(function (error) {
-        console.log(error);
+      );
+    } else if (!pass) {
+      toast.error("Veuillez entrer votre mot de pass pour vous connecter !", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
       });
+    } else {
+      axios
+        .post("http://127.0.0.1:8000/logIn/", {
+          email: email,
+          password: pass,
+        })
+        .then((res) => {
+          localStorage.setItem("responseId", res.data.id);
+          console.log(localStorage.getItem("responseId"));
+          if (res.status == "200") {
+            toast.success(
+              "Félicitations ! Vous avez authentifié avec succès",
+              {
+                autoClose: 3000,
+                closeOnClick: true,
+                pauseOnHover: true,
+              }
+            );
+            navigate("/user");
+          }
+        })
+        .catch(function (error) {
+          toast.error("Compte innexistant ! Veuillez réessayer", {
+            autoClose: 3000,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        });
+    }
   }
 
   let handleSignup = async (event) => {
     event.preventDefault();
-    if(!name) {
-      toast.error("Veuillez entrer votre nom pour vous connecter !");
-    }
-    if(!pass) {
-      toast.error("Veuillez entrer votre mot de pass pour vous connecter !");
-    }
-    if(!email) {
-      toast.error("Veuillez entrer votre email de pass pour vous connecter !");
-    }
-    axios
-      .post("http://127.0.0.1:8000/signUp/", {
-        fullname: name,
-        email: email,
-        password: pass,
-      })
-      .then((res) => {
-        localStorage.setItem("responseId",res.data.id);
-        console.log(localStorage.getItem('responseId'))
-        if (res.status == "201") {
-          toast.success("Inscription réussie !");
-          navigate("/user");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
+    if (!name) {
+      toast.error("Veuillez entrer votre nom pour pouvoir vous inscrire !", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
       });
+    }
+    else
+    if (!email) {
+      toast.error(
+        "Veuillez entrer votre email de pass pour pouvoir vous inscrire !",
+        {
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
+    } else
+    if (!pass) {
+      toast.error(
+        "Veuillez entrer votre mot de pass pour pouvoir vous inscrire !",
+        {
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
+    }  else {
+      axios
+        .post("http://127.0.0.1:8000/signUp/", {
+          fullname: name,
+          email: email,
+          password: pass,
+        })
+        .then((res) => {
+          localStorage.setItem("responseId", res.data.id);
+          console.log(localStorage.getItem("responseId"));
+          if (res.status == "201") {
+            toast.success("Félicitations ! Votre inscription a été réussie !", {
+              autoClose: 3000,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            navigate("/user");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   };
   function register() {
     let x = document.getElementById("login");

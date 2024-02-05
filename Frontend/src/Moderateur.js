@@ -58,10 +58,7 @@ export const Moderateur = () => {
               <td>{user.user.username}</td>
               <td>
               </td>
-              <td className="center"><Link to={{
-                pathname: `/admin/edit/${user.user.id}`,
-                state: user
-              }} className="iconButton" id="edit"><FontAwesomeIcon icon={faPenToSquare} /></Link></td>
+              <td className="center"><Link to={`/admin/edit/${user.user.id}`} className="iconButton" id="edit"><FontAwesomeIcon icon={faPenToSquare} /></Link></td>
               <td className="center">
                 <button onClick={e=> handleSubmit(user.user.id)} className="iconButton" id="delete">
                   <FontAwesomeIcon icon={faTrash} />

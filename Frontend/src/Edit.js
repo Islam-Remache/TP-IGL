@@ -1,14 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom"
+import { toast } from 'react-toastify';
+
 
 export const Edit = (props) => {
-
-    const { state } = useLocation();
-    const user= state;
-    // const [data, setData] = useState([]);
+  const {id} = useParams()
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const navigate = useNavigate();
     // useEffect(() => {
     //     axios.get(`http://127.0.0.1:8000/modifierModerateur/${id}/`).then(res => {
@@ -18,12 +17,31 @@ export const Edit = (props) => {
     // },[])
     function handleSubmit (event) {
         event.preventDefault();
-        axios.put("http://localhost:3030/users/"+user.user.id, {newFullname:user.fullname,newEmail:user.user.username}).then((res => {
-        console.log(res)    
-        alert("Le modérateur a été mis à jour avec succès!");
-            navigate('/admin/Moderateur')
-        }))
+        if(!name) {
+          toast.error("Veuillez entrer le nom du modérateur pour pouvoir continuer !", {
+            autoClose: 3000,
+            closeOnClick: true,
+            pauseOnHover:true,
+          });
+        } else if (!email) {
+          toast.error("Veuillez entrer l'adresse e-mail pour pouvoir continuer !", {
+            autoClose: 3000,
+            closeOnClick: true,
+            pauseOnHover:true,
+          });
+        } else{
+        axios.put(`http://127.0.0.1:8000/modifierModerateur/${id}/`, {newFullname:name,newEmail:email}).then(res => {
+          if (res.status == "200") {
+            toast.success("Moderateur mis à jour avec succès !", {
+              autoClose: 3000,
+              closeOnClick: true, 
+              pauseOnHover:true,
+            });
+            navigate(-1);
+          }
+        }).catch(error => console.log(error));
     }
+  }
     return (
         <div className="create-container">
           <form className="box" onSubmit={handleSubmit} >
@@ -31,7 +49,7 @@ export const Edit = (props) => {
               disabled    
               type="text"
               name="id"
-              value={`ID: ${user.user.id}`}
+              value={`ID: ${id}`}
               className="form-control"
             ></input>
             <input
@@ -39,7 +57,7 @@ export const Edit = (props) => {
               type="text"
               name="name"
               className="form-control"
-              value={user.fullname}
+              placeholder="Nouveau nom"
               onChange={e => setName(e.target.value)}
             />
             <input
@@ -47,11 +65,11 @@ export const Edit = (props) => {
               type="email"
               name="email"
               className="form-control"
-              value={user.user.username}
+              placeholder="Nouveau email"
               onChange={e => setEmail(e.target.value)}
             />
             <br />
-            <button className="btn btn-info">Mettre à jour</button>
+            <button className="btn btn-info" onClick={handleSubmit}>Mettre à jour</button>
           </form>
         </div>
       );
