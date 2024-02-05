@@ -1,15 +1,79 @@
 import { Link } from "react-router-dom";
-import './LoginSignup.css'
+import "./LoginSignup.css";
+import axios from "./api/axios";
+import React, { useState } from "react";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 export const LoginSignup = () => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
+  const navigate = useNavigate();
+  function handleLogin(event) {
+    event.preventDefault();
+    if(!name) {
+      toast.error("Veuillez entrer votre nom pour vous connecter !");
+    }
+    if(!pass) {
+      toast.error("Veuillez entrer votre mot de pass pour vous connecter !");
+    }
+    axios
+      .post("http://127.0.0.1:8000/logIn/", {
+        email: email,
+        password: pass,
+      })
+      .then((res) => {
+        localStorage.setItem("responseId",res.data.id);
+        console.log(localStorage.getItem('responseId'))
+        if (res.status == "200") {
+          toast.success("Vous avez été authentifié avec succès !");
+          navigate("/user");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  let handleSignup = async (event) => {
+    event.preventDefault();
+    if(!name) {
+      toast.error("Veuillez entrer votre nom pour vous connecter !");
+    }
+    if(!pass) {
+      toast.error("Veuillez entrer votre mot de pass pour vous connecter !");
+    }
+    if(!email) {
+      toast.error("Veuillez entrer votre email de pass pour vous connecter !");
+    }
+    axios
+      .post("http://127.0.0.1:8000/signUp/", {
+        fullname: name,
+        email: email,
+        password: pass,
+      })
+      .then((res) => {
+        localStorage.setItem("responseId",res.data.id);
+        console.log(localStorage.getItem('responseId'))
+        if (res.status == "201") {
+          toast.success("Inscription réussie !");
+          navigate("/user");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
   function register() {
     let x = document.getElementById("login");
     let y = document.getElementById("signup");
     let z = document.getElementById("btn");
     let c = document.getElementById("connexion");
     let i = document.getElementById("inscrire");
-    x.style.left = "-400px";
-    y.style.left = "50px";
-    z.style.left = "184px";
+    x.style.left = "-415px";
+    y.style.left = "63px";
+    z.style.left = "203px";
     z.style.right = "8px";
     c.style.opacity = ".6";
     i.style.opacity = "1";
@@ -20,9 +84,9 @@ export const LoginSignup = () => {
     let z = document.getElementById("btn");
     let c = document.getElementById("connexion");
     let i = document.getElementById("inscrire");
-    x.style.left = "50px";
-    y.style.left = "400px";
-    z.style.left = "8px";
+    x.style.left = "63px";
+    y.style.left = "415px";
+    z.style.left = "11px";
     i.style.opacity = ".6";
     c.style.opacity = "1";
   }
@@ -57,23 +121,27 @@ export const LoginSignup = () => {
               className="input-field"
               placeholder="Nom Complet"
               required
+              onChange={(e) => setName(e.target.value)}
             />
             <input
               type="email"
               className="input-field"
               placeholder="Adresse E-mail"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="password"
               className="input-field"
               placeholder="Mot de passe"
               required
+              onChange={(e) => setPass(e.target.value)}
             />
             <input
               type="submit"
               className="submit-btn"
               value="Créer un compte"
+              onClick={handleSignup}
             />
           </form>
           <form id="login" action="" className="input-group">
@@ -82,14 +150,21 @@ export const LoginSignup = () => {
               className="input-field"
               placeholder="Adresse E-mail"
               required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               type="password"
               className="input-field"
               placeholder="Mot de passe"
               required
+              onChange={(e) => setPass(e.target.value)}
             />
-            <input type="submit" className="submit-btn" value="Connecter" />
+            <input
+              type="submit"
+              className="submit-btn"
+              value="Connecter"
+              onClick={handleLogin}
+            />
           </form>
           <div className="or">Ou</div>
           <p className="alternate">Connecter avec</p>

@@ -28,8 +28,7 @@ DEBUG = True
 CSRF_TRUSTED_ORIGINS = [
     'https://appname.herokuapp.com'
 ]
-
-ALLOWED_HOSTS = ['localhost','4d0d-105-235-128-101.ngrok-free.app']
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 ELASTICSEARCH_DSL = {
     'default':{

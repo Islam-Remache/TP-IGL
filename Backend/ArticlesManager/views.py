@@ -27,13 +27,13 @@ import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+load_dotenv()
 from .extruct import process_pdf_file
 
 
 
 #######   get env variables    #######
 main.load_dotenv()
-
 
 ELASTIC_USER_NAME= os.getenv('ELASTIC_USER_NAME')
 ELASTIC_USER_PASSWORD= os.getenv('ELASTIC_USER_PASSWORD')

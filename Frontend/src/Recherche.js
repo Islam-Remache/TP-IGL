@@ -11,12 +11,27 @@ import axios from "./api/axios";
 import { FaHeart } from "react-icons/fa";
 
 export const Recherche = () => {
+<<<<<<< HEAD
+  
+  const [searchInput,setSearchInput]=useState('')
+console.log(searchInput)
+
+  const [result,setResult]=useState([])
+  const handleSearch=(event)=>{
+    setSearchInput(event.target.value)
+  }
+  let getResult=async ()=>{
+    const res = await axios.get("http://localhost:8000/ArticlesManager/search/",{params:{text: searchInput}})
+    setResult(res.data)
+    console.log('jj',res.data)
+=======
   const [searchInput, setSearchInput] = useState("");
   console.log(searchInput);
 
   const [result, setResult] = useState([]);
   const handleSearch = (event) => {
     setSearchInput(event.target.value);
+>>>>>>> 2863e24700fd116f40493ecdf52e56251e79a697
   };
   let getResult = async () => {
     const res = await axios.get(
