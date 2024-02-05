@@ -10,7 +10,7 @@ import { FaList } from "react-icons/fa";
 import axios from "./api/axios";;
 
 export const Recherche = () => {
-
+  
   const [searchInput,setSearchInput]=useState('')
 console.log(searchInput)
 

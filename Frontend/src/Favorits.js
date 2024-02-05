@@ -13,8 +13,10 @@ import axios from "./api/axios";
 export const Favorits = (props) => {
   const [favorites ,setFavorites]=useState([]);
   useEffect(()=>{
-    axios.get("http://localhost:8000/getFavories/").then((resp)=>{
+    console.log(localStorage.getItem('responseId'));
+    axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`).then((resp)=>{
     const queryParams = resp.data.listIdsArticles?.map(id => `ids[]=${encodeURIComponent(id)}`).join('&')
+    console.log("gg",queryParams);
     axios.get(`http://localhost:8000/ArticlesManager/getFavories/?${queryParams}`).then((res) => {
       setFavorites(res.data);
       const jsonString = JSON.stringify({data:[...res.data['Articles Found']],from:'F'});
@@ -36,23 +38,14 @@ export const Favorits = (props) => {
             <div className="heart">
               <FaHeart className="icon"/>
               </div>
-            <img className="articleImg" alt="article-img" src='/static/media/article1.9ed4d960a714e289ba45.webp' />
+            <img className="articleImg" alt="article-img" src={require("./images/file.png")} />
             <div className="content">
               <h3>{record.Titre}</h3>
               <p>{record.Auteurs[0]["NomComplet"]}</p>
             </div>
             <div className="info">
-<<<<<<< HEAD
-              <div title={record.tags}>{
-                record.tags.map((r) => {
-                  <div>r</div>
-                })
-              }</div>
-              <Link className="more" to={`Details/${record.id}`}>
-=======
               <div title={record.MotsCle[0]}>{record.MotsCle[1]}</div>
               <Link className="more" to={`Details/${id}`}>
->>>>>>> a615788d69dc898625b414b84f4bdec9f75295df
                 Plus
               </Link>
             </div>
