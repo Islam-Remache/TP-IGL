@@ -6,10 +6,7 @@ from .models import Article, Auteur, Institution
 from .documents import ArticleDocument
 import ssl
 import os
-<<<<<<< HEAD
-=======
 #from dotenv import Dotenv
->>>>>>> a615788d69dc898625b414b84f4bdec9f75295df
 from dotenv import load_dotenv
 from ssl import create_default_context
 from django.http import HttpResponse
@@ -17,22 +14,14 @@ import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-<<<<<<< HEAD
 load_dotenv()
-=======
 from .extruct import process_pdf_file
->>>>>>> a615788d69dc898625b414b84f4bdec9f75295df
 
 
 
 #######   get env variables    #######
 load_dotenv()
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> a615788d69dc898625b414b84f4bdec9f75295df
 ELASTIC_USER_NAME= os.getenv('ELASTIC_USER_NAME')
 ELASTIC_USER_PASSWORD= os.getenv('ELASTIC_USER_PASSWORD')
 ELASTIC_HOST= os.getenv('ELASTIC_HOST')
