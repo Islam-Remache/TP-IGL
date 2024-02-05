@@ -13,7 +13,7 @@ class Utilisateur(models.Model):
     id = models.IntegerField(primary_key = True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     # this user is the refrence of User in django that will be authentificated (its like the user Accout)
-    fullname = models.CharField(max_length = 30)
+    fullname = models.CharField(max_length = 31)
     favorites = models.OneToOneField(Favories, on_delete=models.CASCADE, null=True, blank=True) # Relation one to one
     #id = models.IntegerField(unique = True) => try to link the Utilisateur by it User
 

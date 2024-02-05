@@ -6,20 +6,20 @@ from .models import Article, Auteur, Institution
 from .documents import ArticleDocument
 import ssl
 import os
-from dotenv import Dotenv
+from dotenv import load_dotenv
 from ssl import create_default_context
 from django.http import HttpResponse
 import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+load_dotenv()
 
 
 
 #######   get env variables    #######
 
-dotenv = Dotenv(os.path.join(os.path.dirname(__file__), "../.env")) 
-os.environ.update(dotenv)
+
 ELASTIC_USER_NAME= os.getenv('ELASTIC_USER_NAME')
 ELASTIC_USER_PASSWORD= os.getenv('ELASTIC_USER_PASSWORD')
 ELASTIC_HOST= os.getenv('ELASTIC_HOST')

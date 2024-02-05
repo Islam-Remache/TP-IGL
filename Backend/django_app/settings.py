@@ -29,7 +29,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://appname.herokuapp.com'
 ]
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 ELASTICSEARCH_DSL = {
     'default':{

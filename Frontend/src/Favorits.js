@@ -33,7 +33,11 @@ export const Favorits = (props) => {
               <p>{record.author}</p>
             </div>
             <div className="info">
-              <div title={record.tags}>{record.tags}</div>
+              <div title={record.tags}>{
+                record.tags.map((r) => {
+                  <div>r</div>
+                })
+              }</div>
               <Link className="more" to={`Details/${record.id}`}>
                 Plus
               </Link>
