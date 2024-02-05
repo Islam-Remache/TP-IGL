@@ -8,37 +8,51 @@ import "./images/article7.jpg";
 import "./images/article8.png"; 
 import "./images/article9.webp"; 
 import { FaHeart } from "react-icons/fa";
-import axios from "axios";
+import axios from "./api/axios";
  //Heart icon
 export const Favorits = (props) => {
   const [favorites ,setFavorites]=useState([]);
   useEffect(()=>{
-    axios.get("http://localhost:3030/favorits").then((res) => {
+    axios.get("http://localhost:8000/getFavories/").then((resp)=>{
+    const queryParams = resp.data.listIdsArticles?.map(id => `ids[]=${encodeURIComponent(id)}`).join('&')
+    axios.get(`http://localhost:8000/ArticlesManager/getFavories/?${queryParams}`).then((res) => {
       setFavorites(res.data);
+      const jsonString = JSON.stringify({data:[...res.data['Articles Found']],from:'F'});
+      localStorage.setItem('myObjectKey', jsonString);
+      console.log(res.data)
     });
+  })
   },[])
   return (
     <>
     <h2 className="titleFavoris">Favoris</h2>
     <div className="favorits">
-      {favorites.map((record) => {
+      {favorites["Articles Found"]?.map((record) => {
+           let id = record['_id']
+           record = record['_source'];
+     
         return (
           <div className="card-container">
             <div className="heart">
               <FaHeart className="icon"/>
               </div>
-            <img className="articleImg" alt="article-img" src={record.src} />
+            <img className="articleImg" alt="article-img" src='/static/media/article1.9ed4d960a714e289ba45.webp' />
             <div className="content">
-              <h3>{record.title}</h3>
-              <p>{record.author}</p>
+              <h3>{record.Titre}</h3>
+              <p>{record.Auteurs[0]["NomComplet"]}</p>
             </div>
             <div className="info">
+<<<<<<< HEAD
               <div title={record.tags}>{
                 record.tags.map((r) => {
                   <div>r</div>
                 })
               }</div>
               <Link className="more" to={`Details/${record.id}`}>
+=======
+              <div title={record.MotsCle[0]}>{record.MotsCle[1]}</div>
+              <Link className="more" to={`Details/${id}`}>
+>>>>>>> a615788d69dc898625b414b84f4bdec9f75295df
                 Plus
               </Link>
             </div>

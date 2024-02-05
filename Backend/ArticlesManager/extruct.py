@@ -1,26 +1,15 @@
-# the main function of this script is process_pdf_file
+
 import PyPDF2
 from pdfminer.layout import LTTextContainer, LTChar
 from pdfminer.high_level import extract_pages
 from pathlib import Path
 from openai import OpenAI
 from typing import Iterable, Any
-import datetime
-import fitz
-from base64 import b64encode
-import dropbox
-import os
-from dotenv import main
+from dotenv import load_dotenv
+import replicate
+load_dotenv()
 
-main.load_dotenv()
 def extract_title_from_pdf(pdf_file_path):
-    """
-    this function to get the title of the pdf file
-    we assume that the title has the biggest font size in the pdf file
-    while taking into considiration that the title might be in multiple lines
-    note that in some pdf files the title is not the biggest text in the pdf file or the title is not in the first page of the pdf file , in that case the function will not work properly
-    """
-
     path = Path(pdf_file_path).expanduser()
     pages = extract_pages(path)
     #go to the first page
@@ -72,12 +61,6 @@ def extract_title_from_pdf(pdf_file_path):
     biggest_font_size_text = biggest_font_size_text.strip()
     return biggest_font_size_text
 def extract_sections_from_pdf(pdf_file_path):
-    """
-    this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
-    it uses the pdfminer library to extract the text from the pdf file
-    so the identification of the sections is based on the position of the text on the page and all the work is been done manually
-    it is very efficient for pdf files that are in the same format and the same structure
-    """
     path = pdf_file_path
     pages = extract_pages(path)
     abstract = False
@@ -260,10 +243,6 @@ def extract_content_in_range(page, start_y, end_y):
 
 
 def extract_sections_from_pdf_gpt3(pdf_file_path):
-    """
-    this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
-    it uses the openai gpt3.5 to extract the sections from the pdf file while maintaining the structure of the sections
-    """
     # Extract text from the first page of the PDF
     text = extract_text_from_first_page_of_pdf(pdf_file_path)
 
@@ -283,16 +262,12 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
     title = get_openai_response(title_prompt)
 
     # Get the authors of the article
-    authors_prompt = "get directly the authors of this article , don't add any title or any thing to the response , just the name of the authors of the article separated by '\n' , this info will be used by a devloper "
+    authors_prompt = "get the authors of this article , don't add any title to the response , just the authors of the article separated by '\n'"
     authors = get_openai_response(authors_prompt).split("\n")
 
     # Get the institutions of the authors
     institutions_prompt = "get the institutions of the authors of this article , don't add any title to the response , just the institutions of the article separated by '\n'"
     institutions = get_openai_response(institutions_prompt).split("\n")
-
-    #Get the email of the institution
-    email_prompt = "get the email of the institution of the authors of this article , don't add any title to the response , just the email of the institution of the article separated by '\n' , they must be in order with the institutions , those are the institutions" + str(institutions)
-    emails = get_openai_response(email_prompt).split("\n")
 
     # Get the abstract section of the article
     abstract_prompt = "get the abstract section from this article without any changes , don't add any title to the response , just the abstract section of the article "
@@ -302,39 +277,37 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
     keywords_prompt = "get the keywords section from this article without any changes  , don't add any title to the response , just the keywords section of the article  "
     keywords = get_openai_response(keywords_prompt).split(",")
     #get the references section of the article
-    
-    references_prompt = "get the references section from this article without any changes ,  don't add any title to the response , just the references section of the article separated by '\n'  "
+    text = extract_text_from_last_page_of_pdf(pdf_file_path)
+    references_prompt = "get the references section from this article without any changes  , don't add any title to the response , just the references section of the article separated by '\n'  "
     references = get_openai_response(references_prompt).split("\n")
 
-    print ("===============================================")
-    print("title : ", title)
-    print("authors : ", authors)
-    print("institutions : ", institutions)
-    print("abstract : ", abstract)
-    print("keywords : ", keywords)
-    print("references : ", references)
-    print ("===============================================")
     auth_inst = []
     for i in range(len(authors)):
         if i > len(institutions)-1:
             nom_inst = ""   
-            aiobj = {"NomComplet": authors[i], "Institution": {"Nom": institutions[len(institutions)-1], "Email": emails[len(emails)-1]}}
+            #get the email of the institution and separate it from the institution name
+            #the email is the word that contains @
+            for word in institutions[len(institutions)-1].split(" "):
+                if "@" in word:
+                    email = word
+                    continue
+                nom_inst += word + " "
+            aiobj = {"NomComplet": authors[i], "Institution": {"Nom": nom_inst, "Email": email}}
             auth_inst.append(aiobj)
         else:
-            aiobj = {"NomComplet": authors[i], "Institution": {"Nom": institutions[i], "Email": emails[i]}}
+            aiobj = {"NomComplet": authors[i], "Institution": {"Nom": institutions[i], "Email": ""}}
             auth_inst.append(aiobj)
     
 
     innerText = getInnerText(pdf_file_path)
-    thumbnail = get_thumbnail_from_pdf(pdf_file_path)
     return_dict = {
         "Titre": title,
         "Resume": abstract,
         "TextIntegral": innerText,
-        "Url": "",
-        "DatePublication":datetime.datetime.now().isoformat(),
+        "Url": "ici/le/URL",
+        "DatePublication": timezone.now() ,
         "estValidee": 0,
-        "Image" : thumbnail,
+        "Image" : "Ici/Url/image",
         "Auteurs": auth_inst,
         "MotsCle": keywords,
         "References": references
@@ -343,11 +316,6 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
 
 # Function to extract text from the first page of a PDF file
 def extract_text_from_first_page_of_pdf(pdf_file_path):
-    """
-    this function take the path of a pdf file and return the text of the first page of the pdf file as a utf-8 string
-    it uses the pdfminer library to extract the text from the pdf file
-    loop through the pages of the pdf file and extract the text from the text containers
-    """
     path = pdf_file_path
     pages = extract_pages(path)
     page = next(pages)
@@ -356,29 +324,19 @@ def extract_text_from_first_page_of_pdf(pdf_file_path):
         if isinstance(element, LTTextContainer):
             text += element.get_text()
     return text
-# Function to extract text from the last 10 pages of a PDF file
+# Function to extract text from the last page of a PDF file
 def extract_text_from_last_page_of_pdf(pdf_file_path):
-    """
-    this function take the path of a pdf file and return the text of the last 10 pages of the pdf file as a utf-8 string
-    it uses the pdfminer library to extract the text from the pdf file
-    loop through the pages of the pdf file and extract the text from the text containers
-    """
-
     path = pdf_file_path
     pages = extract_pages(path)
-    last_ten_pages = list(pages)[-10:]
+    for page in pages:
+        pass
     text = ""
-    for page in last_ten_pages:
-        for element in page:
-            if isinstance(element, LTTextContainer):
-                text += element.get_text()
+    for element in page:
+        if isinstance(element, LTTextContainer):
+            text += element.get_text()
     return text
 #get innerText , just read it in utf-8
 def getInnerText(pdf_file_path):
-    """this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string
-    it uses the pdfminer library to extract the text from the pdf file
-    loop through the pages of the pdf file and extract the text from the text containers and the characters
-    """
     path = pdf_file_path
     pages = extract_pages(path)
     text = ""
@@ -386,76 +344,15 @@ def getInnerText(pdf_file_path):
         for element in page:
             if isinstance(element, LTTextContainer):
                 text += element.get_text()
-            if isinstance(element, LTChar):
-                text += element.get_text()
-            if isinstance(element, Iterable):
-                for subelement in element:
-                    if isinstance(subelement, LTTextContainer):
-                        text += subelement.get_text()
-                    if isinstance(subelement, LTChar):
-                        text += subelement.get_text()
-    #remove any "\n" and replace it with " "
-    text = text.replace("\n", " ")
-    text = text.replace("-\n", "")
-    #get rid off double and triple spaces
-    text = " ".join(text.split())
-    return text.encode("utf-8")
-#Function to get the thumbnail of the file
-def get_thumbnail_from_pdf(pdf_file_path):
-    """this function take the path of a pdf file and return the thumbnail of the first page of the pdf file as a base64 string
-    it uses the fitz library to extract the image of the first page of the pdf file
-    the image is then converted to a base64 string
-    """
-    #open the pdf file
-    pdf = fitz.open(pdf_file_path)
-    #get the first page of the pdf file
-    first_page = pdf[0]
-    #get the image of the first page
-    image = first_page.get_pixmap()
-    
-    return image.tobytes()
 
-# Function to upload a PDF file to dropbox
-def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
-    #upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder="/", overwrite=False):
-    dbx = dropbox.Dropbox('sl.BvDGRjJJDaW-gWWWdeQGh7p64YsZlsZqOAXWL6yKuhK9BlHZzba3Qm169I08j2aD4rzT9uXmcIdrrMObIXQ_NAg-gS-jrnDXbSz-BR9iFZJuZCKbrW0Wey4mWs1H66g3xEoqTV-1aaz0YCogXg0me2I')
-    file_name = os.path.basename(file_path)
-    file_path = os.path.abspath(file_path)
-    dropbox_path = dropbox_folder + "/" + file_name
-    with open(file_path, "rb") as f:
-        file_data = f.read()
-    mode = (dropbox.files.WriteMode.overwrite
-            if overwrite
-            else dropbox.files.WriteMode.add)
-    #get the url of the file
-    res = dbx.files_upload(
-        file_data, dropbox_path, mode,
-        mute=True
-    )
-    #create a shared link for the uploaded file
-    shared_link_metadata = dbx.sharing_create_shared_link_with_settings(dropbox_path)
-    return shared_link_metadata.url
+    #if the text is not in utf-8 then we will force it to be in utf-8
+    try:
+        text.encode('utf-8').decode('utf-8')
+    except UnicodeDecodeError:
+        text = text.encode('utf-8').decode('utf-8', 'ignore')
+    return text
+
 
 def process_pdf_file(pdf_file_path):
-    """
-    this function takes the file , extracts the sections and uploads the file to dropbox
-    """
-    try:
-        # Extract sections from the PDF file
-        sections = extract_sections_from_pdf_gpt3(pdf_file_path)
-        # Upload the file to dropbox
-        url = upload_file_to_dropbox(pdf_file_path)
-        # Add the URL to the sections
-        sections["Url"] = url
-        return sections
-    except Exception as e:
-        return {"error": str(e)}
-    
-
-
-
-
-
-
-
+    return extract_sections_from_pdf_gpt3(pdf_file_path)
 
