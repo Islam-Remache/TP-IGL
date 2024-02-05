@@ -6,20 +6,22 @@ from .models import Article, Auteur, Institution
 from .documents import ArticleDocument
 import ssl
 import os
-from dotenv import Dotenv
+#from dotenv import Dotenv
+from dotenv import load_dotenv
 from ssl import create_default_context
 from django.http import HttpResponse
 import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from .extruct import process_pdf_file
 
 
 
 #######   get env variables    #######
+load_dotenv()
 
-dotenv = Dotenv(os.path.join(os.path.dirname(__file__), "../.env")) 
-os.environ.update(dotenv)
+
 ELASTIC_USER_NAME= os.getenv('ELASTIC_USER_NAME')
 ELASTIC_USER_PASSWORD= os.getenv('ELASTIC_USER_PASSWORD')
 ELASTIC_HOST= os.getenv('ELASTIC_HOST')
@@ -51,7 +53,7 @@ class save_uploaded_article_View(APIView):
     def post(self,request):
         try:
             es = ConnectToES()
-            data= json.loads(request.body.decode('utf-8')) # Actually here will go the extraction function
+            data= process_pdf_file("path")  # Actually here will go the extraction function
             auteur_instances= []
         
             for auteur in data['Auteurs']:
@@ -100,9 +102,25 @@ class search_elastic_docs_by_txt_View(APIView):
             es = ConnectToES()
             query= request.GET.get('text', '')
             query_list = query.split()
-            print(query_list)
+            print(query_list,' ,text: ',query)
 
-            search_body = {
+            if(query == ''):
+                search_body={
+                "query": {
+                    "match_all": {}
+                },
+                "sort": [
+                    {
+                    "DatePublication": {
+                        "order": "desc"
+                    }
+                    }
+                ],
+                "size":1000
+                }
+            else:
+
+                search_body = {
                 "query":{
                         "bool": {
                             "filter": [
@@ -144,11 +162,18 @@ class search_elastic_docs_by_txt_View(APIView):
                         }
                 },
 
+                "sort": [
+                        {
+                        "DatePublication": {
+                            "order": "desc"
+                        }
+                        }
+                    ],
+
                 'size':1000
             }
 
             results = es.search(index=INDEX_NAME, body=search_body)
-            print(results['hits']['hits'])
             return Response({ 'Articles Found': results['hits']['hits']})
         except Exception as e:
             return Response({"message":f"An error occurred: {str(e)}"})

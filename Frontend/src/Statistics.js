@@ -3,8 +3,16 @@ import { IoDocumentTextOutline } from "react-icons/io5"; //import article icon
 import { FaUsers } from "react-icons/fa"; //import users icon
 import { useState, useEffect } from "react"; //import the hooks needed
 import { FaUserCircle } from "react-icons/fa"; //import user icon
+import axios from "./api/axios";
 
 export const Statistics = () => {
+  const [NbArticles ,setNbArticles]=useState(0);
+  useEffect(()=>{
+    axios.get("http://localhost:8000/ArticlesManager/getNbArticles/").then((res) => {
+      setNbArticles(res.data.nb);
+      console.log(res.data.nb)
+    });
+  },[])
   //the list of activities to display
   let activities = [
     {
@@ -73,7 +81,7 @@ export const Statistics = () => {
         <div>
           {art1}
           <article className="value">
-            25000 <br></br>Articles
+            {NbArticles} <br></br>Articles
           </article>
           {art2}
         </div>

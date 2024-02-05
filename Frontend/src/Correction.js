@@ -4,8 +4,30 @@ import "./correction.css"; //import the css file
 import { FiDelete } from "react-icons/fi"; //import the delete icon
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
+import axios from "./api/axios";
 
 export const Correction = () => {
+
+
+  //  delele handle function
+  const handleDelete = async ()=>{
+    let jj = "2bUZ1owB6FhGCMPlXy6E"
+    const res = await axios.delete(`http://localhost:8000/ArticlesManager/Delete/${jj}/`)
+    console.log(res)
+  }
+
+    //  update handle function
+    const handleUpdate = async ()=>{
+    
+      let jj = "2rUe1owB6FhGCMPlTy41"
+      console.log(doc)
+      const res = await axios.post(`http://localhost:8000/ArticlesManager/Update/${jj}/`,doc,{
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed
+        },})
+      console.log(res)
+    }
   //the title of the article
   const [title, setTitle] = useState("Online Accounting softwaring");
   //the subtitle of the article
@@ -310,8 +332,8 @@ export const Correction = () => {
         </div>
 
         <div className="decision">
-          <button id="st">Valider</button>
-          <button id="nd">Supprimer</button>
+          <button id="st" onClick={handleUpdate}>Valider</button>
+          <button id="nd" onClick={handleDelete}>Supprimer</button>
         </div>
       </form>
     </div>
