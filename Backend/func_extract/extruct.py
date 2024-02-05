@@ -1,4 +1,4 @@
-
+# the main function of this script is process_pdf_file
 import PyPDF2
 from pdfminer.layout import LTTextContainer, LTChar
 from pdfminer.high_level import extract_pages
