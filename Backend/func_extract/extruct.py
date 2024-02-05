@@ -8,8 +8,8 @@ from typing import Iterable, Any
 import datetime
 import fitz
 from base64 import b64encode
-import dotenv
-dotenv.load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 def extract_title_from_pdf(pdf_file_path):
     """
