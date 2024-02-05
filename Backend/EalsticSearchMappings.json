@@ -1,0 +1,51 @@
+{
+    "articles_index": {
+        "mappings": {
+            "properties": {
+                "Auteurs": {
+                    "type": "nested",
+                    "properties": {
+                        "Institutions": {
+                            "type": "nested",
+                            "properties": {
+                                "Email": {
+                                    "type": "text"
+                                },
+                                "Nom": {
+                                    "type": "text"
+                                }
+                            }
+                        },
+                        "NomComplet": {
+                            "type": "text"
+                        }
+                    }
+                },
+                "DatePublication": {
+                    "type": "date"
+                },
+                "MotsCle": {
+                    "type": "keyword"
+                },
+                "References": {
+                    "type": "text"
+                },
+                "Resume": {
+                    "type": "text"
+                },
+                "TextIntegral": {
+                    "type": "text"
+                },
+                "Titre": {
+                    "type": "text"
+                },
+                "Url": {
+                    "type": "text"
+                },
+                "estValidee": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

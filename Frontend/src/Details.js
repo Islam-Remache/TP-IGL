@@ -1,9 +1,19 @@
 import "./details.css";
 import { FaLightbulb } from "react-icons/fa6";
 import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { LuDownload } from "react-icons/lu";
 import image from "./images/articleCover.PNG"; //import the image articleCover
+import { useParams } from 'react-router-dom';
 export const Details = () => {
+  const storedJsonString = localStorage.getItem('myObjectKey');
+  const storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
+  const storedObject = [...storedObject1['data']]
+  const from = storedObject1['from'] 
+
+  const { id } = useParams();
+  const doc = storedObject.find(obj => obj._id === id);
+
   let titre = "Online Accounting Softwaring";
   let sousTitre = "Finding The Right Match";
   let authors = [ 
@@ -15,13 +25,13 @@ export const Details = () => {
   let authsDisplay = () => {
     return (
       <section id="auths">
-        {authors.map(
+        {doc['_source']['Auteurs']?.map(
           (ele, index) =>
             index < 6 && (
               <article>
-                {ele[0]}
+                {ele['NomComplet']}
                 <br></br>
-                {ele[1]}
+                {ele['Institutions'][0]['Nom']}
               </article>
             )
         )}
@@ -35,7 +45,7 @@ export const Details = () => {
     Odile Jacob.`,
   ];
   const refsDisplay = () => {
-    return references.map((ele) => <li>{ele}</li>);
+    return doc['_source']['References'].map((ele) => <li>{ele}</li>);
   };
   let motClés = [
     "mot clé 1",
@@ -61,7 +71,7 @@ export const Details = () => {
   let content = (i) => {
     return (
       <section className="motsClé">
-        {motClés.map((ele, index) => {
+        {doc['_source']['MotsCle']?.map((ele, index) => {
           return index < 6 && <article>{ele}</article>;
         })}
       </section>
@@ -75,13 +85,17 @@ export const Details = () => {
           <img src={image} alt="not found" id="imgDetails" />{" "}
           {/*article's cover*/}
           <span className="articleIcons">
-            <CiHeart className="heartDownload" />
+          {from === 'F' ? (
+            <FaHeart className="icon"/>
+      ) : (
+        <CiHeart className="heartDownload" />
+      )}
             <LuDownload className="heartDownload" />
           </span>
         </div>
 
         <div className="informations">
-          <header id="mainInfo">{`${titre} - ${sousTitre}`}</header>
+          <header id="mainInfo">{`${doc['_source']['Titre']} - ${sousTitre}`}</header>
           {content()}
           <section id="end">
             <FaLightbulb id="bulb" />
@@ -94,6 +108,7 @@ export const Details = () => {
       </div>
       <div className="secondDiv">
         <label>Text intégral :</label>
+        <p id="Txt">{doc['_source']['TextIntegral']}</p>
         {/* <embed
           src="/Chapitre 4-flots_ROP_23.pdf"
           type="application/pdf"
@@ -101,7 +116,7 @@ export const Details = () => {
           height="600px"
         ></embed> */}
         <label>Résumé :</label>
-        <p id="res">{Résumé}</p>
+        <p id="res">{doc['_source']['Resume']}</p>
         <label id="aut">Auteurs et leurs institutions :</label>
         {authsDisplay()}
         <label>Références bibliographiques</label>
