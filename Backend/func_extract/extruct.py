@@ -8,9 +8,11 @@ from typing import Iterable, Any
 import datetime
 import fitz
 from base64 import b64encode
-from dotenv import load_dotenv
-load_dotenv()
+import dropbox
+import os
+from dotenv import main
 
+main.load_dotenv()
 def extract_title_from_pdf(pdf_file_path):
     """
     this function to get the title of the pdf file
@@ -329,7 +331,7 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
         "Titre": title,
         "Resume": abstract,
         "TextIntegral": innerText,
-        "Url": "ici/le/URL",
+        "Url": "",
         "DatePublication":datetime.datetime.now().isoformat(),
         "estValidee": 0,
         "Image" : thumbnail,
@@ -356,6 +358,12 @@ def extract_text_from_first_page_of_pdf(pdf_file_path):
     return text
 # Function to extract text from the last 10 pages of a PDF file
 def extract_text_from_last_page_of_pdf(pdf_file_path):
+    """
+    this function take the path of a pdf file and return the text of the last 10 pages of the pdf file as a utf-8 string
+    it uses the pdfminer library to extract the text from the pdf file
+    loop through the pages of the pdf file and extract the text from the text containers
+    """
+
     path = pdf_file_path
     pages = extract_pages(path)
     last_ten_pages = list(pages)[-10:]
@@ -406,11 +414,46 @@ def get_thumbnail_from_pdf(pdf_file_path):
     image = first_page.get_pixmap()
     
     return image.tobytes()
-    
+
+# Function to upload a PDF file to dropbox
+def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
+    #upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder="/", overwrite=False):
+    dbx = dropbox.Dropbox('sl.BvDGRjJJDaW-gWWWdeQGh7p64YsZlsZqOAXWL6yKuhK9BlHZzba3Qm169I08j2aD4rzT9uXmcIdrrMObIXQ_NAg-gS-jrnDXbSz-BR9iFZJuZCKbrW0Wey4mWs1H66g3xEoqTV-1aaz0YCogXg0me2I')
+    file_name = os.path.basename(file_path)
+    file_path = os.path.abspath(file_path)
+    dropbox_path = dropbox_folder + "/" + file_name
+    with open(file_path, "rb") as f:
+        file_data = f.read()
+    mode = (dropbox.files.WriteMode.overwrite
+            if overwrite
+            else dropbox.files.WriteMode.add)
+    #get the url of the file
+    res = dbx.files_upload(
+        file_data, dropbox_path, mode,
+        mute=True
+    )
+    #create a shared link for the uploaded file
+    shared_link_metadata = dbx.sharing_create_shared_link_with_settings(dropbox_path)
+    return shared_link_metadata.url
 
 def process_pdf_file(pdf_file_path):
-    """this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file"""
-    return extract_sections_from_pdf_gpt3(pdf_file_path)
+    """
+    this function takes the file , extracts the sections and uploads the file to dropbox
+    """
+    try:
+        # Extract sections from the PDF file
+        sections = extract_sections_from_pdf_gpt3(pdf_file_path)
+        # Upload the file to dropbox
+        url = upload_file_to_dropbox(pdf_file_path)
+        # Add the URL to the sections
+        sections["Url"] = url
+        return sections
+    except Exception as e:
+        return {"error": str(e)}
+    
+
+
+
 
 
 
