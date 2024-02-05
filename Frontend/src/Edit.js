@@ -18,13 +18,13 @@ export const Edit = (props) => {
     function handleSubmit (event) {
         event.preventDefault();
         if(!name) {
-          toast.error("Veuillez entrer le nom du modérateur pour pouvoir continuer !", {
+          toast.error("Veuillez entrer le nouveau nom du modérateur a modifier !", {
             autoClose: 3000,
             closeOnClick: true,
             pauseOnHover:true,
           });
         } else if (!email) {
-          toast.error("Veuillez entrer l'adresse e-mail pour pouvoir continuer !", {
+          toast.error("Veuillez entrer la nouvelle adresse e-mail du modérateur a modifier !", {
             autoClose: 3000,
             closeOnClick: true,
             pauseOnHover:true,
