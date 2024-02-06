@@ -1,3 +1,51 @@
+/* ------------------Login Moderateur----------------- */
+.titileModerateur {
+  font-size: 28px;
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  color: #000080;
+  text-align: center;
+  position: relative;
+}
+.titileModerateur::before {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 4px;
+  border-radius: 1px;
+  background-image: linear-gradient(to right, #000000, #000080, #05055f);
+  left: -127px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: -1;
+}
+.titileModerateur::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 4px;
+  border-radius: 1px;
+  background-image: linear-gradient(to right, #05055f, #000080, #000000);
+  right: -127px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: -1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 .input-field:focus {
   outline: none;
 }

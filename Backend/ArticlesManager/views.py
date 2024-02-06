@@ -34,7 +34,6 @@ from .extruct import process_pdf_file
 #######   get env variables    #######
 main.load_dotenv()
 
-
 ELASTIC_USER_NAME= os.getenv('ELASTIC_USER_NAME')
 ELASTIC_USER_PASSWORD= os.getenv('ELASTIC_USER_PASSWORD')
 ELASTIC_HOST= os.getenv('ELASTIC_HOST')

@@ -1,3 +1,4 @@
+import React from "react";
 import { FaArrowRight, FaArrowDown, FaArrowLeft } from "react-icons/fa"; //import arrows icons
 import { CiSearch } from "react-icons/ci"; //import search icon
 import { Link } from "react-router-dom"; //to use Link tag instead of a tag
@@ -8,27 +9,98 @@ import { useEffect, useState } from "react"; //import useState hook
 import { FaList } from "react-icons/fa";
 // import { CiBoxList } from "react-icons/ci";
 import axios from "./api/axios";
-import { FaHeart } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 
 export const Recherche = () => {
+  ///
+  const [result2, setResult2] = useState(result);
+  const [result, setResult] = useState(result2);
   const [searchInput, setSearchInput] = useState("");
-  console.log(searchInput);
 
-  const [result, setResult] = useState([]);
-  const handleSearch = (event) => {
+  const handleChange = (event) => {
     setSearchInput(event.target.value);
   };
+
   let getResult = async () => {
     const res = await axios.get(
       "http://localhost:8000/ArticlesManager/search/",
       { params: { text: searchInput } }
     );
-    setResult(res.data);
-    console.log("jj", res.data);
+    setResult(res.data["Articles Found"]);
+    setResult2(res.data["Articles Found"]);
+    const jsonString = JSON.stringify({
+      data: [...res.data["Articles Found"]],
+      from: "R",
+    });
+    localStorage.setItem("myObjectKey", jsonString);
   };
-  console.log(result);
+  const addToFavorites = (id) => {
+    axios
+      .post(
+        "http://localhost:8000/accountManagerApp/ajouterAuFavories/<str:idArticle>/<int:idCurrentUser>/",
+        { id }
+      )
+      .then((response) => {
+        console.log("Article added to favorites successfully");
+        // Optionally, you can perform additional actions after successful addition
+      })
+      .catch((error) => {
+        console.error("Error adding article to favorites:", error);
+        // Handle error scenarios here
+      });
+  };
 
-  //state that represents the categories of searches used
+  //
+
+  let keys = [];
+  for (let i = 0; i < result.length; i++) {
+    // keys = keys.concat(result[i].MotsCle);
+    result[i]["_source"].MotsCle.map((ele) => {
+      if (keys.includes(ele) === false) {
+        keys.push(ele);
+      }
+    });
+  }
+  let dates = [];
+  for (let i = 0; i < result.length; i++) {
+    if (dates.includes(result[i]["_source"].DatePublication) === false)
+      dates.push(result[i]["_source"].DatePublication);
+  }
+  let auths = [];
+  for (let i = 0; i < result.length; i++) {
+    let auteurs = result[i]["_source"].Auteurs;
+    for (let j = 0; j < auteurs.length; j++) {
+      if (auths.includes(auteurs[j]["_source"].NomComplet) === false)
+        auths.push(auteurs[j]["_source"].NomComplet);
+    }
+  }
+  let institutes = [];
+
+  // Iterate through the list of authors
+  for (let i = 0; i < result.length; i++) {
+    let auteurs = result[i]["_source"].Auteurs;
+    for (let j = 0; j < auteurs.length; j++) {
+      let institutions = auteurs[j]["_source"].Institutions;
+      for (let k = 0; k < institutions.length; k++) {
+        let institutionName = institutions[k]["_source"].Nom;
+        if (!institutes.includes(institutionName)) {
+          institutes.push(institutionName);
+        }
+      }
+    }
+  }
+
+  const [whichIcon, setWhichIcon] = useState(0);
+  useEffect(() => {
+    window.innerWidth < 700 ? setWhichIcon(1) : setWhichIcon(0);
+  }, [whichIcon]);
+
+  window.onresize = () => {
+    window.innerWidth < 700 ? setWhichIcon(1) : setWhichIcon(0);
+  };
+  const [display, setDisplay] = useState(false);
+  const [show2, setShow2] = useState(false);
+
   const [arrows, setArrows] = useState([
     { show: true, id: 0, title: "Mots Clés", name: "MotsCle" },
     { show: false, id: 1, title: "Auteurs", name: "Auteurs" },
@@ -41,57 +113,143 @@ export const Recherche = () => {
     },
   ]);
 
-  ///
-  /////
+  // const change = (i) => {
+  // //   setArrows(
+  // //     arrows.map((ele) =>
+  // //       ele.id === i
+  // //         ? { show: !ele.show, id: i, title: ele.title }
+  // //         : { show: false, id: ele.id, title: ele.title }
+  // //     )
+  // //   );
+  // // };
 
-  let newResult;
-  let categorie;
-  let filterSearch = () => {
-    categorie = arrows.find((ele) => ele.show).name;
-    if (
-      result.lenght !== 0 &&
-      (categorie === "DatePublication" || categorie === "MotsCle")
-    )
-      newResult = result.filter((ele) => ele[categorie].includes(searchInput));
-    else if (categorie === "Auteurs") {
-      newResult = result.filter((ele) =>
-        ele.Auteurs.some((author) => author.NomComplet === searchInput)
-      );
-    } else if (categorie === "Institutions") {
-      newResult = result.filter((article) =>
-        article.Auteurs.some((author) =>
-          author.Institutions.some(
-            (institution) => institution.Nom === searchInput
-          )
+  const createArticles = () => {
+    return arrows.map((arrow, index) =>
+      index === 0 ? (
+        <select
+          name="MotsCle"
+          key={index}
+          onChange={(event) => {
+            if (result.lenght !== 0) {
+              setResult(
+                result2.filter((ele) =>
+                  ele["_source"].MotsCle.includes(event.target.value)
+                )
+              );
+            }
+          }}
+        >
+          <option selected disabled>
+            Mot Clés
+          </option>
+          {keys.map((ele) => (
+            <option>{ele}</option>
+          ))}
+        </select>
+      ) : index === 1 ? (
+        <select
+          name="Auteurs"
+          key={index}
+          onChange={(event) => {
+            if (result.lenght !== 0) {
+              setResult(
+                result2.filter((ele) =>
+                  ele["_source"].Auteurs.some(
+                    (author) => author.NomComplet === event.target.value
+                  )
+                )
+              );
+            }
+          }}
+        >
+          <option selected disabled>
+            Auteurs
+          </option>
+          {auths.map((ele) => (
+            <option>{ele}</option>
+          ))}
+        </select>
+      ) : index === 2 ? (
+        <select
+          name="Institutions"
+          key={index}
+          onChange={(event) => {
+            if (result.lenght !== 0) {
+              setResult(
+                result2.filter((article) =>
+                  article["_source"].Auteurs.some((author) =>
+                    author.Institutions.some(
+                      (institution) => institution.Nom === event.target.value
+                    )
+                  )
+                )
+              );
+            }
+          }}
+        >
+          <option selected disableds>
+            Institutions
+          </option>
+          {institutes.map((ele) => (
+            <option>{ele}</option>
+          ))}
+        </select>
+      ) : (
+        index === 3 && (
+          <select
+            name="DatePublication"
+            key={index}
+            onChange={(event) => {
+              if (result.lenght !== 0) {
+                setResult(
+                  result2.filter((ele) =>
+                    ele["_source"].DatePublication.includes(event.target.value)
+                  )
+                );
+              }
+            }}
+          >
+            <option selected disabled>
+              Date De publication
+            </option>
+            {dates.map((ele) => (
+              <option>{ele}</option>
+            ))}
+          </select>
         )
-      );
-    }
-  };
-  filterSearch();
-  // useEffect(() => {
-  //   filterSearch();
-  // }, [arrows]);
+      )
+    );
+  }; //end of the function
 
   const display_result = () => {
     return (
       <div className="favorits">
-        {newResult &&
-          newResult.map((record) => {
+        {result &&
+          result.map((record) => {
+            let id = record["_id"];
+            record = record["_source"];
             return (
               <div className="card-container">
                 <div className="heart">
-                  <FaHeart className="icon" />
+                  <FaRegHeart
+                    className="icon"
+                    id="heartIcon"
+                    onClick={() => addToFavorites(id)}
+                  />
                 </div>
                 <img alt="article-img" src={require("./images/file.png")} />
                 <div className="content">
-                  <h3>{record.title}</h3>
-                  <p>{record.author}</p>
+                  <h3>{record.Titre}</h3>
+                  {record.Auteurs.map((ele) => (
+                    <p>{ele.NomComplet}</p>
+                  ))}
                 </div>
                 <div className="info">
-                  <Link className="more" to={`details/${record.id}`}>
+                  <Link className="more" to={`details/${id}`}>
                     Savoir Plus
                   </Link>
-                  <span title={record.tags}>{record.tags}</span>
+                  {}
+                  <span title={record.Mots}>{record.MotsCle.join(" , ")}</span>
                 </div>
               </div>
             );
@@ -99,41 +257,6 @@ export const Recherche = () => {
       </div>
     );
   };
-
-  // change the icon that indicates the type of search used
-  const change = (i) => {
-    setArrows(
-      arrows.map((ele) =>
-        ele.id === i
-          ? { show: !ele.show, id: i, title: ele.title }
-          : { show: false, id: ele.id, title: ele.title }
-      )
-    );
-  };
-  //function that creates the buttons to select the type of search used
-  const createArticles = () => {
-    return arrows.map((arrow, index) => (
-      <article key={index} onClick={() => change(index)} className="art">
-        <p>{arrow.title}</p>
-        {arrow.show ? (
-          <FaArrowDown className="icon" />
-        ) : (
-          <FaArrowRight className="icon" />
-        )}
-      </article>
-    ));
-  }; //end of the function
-  const [whichIcon, setWhichIcon] = useState(0);
-  useEffect(() => {
-    window.innerWidth < 700 ? setWhichIcon(1) : setWhichIcon(0);
-  }, [whichIcon]);
-
-  window.onresize = () => {
-    window.innerWidth < 700 ? setWhichIcon(1) : setWhichIcon(0);
-  };
-  const [display, setDisplay] = useState(false);
-  const [show2, setShow2] = useState(false);
-
   return (
     <div id="bcd">
       <h1 className="hello">Chercher Votre Article</h1>
@@ -150,7 +273,7 @@ export const Recherche = () => {
           <FaArrowLeft className="mob" onClick={() => setShow2(!show2)} />
         )}
         <input
-          onChange={handleSearch}
+          onChange={handleChange}
           type="search"
           className="search_input"
           placeholder="tapez votre article ici, Example : Software engineering guide"
@@ -159,7 +282,7 @@ export const Recherche = () => {
           {whichIcon === 0 ? (
             <CiSearch className="search_icon" onClick={getResult} />
           ) : (
-            <FaList className="options" onClick={() => setDisplay(true)} />
+            <FaList className="options" />
           )}
         </Link>
       </div>
@@ -178,12 +301,11 @@ export const Recherche = () => {
         </div>
       )}
 
-      <div className="categories">
-        {/*les critéres de recherche */}
-        {result.length !== 0 && createArticles()}
-      </div>
-      {display_result()}
-      {result.lenght === 0 && (
+      <div className="categories">{/*les critéres de recherche */}</div>
+      {createArticles()}
+      {result.length !== 0 && display_result()}
+
+      {result.length === 0 && (
         <div className="secondary-div">
           <img src={image} alt="not found" />
           <p>Le moyen rapide pour la recherche des articles scientifiques</p>
