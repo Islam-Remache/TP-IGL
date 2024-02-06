@@ -41,10 +41,12 @@ export const Favorits = (props) => {
             <img className="articleImg" alt="article-img" src={require("./images/file.png")} />
             <div className="content">
               <h3>{record.Titre}</h3>
-              <p>{record.Auteurs[0]["NomComplet"]}</p>
+              <p>{record.Auteurs["NomComplet"]}</p>
             </div>
             <div className="info">
-              <div title={record.MotsCle[0]}>{record.MotsCle[1]}</div>
+              <div>{record.MotsCle.map(e => (
+                <div>{e} |</div>
+              ))}</div>
               <Link className="more" to={`Details/${id}`}>
                 Plus
               </Link>
