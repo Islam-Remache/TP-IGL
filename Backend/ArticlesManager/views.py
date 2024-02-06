@@ -1,13 +1,26 @@
-from django.shortcuts import render
-from django.utils import timezone
-from elasticsearch_dsl.connections import connections
+"""
+this module contains the views for the ArticlesManager app
+it contains the following classes:
+    - save_uploaded_article_View: a class to save the uploaded articles to the elastic search server
+    - search_elastic_docs_by_txt_View: a class to search articles by text
+    - search_elastic_docs_by_id_View: a class to search articles by document id
+    - get_non_valid_elastic_docs_View: a class to get the not valid articles for the moderateur
+    - delete_elastic_doc_View: a class to delete an article with its Id
+    - update_elastic_doc_View: a class to update some article fields (or all of them) and estValidee <--- 1
+    - get_nb_articles: a class to get the number of articles in the elastic search server
+    - ConnectToES: a function to connect to the elastic search server
+    - process_pdf_file: a function to extract the data from a pdf file
+    - get_env_variables: a function to get the environment variables
+
+"""
+
 from elasticsearch import Elasticsearch, exceptions
-from .models import Article, Auteur, Institution
+from .models import Auteur
 from .documents import ArticleDocument
 import ssl
 import os
 #from dotenv import Dotenv
-from dotenv import load_dotenv
+from dotenv import main
 from ssl import create_default_context
 from django.http import HttpResponse
 import json
@@ -20,7 +33,7 @@ from .extruct import process_pdf_file
 
 
 #######   get env variables    #######
-load_dotenv()
+main.load_dotenv()
 
 ELASTIC_USER_NAME= os.getenv('ELASTIC_USER_NAME')
 ELASTIC_USER_PASSWORD= os.getenv('ELASTIC_USER_PASSWORD')
