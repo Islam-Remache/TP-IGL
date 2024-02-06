@@ -4,7 +4,8 @@ import { Recherche } from "./Recherche";
 import { Correction } from "./Correction";
 import { Statistics } from "./Statistics";
 import { Home } from "./Home";
-import { LoginSignup } from "./LoginSignup";
+import { LoginSignupUser } from "./LoginSignupUser";
+import { LoginModerateur } from "./LoginModerateur";
 import { Favorits } from "./Favorits";
 import {useMediaQuery} from "react-responsive";
 import { Moderateur } from "./Moderateur";
@@ -18,6 +19,7 @@ import User from "./User";
 import {UploadedArticles} from "./UploadedArticles"
 import {Details} from "./Details"
 import Popup from "./Popup";
+import { LoginAdmin } from "./LoginAdmin";
 
 
 function App() {
@@ -30,7 +32,7 @@ function App() {
           <Route path="/admin" element={<Dashboard />} >
             <Route index element={<Statistics />} />
             <Route path="Moderateur" element={ isPhone ?<ModerateurMobile /> : <Moderateur />} />
-            <Route path="Edit/:id" element={<Edit />} />
+            <Route path="Edit/:id/:nom/:mail" element={<Edit />} />
             <Route path="Articles" element={<UploadedArticles />} />
             <Route path="Create" element={<Create />} />
             {/* <Route path="/Edit" element={<Edit />} /> */}
@@ -49,7 +51,9 @@ function App() {
             <Route path="Popup" element={<Popup />}/>
           </Route>
           <Route path="/" element={<Home />} />
-          <Route path="/LoginSignup" element={<LoginSignup />} />
+          <Route path="/LoginSignupUser" element={<LoginSignupUser />} />
+          <Route path="/LoginModerateur" element={<LoginModerateur />} />
+          <Route path="/LoginAdmin" element={<LoginAdmin />} />
 
           <Route path="*" element={<h1>page not found</h1>} />
 

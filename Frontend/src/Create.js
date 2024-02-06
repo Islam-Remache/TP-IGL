@@ -16,7 +16,14 @@ export const Create = () => {
         closeOnClick: true,
         pauseOnHover: true,
       });
-    } else if (!email) {
+    } 
+    else if (!email) {
+      toast.error("Veuillez entrer l'adresse e-mail du modérateur à ajouter !", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    } else if (!pass) {
       toast.error("Veuillez entrer le mot de pass du modérateur à ajouter !", {
         autoClose: 3000,
         closeOnClick: true,
