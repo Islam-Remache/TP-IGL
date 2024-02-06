@@ -42,6 +42,7 @@ function App() {
 
           <Route path="/user" element={<User />}>
             <Route index element={<Recherche />} />
+            <Route path="Details/:id" element={<Details />}/>
             <Route path="Favorits" >
               <Route index element={<Favorits />} />  
               <Route path="Details/:id" element={<Details />}/>
