@@ -465,7 +465,7 @@ def get_thumbnail_from_pdf(pdf_file_path):
 # Function to upload a PDF file to dropbox
 def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
     #upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder="/", overwrite=False):
-    dbx = dropbox.Dropbox('sl.BvKDTIXXhGIhKA7NjrxpgY9OnmWRuwnID2XvWB_Vg_z0UOWs7ZrQY0kQG389A_C_epFru3rgrv3FKoMDOakJiPPM33_BE-LAEgt_xKRVCv1ar-Gx7p1LLRbWVI0NXsSvlggZB-ONhHpyznGjTpm_1ig')
+    dbx = dropbox.Dropbox('sl.BvIu-_XzXcMOIMjQ2w-NU4mVsru4GuGDNUFAxUYbr-5oHIu3WCr3nYk4S70ha1PGArX4C4ZfvZJcvf3hZmzRwQ9kkNMqWt8gre4kJR0cRnZZ5C3snjk-0uSHBYzu6d-307ooUBF9S49DKkaC7QmMWbU')
     file_name = os.path.basename(file_path)
     file_path = os.path.abspath(file_path)
     dropbox_path = dropbox_folder + "/" + file_name
