@@ -54,11 +54,31 @@
 <li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.apps.ElasticArticlesManagerConfig"><code class="docutils literal notranslate"><span class="pre">ElasticArticlesManagerConfig</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#articlesmanager-documents-module">ArticlesManager.documents module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#articlesmanager-models-module">ArticlesManager.models module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ArticlesManager.documents">ArticlesManager.documents module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.documents.ArticleDocument"><code class="docutils literal notranslate"><span class="pre">ArticleDocument</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ArticlesManager.models">ArticlesManager.models module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.models.Article"><code class="docutils literal notranslate"><span class="pre">Article</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.models.Auteur"><code class="docutils literal notranslate"><span class="pre">Auteur</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.models.Institution"><code class="docutils literal notranslate"><span class="pre">Institution</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.models.MotCle"><code class="docutils literal notranslate"><span class="pre">MotCle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.models.Reference"><code class="docutils literal notranslate"><span class="pre">Reference</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-ArticlesManager.tests">ArticlesManager.tests module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#articlesmanager-urls-module">ArticlesManager.urls module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#articlesmanager-views-module">ArticlesManager.views module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ArticlesManager.urls">ArticlesManager.urls module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ArticlesManager.views">ArticlesManager.views module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.ConnectToES"><code class="docutils literal notranslate"><span class="pre">ConnectToES()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.delete_elastic_doc_View"><code class="docutils literal notranslate"><span class="pre">delete_elastic_doc_View</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.get_nb_articles"><code class="docutils literal notranslate"><span class="pre">get_nb_articles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.get_non_valid_elastic_docs_View"><code class="docutils literal notranslate"><span class="pre">get_non_valid_elastic_docs_View</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.save_uploaded_article_View"><code class="docutils literal notranslate"><span class="pre">save_uploaded_article_View</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.search_elastic_docs_by_id_View"><code class="docutils literal notranslate"><span class="pre">search_elastic_docs_by_id_View</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.search_elastic_docs_by_txt_View"><code class="docutils literal notranslate"><span class="pre">search_elastic_docs_by_txt_View</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ArticlesManager.views.update_elastic_doc_View"><code class="docutils literal notranslate"><span class="pre">update_elastic_doc_View</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-ArticlesManager">Module contents</a></li>
 </ul>
 </li>
@@ -122,20 +142,467 @@
 </dd></dl>
 
 </section>
-<section id="articlesmanager-documents-module">
-<h2>ArticlesManager.documents module<a class="headerlink" href="#articlesmanager-documents-module" title="Link to this heading"></a></h2>
+<section id="module-ArticlesManager.documents">
+<span id="articlesmanager-documents-module"></span><h2>ArticlesManager.documents module<a class="headerlink" href="#module-ArticlesManager.documents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.documents.</span></span><span class="sig-name descname"><span class="pre">ArticleDocument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">related_instance_to_ignore</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/documents.html#ArticleDocument"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">DocType</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument.Django">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Django</span></span><a class="reference internal" href="_modules/ArticlesManager/documents.html#ArticleDocument.Django"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument.Django" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument.Django.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Titre',</span> <span class="pre">'Resume',</span> <span class="pre">'TextIntegral',</span> <span class="pre">'Url',</span> <span class="pre">'DatePublication',</span> <span class="pre">'estValidee']</span></em><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument.Django.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument.Django.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument.Django.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#ArticlesManager.models.Article" title="ArticlesManager.models.Article"><code class="xref py py-class docutils literal notranslate"><span class="pre">Article</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument.Index">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Index</span></span><a class="reference internal" href="_modules/ArticlesManager/documents.html#ArticleDocument.Index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument.Index" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument.Index.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'articles_index'</span></em><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument.Index.name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.documents.ArticleDocument.django">
+<span class="sig-name descname"><span class="pre">django</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'model':</span> <span class="pre">&lt;class</span> <span class="pre">'ArticlesManager.models.Article'&gt;,</span> <span class="pre">'ignore_...}</span></em><a class="headerlink" href="#ArticlesManager.documents.ArticleDocument.django" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="articlesmanager-models-module">
-<h2>ArticlesManager.models module<a class="headerlink" href="#articlesmanager-models-module" title="Link to this heading"></a></h2>
+<section id="module-ArticlesManager.models">
+<span id="articlesmanager-models-module"></span><h2>ArticlesManager.models module<a class="headerlink" href="#module-ArticlesManager.models" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.models.</span></span><span class="sig-name descname"><span class="pre">Article</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Titre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Resume</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TextIntegral</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DatePublication</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">estValidee</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/models.html#Article"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.models.Article" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.DatePublication">
+<span class="sig-name descname"><span class="pre">DatePublication</span></span><a class="headerlink" href="#ArticlesManager.models.Article.DatePublication" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#ArticlesManager.models.Article.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#ArticlesManager.models.Article.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.Resume">
+<span class="sig-name descname"><span class="pre">Resume</span></span><a class="headerlink" href="#ArticlesManager.models.Article.Resume" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.TextIntegral">
+<span class="sig-name descname"><span class="pre">TextIntegral</span></span><a class="headerlink" href="#ArticlesManager.models.Article.TextIntegral" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.Titre">
+<span class="sig-name descname"><span class="pre">Titre</span></span><a class="headerlink" href="#ArticlesManager.models.Article.Titre" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.Url">
+<span class="sig-name descname"><span class="pre">Url</span></span><a class="headerlink" href="#ArticlesManager.models.Article.Url" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.estValidee">
+<span class="sig-name descname"><span class="pre">estValidee</span></span><a class="headerlink" href="#ArticlesManager.models.Article.estValidee" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.get_next_by_DatePublication">
+<span class="sig-name descname"><span class="pre">get_next_by_DatePublication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">DatePublication&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ArticlesManager.models.Article.get_next_by_DatePublication" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.get_previous_by_DatePublication">
+<span class="sig-name descname"><span class="pre">get_previous_by_DatePublication</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateTimeField:</span> <span class="pre">DatePublication&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ArticlesManager.models.Article.get_previous_by_DatePublication" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#ArticlesManager.models.Article.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.motcle_set">
+<span class="sig-name descname"><span class="pre">motcle_set</span></span><a class="headerlink" href="#ArticlesManager.models.Article.motcle_set" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ArticlesManager.models.Article.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Article.reference_set">
+<span class="sig-name descname"><span class="pre">reference_set</span></span><a class="headerlink" href="#ArticlesManager.models.Article.reference_set" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.models.</span></span><span class="sig-name descname"><span class="pre">Auteur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NomComplet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Institutions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/models.html#Auteur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.models.Auteur" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#ArticlesManager.models.Auteur.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur.Institutions">
+<span class="sig-name descname"><span class="pre">Institutions</span></span><a class="headerlink" href="#ArticlesManager.models.Auteur.Institutions" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#ArticlesManager.models.Auteur.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur.NomComplet">
+<span class="sig-name descname"><span class="pre">NomComplet</span></span><a class="headerlink" href="#ArticlesManager.models.Auteur.NomComplet" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#ArticlesManager.models.Auteur.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Auteur.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ArticlesManager.models.Auteur.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.models.</span></span><span class="sig-name descname"><span class="pre">Institution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Email</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/models.html#Institution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.models.Institution" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#ArticlesManager.models.Institution.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution.Email">
+<span class="sig-name descname"><span class="pre">Email</span></span><a class="headerlink" href="#ArticlesManager.models.Institution.Email" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#ArticlesManager.models.Institution.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution.Nom">
+<span class="sig-name descname"><span class="pre">Nom</span></span><a class="headerlink" href="#ArticlesManager.models.Institution.Nom" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#ArticlesManager.models.Institution.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Institution.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ArticlesManager.models.Institution.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.models.</span></span><span class="sig-name descname"><span class="pre">MotCle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Designation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Article</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/models.html#MotCle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.models.MotCle" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.Article">
+<span class="sig-name descname"><span class="pre">Article</span></span><a class="headerlink" href="#ArticlesManager.models.MotCle.Article" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.Article_id">
+<span class="sig-name descname"><span class="pre">Article_id</span></span><a class="headerlink" href="#ArticlesManager.models.MotCle.Article_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.Designation">
+<span class="sig-name descname"><span class="pre">Designation</span></span><a class="headerlink" href="#ArticlesManager.models.MotCle.Designation" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#ArticlesManager.models.MotCle.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#ArticlesManager.models.MotCle.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#ArticlesManager.models.MotCle.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.MotCle.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ArticlesManager.models.MotCle.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.models.</span></span><span class="sig-name descname"><span class="pre">Reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Designation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Article</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/models.html#Reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.models.Reference" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.Article">
+<span class="sig-name descname"><span class="pre">Article</span></span><a class="headerlink" href="#ArticlesManager.models.Reference.Article" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.Article_id">
+<span class="sig-name descname"><span class="pre">Article_id</span></span><a class="headerlink" href="#ArticlesManager.models.Reference.Article_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.Designation">
+<span class="sig-name descname"><span class="pre">Designation</span></span><a class="headerlink" href="#ArticlesManager.models.Reference.Designation" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#ArticlesManager.models.Reference.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#ArticlesManager.models.Reference.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#ArticlesManager.models.Reference.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ArticlesManager.models.Reference.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#ArticlesManager.models.Reference.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-ArticlesManager.tests">
 <span id="articlesmanager-tests-module"></span><h2>ArticlesManager.tests module<a class="headerlink" href="#module-ArticlesManager.tests" title="Link to this heading"></a></h2>
 </section>
-<section id="articlesmanager-urls-module">
-<h2>ArticlesManager.urls module<a class="headerlink" href="#articlesmanager-urls-module" title="Link to this heading"></a></h2>
+<section id="module-ArticlesManager.urls">
+<span id="articlesmanager-urls-module"></span><h2>ArticlesManager.urls module<a class="headerlink" href="#module-ArticlesManager.urls" title="Link to this heading"></a></h2>
 </section>
-<section id="articlesmanager-views-module">
-<h2>ArticlesManager.views module<a class="headerlink" href="#articlesmanager-views-module" title="Link to this heading"></a></h2>
+<section id="module-ArticlesManager.views">
+<span id="articlesmanager-views-module"></span><h2>ArticlesManager.views module<a class="headerlink" href="#module-ArticlesManager.views" title="Link to this heading"></a></h2>
+<p>this module contains the views for the ArticlesManager app
+it contains the following classes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>save_uploaded_article_View: a class to save the uploaded articles to the elastic search server</p></li>
+<li><p>search_elastic_docs_by_txt_View: a class to search articles by text</p></li>
+<li><p>search_elastic_docs_by_id_View: a class to search articles by document id</p></li>
+<li><p>get_non_valid_elastic_docs_View: a class to get the not valid articles for the moderateur</p></li>
+<li><p>delete_elastic_doc_View: a class to delete an article with its Id</p></li>
+<li><p>update_elastic_doc_View: a class to update some article fields (or all of them) and estValidee &lt;— 1</p></li>
+<li><p>get_nb_articles: a class to get the number of articles in the elastic search server</p></li>
+<li><p>ConnectToES: a function to connect to the elastic search server</p></li>
+<li><p>process_pdf_file: a function to extract the data from a pdf file</p></li>
+<li><p>get_env_variables: a function to get the environment variables</p></li>
+</ul>
+</div></blockquote>
+<dl class="py function">
+<dt class="sig sig-object py" id="ArticlesManager.views.ConnectToES">
+<span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">ConnectToES</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#ConnectToES"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.ConnectToES" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.delete_elastic_doc_View">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">delete_elastic_doc_View</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#delete_elastic_doc_View"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.delete_elastic_doc_View" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.delete_elastic_doc_View.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IdArticle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#delete_elastic_doc_View.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.delete_elastic_doc_View.delete" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.get_nb_articles">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">get_nb_articles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#get_nb_articles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.get_nb_articles" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.get_nb_articles.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#get_nb_articles.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.get_nb_articles.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.get_non_valid_elastic_docs_View">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">get_non_valid_elastic_docs_View</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#get_non_valid_elastic_docs_View"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.get_non_valid_elastic_docs_View" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.get_non_valid_elastic_docs_View.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#get_non_valid_elastic_docs_View.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.get_non_valid_elastic_docs_View.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.save_uploaded_article_View">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">save_uploaded_article_View</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#save_uploaded_article_View"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.save_uploaded_article_View" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.save_uploaded_article_View.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#save_uploaded_article_View.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.save_uploaded_article_View.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.search_elastic_docs_by_id_View">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">search_elastic_docs_by_id_View</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#search_elastic_docs_by_id_View"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.search_elastic_docs_by_id_View" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.search_elastic_docs_by_id_View.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#search_elastic_docs_by_id_View.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.search_elastic_docs_by_id_View.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.search_elastic_docs_by_txt_View">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">search_elastic_docs_by_txt_View</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#search_elastic_docs_by_txt_View"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.search_elastic_docs_by_txt_View" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.search_elastic_docs_by_txt_View.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#search_elastic_docs_by_txt_View.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.search_elastic_docs_by_txt_View.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ArticlesManager.views.update_elastic_doc_View">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ArticlesManager.views.</span></span><span class="sig-name descname"><span class="pre">update_elastic_doc_View</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#update_elastic_doc_View"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.update_elastic_doc_View" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ArticlesManager.views.update_elastic_doc_View.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IdArticle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/ArticlesManager/views.html#update_elastic_doc_View.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ArticlesManager.views.update_elastic_doc_View.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-ArticlesManager">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ArticlesManager" title="Link to this heading"></a></h2>
