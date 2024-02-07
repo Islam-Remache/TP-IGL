@@ -347,7 +347,8 @@ def extract_sections_from_pdf_gpt3(pdf_file_path):
         "Titre": title,
         "Resume": abstract,
         "TextIntegral": innerText,
-        "Url": "",
+        "downloadLink": "",
+        "pdfViewerLink": "",
         "DatePublication":datetime.datetime.now().isoformat(),
         "estValidee": 0,
         "Image" : thumbnail,
@@ -480,7 +481,13 @@ def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=Fals
     )
     #create a shared link for the uploaded file
     shared_link_metadata = dbx.sharing_create_shared_link_with_settings(dropbox_path)
-    return shared_link_metadata.url
+    #create a download link for the file
+    download_link = shared_link_metadata.url
+    #replace the dl=0 with dl=1 to make the file downloadable
+    download_link = download_link.replace("dl=0", "dl=1")
+    #create a pdf viewer link for the file
+    pdf_viewer_link = download_link.replace("www.dropbox.com", "dl.dropboxusercontent.com")
+    return pdf_viewer_link, download_link
 
 def process_pdf_file(pdf_file_path):
     """
@@ -492,14 +499,12 @@ def process_pdf_file(pdf_file_path):
         # Upload the file to dropbox
         url = upload_file_to_dropbox(pdf_file_path)
         # Add the URL to the sections
-        sections["Url"] = url
+        sections["downloadLink"] = url[1]
+        sections["pdfViewerLink"] = url[0]
         return sections
     except Exception as e:
         return {"error": str(e)}
 
-
-path = './tests/Article_08.pdf'
-print(process_pdf_file(path))
 
 
 
