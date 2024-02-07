@@ -11,6 +11,8 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework import status
 ############################################
 # Create your views here.
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 def userIsAuthenticated(idCurrentUser):
     users = Utilisateur.objects.get(id = idCurrentUser)
@@ -50,23 +52,61 @@ class SignUpView(APIView): #****************************************************
             return Response({'message': 'Invalid data. Please provide fullname, email, and password.'}, status=status.HTTP_400_BAD_REQUEST)
 
         user_to_auth = User.objects.create_user(email, email, password)
-        favorites = Favories.objects.create(id=user_to_auth.id,listIdsArticles=[])
+        favorites = Favories.objects.create(listIdsArticles=[])
         utilisateur = Utilisateur.objects.create(id=user_to_auth.id, user=user_to_auth, fullname=fullname, favorites=favorites)
+        utilisateur_serializer = UtilisateurSerializer(utilisateur)
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            return Response({'message': 'Sign up successful', 'id': user.id}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Sign up successful', 'user': utilisateur_serializer.data}, status=status.HTTP_201_CREATED)
         else : 
-            return Response({'message': 'Sign up successful but you need to do logIn'})
+            return Response({'message': 'Sign up successful but you need to do logIn'},status=status.HTTP_400_BAD_REQUEST)
     
+def user_exists(id):
+    try:
+        user = Utilisateur.objects.get(id=id)
+        return True
+    except Utilisateur.DoesNotExist:
+        return False
+
+def moderateur_exists(id):
+    try:
+        user = Moderateur.objects.get(id=id)
+        return True
+    except Moderateur.DoesNotExist:
+        return False
+    
+def administrateur_exists(id):
+    try:
+        user = Administrateur.objects.get(id=id)
+        return True
+    except Administrateur.DoesNotExist:
+        return False
+
+def is_valid_email(email):
+    try:
+        validate_email(email)
+        return True
+    except ValidationError:
+        return False
+
 class LogInView(APIView): #******************************************************************************
     def post(self, request):
         email = request.data.get('email')
+        if not is_valid_email(email=email) :
+            return Response({'message': 'Invalid email.'}, status=status.HTTP_400_BAD_REQUEST)
         password = request.data.get('password')
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            return Response({'message': 'Login successful', 'id': user.id , 'email': user.email}, status=status.HTTP_200_OK)
+            role = 0
+            isUtilisateur = user_exists(id=user.id)
+            if (not isUtilisateur):
+                role = 1
+                isModerateur = moderateur_exists(id=user.id)
+                if (not isModerateur):
+                    role = 2
+            return Response({'message': 'Login successful', 'id': user.id , 'email': user.email, 'role':role}, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'Login failed. Invalid credentials.'}, status=status.HTTP_401_UNAUTHORIZED)
         
