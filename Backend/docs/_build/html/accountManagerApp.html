@@ -50,16 +50,58 @@
 <li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html">ArticlesManager package</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">accountManagerApp package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#accountmanagerapp-admin-module">accountManagerApp.admin module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.admin">accountManagerApp.admin module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.apps">accountManagerApp.apps module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.apps.AccountmanagerappConfig"><code class="docutils literal notranslate"><span class="pre">AccountmanagerappConfig</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#accountmanagerapp-models-module">accountManagerApp.models module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#accountmanagerapp-serializer-module">accountManagerApp.serializer module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#accountmanagerapp-tests-module">accountManagerApp.tests module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#accountmanagerapp-urls-module">accountManagerApp.urls module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#accountmanagerapp-views-module">accountManagerApp.views module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.models">accountManagerApp.models module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.models.Administrateur"><code class="docutils literal notranslate"><span class="pre">Administrateur</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.models.Favories"><code class="docutils literal notranslate"><span class="pre">Favories</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.models.Moderateur"><code class="docutils literal notranslate"><span class="pre">Moderateur</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.models.Operation"><code class="docutils literal notranslate"><span class="pre">Operation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.models.Utilisateur"><code class="docutils literal notranslate"><span class="pre">Utilisateur</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.serializer">accountManagerApp.serializer module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.serializer.AdministrateurSerializer"><code class="docutils literal notranslate"><span class="pre">AdministrateurSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.serializer.FavoriesSerializer"><code class="docutils literal notranslate"><span class="pre">FavoriesSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.serializer.ModerateurSerializer"><code class="docutils literal notranslate"><span class="pre">ModerateurSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.serializer.OperationSerializer"><code class="docutils literal notranslate"><span class="pre">OperationSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.serializer.UserSerializer"><code class="docutils literal notranslate"><span class="pre">UserSerializer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.serializer.UtilisateurSerializer"><code class="docutils literal notranslate"><span class="pre">UtilisateurSerializer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.tests">accountManagerApp.tests module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.tests.TestApi"><code class="docutils literal notranslate"><span class="pre">TestApi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.tests.TestUrls"><code class="docutils literal notranslate"><span class="pre">TestUrls</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.tests.TestUtilisateurModel"><code class="docutils literal notranslate"><span class="pre">TestUtilisateurModel</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.urls">accountManagerApp.urls module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp.views">accountManagerApp.views module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.AjouterAuFavoriesView"><code class="docutils literal notranslate"><span class="pre">AjouterAuFavoriesView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.CreateModerateurView"><code class="docutils literal notranslate"><span class="pre">CreateModerateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.CreerOperationView"><code class="docutils literal notranslate"><span class="pre">CreerOperationView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetAdministrateurView"><code class="docutils literal notranslate"><span class="pre">GetAdministrateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetAllModerateurView"><code class="docutils literal notranslate"><span class="pre">GetAllModerateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetAllOperationsView"><code class="docutils literal notranslate"><span class="pre">GetAllOperationsView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetFavoriesView"><code class="docutils literal notranslate"><span class="pre">GetFavoriesView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetModerateurView"><code class="docutils literal notranslate"><span class="pre">GetModerateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetNbModerateursView"><code class="docutils literal notranslate"><span class="pre">GetNbModerateursView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetNbUtilisateursView"><code class="docutils literal notranslate"><span class="pre">GetNbUtilisateursView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.GetUtilisateurView"><code class="docutils literal notranslate"><span class="pre">GetUtilisateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.LogInView"><code class="docutils literal notranslate"><span class="pre">LogInView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.LogOutView"><code class="docutils literal notranslate"><span class="pre">LogOutView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.ModifierModerateurView"><code class="docutils literal notranslate"><span class="pre">ModifierModerateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.SignUpView"><code class="docutils literal notranslate"><span class="pre">SignUpView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.SupprimerDuFavoriesView"><code class="docutils literal notranslate"><span class="pre">SupprimerDuFavoriesView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.SupprimerModerateur"><code class="docutils literal notranslate"><span class="pre">SupprimerModerateur</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.UtilisateurView"><code class="docutils literal notranslate"><span class="pre">UtilisateurView</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#accountManagerApp.views.userIsAuthenticated"><code class="docutils literal notranslate"><span class="pre">userIsAuthenticated()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-accountManagerApp">Module contents</a></li>
 </ul>
 </li>
@@ -100,8 +142,8 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="accountmanagerapp-admin-module">
-<h2>accountManagerApp.admin module<a class="headerlink" href="#accountmanagerapp-admin-module" title="Link to this heading"></a></h2>
+<section id="module-accountManagerApp.admin">
+<span id="accountmanagerapp-admin-module"></span><h2>accountManagerApp.admin module<a class="headerlink" href="#module-accountManagerApp.admin" title="Link to this heading"></a></h2>
 </section>
 <section id="module-accountManagerApp.apps">
 <span id="accountmanagerapp-apps-module"></span><h2>accountManagerApp.apps module<a class="headerlink" href="#module-accountManagerApp.apps" title="Link to this heading"></a></h2>
@@ -122,20 +164,705 @@
 </dd></dl>
 
 </section>
-<section id="accountmanagerapp-models-module">
-<h2>accountManagerApp.models module<a class="headerlink" href="#accountmanagerapp-models-module" title="Link to this heading"></a></h2>
+<section id="module-accountManagerApp.models">
+<span id="accountmanagerapp-models-module"></span><h2>accountManagerApp.models module<a class="headerlink" href="#module-accountManagerApp.models" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.models.</span></span><span class="sig-name descname"><span class="pre">Administrateur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/models.html#Administrateur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.models.Administrateur" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#accountManagerApp.models.Administrateur.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#accountManagerApp.models.Administrateur.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.fullname">
+<span class="sig-name descname"><span class="pre">fullname</span></span><a class="headerlink" href="#accountManagerApp.models.Administrateur.fullname" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#accountManagerApp.models.Administrateur.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#accountManagerApp.models.Administrateur.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#accountManagerApp.models.Administrateur.user" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Administrateur.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#accountManagerApp.models.Administrateur.user_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.models.</span></span><span class="sig-name descname"><span class="pre">Favories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">listIdsArticles</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/models.html#Favories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.models.Favories" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#accountManagerApp.models.Favories.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#accountManagerApp.models.Favories.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#accountManagerApp.models.Favories.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories.listIdsArticles">
+<span class="sig-name descname"><span class="pre">listIdsArticles</span></span><a class="headerlink" href="#accountManagerApp.models.Favories.listIdsArticles" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#accountManagerApp.models.Favories.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Favories.utilisateur">
+<span class="sig-name descname"><span class="pre">utilisateur</span></span><a class="headerlink" href="#accountManagerApp.models.Favories.utilisateur" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.models.</span></span><span class="sig-name descname"><span class="pre">Moderateur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imageUrl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/models.html#Moderateur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.models.Moderateur" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.fullname">
+<span class="sig-name descname"><span class="pre">fullname</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.fullname" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.imageUrl">
+<span class="sig-name descname"><span class="pre">imageUrl</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.imageUrl" title="Link to this definition"></a></dt>
+<dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
+assigning the width/height to the width_field/height_field, if appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#accountManagerApp.models.Moderateur.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.user" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Moderateur.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#accountManagerApp.models.Moderateur.user_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.models.</span></span><span class="sig-name descname"><span class="pre">Operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moderateurImageUrl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moderateurFullName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titreArticle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOperation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/models.html#Operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.models.Operation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.moderateurFullName">
+<span class="sig-name descname"><span class="pre">moderateurFullName</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.moderateurFullName" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.moderateurImageUrl">
+<span class="sig-name descname"><span class="pre">moderateurImageUrl</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.moderateurImageUrl" title="Link to this definition"></a></dt>
+<dd><p>Just like the FileDescriptor, but for ImageFields. The only difference is
+assigning the width/height to the width_field/height_field, if appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#accountManagerApp.models.Operation.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.titreArticle">
+<span class="sig-name descname"><span class="pre">titreArticle</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.titreArticle" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Operation.typeOperation">
+<span class="sig-name descname"><span class="pre">typeOperation</span></span><a class="headerlink" href="#accountManagerApp.models.Operation.typeOperation" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.models.</span></span><span class="sig-name descname"><span class="pre">Utilisateur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fullname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">favorites</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/models.html#Utilisateur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.models.Utilisateur" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.DoesNotExist" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.MultipleObjectsReturned" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.favorites">
+<span class="sig-name descname"><span class="pre">favorites</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.favorites" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.favorites_id">
+<span class="sig-name descname"><span class="pre">favorites_id</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.favorites_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.fullname">
+<span class="sig-name descname"><span class="pre">fullname</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.fullname" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.id" title="Link to this definition"></a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#accountManagerApp.models.Utilisateur.objects" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.user">
+<span class="sig-name descname"><span class="pre">user</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.user" title="Link to this definition"></a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.models.Utilisateur.user_id">
+<span class="sig-name descname"><span class="pre">user_id</span></span><a class="headerlink" href="#accountManagerApp.models.Utilisateur.user_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="accountmanagerapp-serializer-module">
-<h2>accountManagerApp.serializer module<a class="headerlink" href="#accountmanagerapp-serializer-module" title="Link to this heading"></a></h2>
+<section id="module-accountManagerApp.serializer">
+<span id="accountmanagerapp-serializer-module"></span><h2>accountManagerApp.serializer module<a class="headerlink" href="#module-accountManagerApp.serializer" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.AdministrateurSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.serializer.</span></span><span class="sig-name descname"><span class="pre">AdministrateurSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#AdministrateurSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.AdministrateurSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.AdministrateurSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#AdministrateurSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.AdministrateurSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.AdministrateurSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['user',</span> <span class="pre">'fullname']</span></em><a class="headerlink" href="#accountManagerApp.serializer.AdministrateurSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.AdministrateurSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accountManagerApp.serializer.AdministrateurSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#accountManagerApp.models.Administrateur" title="accountManagerApp.models.Administrateur"><code class="xref py py-class docutils literal notranslate"><span class="pre">Administrateur</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.FavoriesSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.serializer.</span></span><span class="sig-name descname"><span class="pre">FavoriesSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#FavoriesSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.FavoriesSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.FavoriesSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#FavoriesSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.FavoriesSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.FavoriesSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'listIdsArticles']</span></em><a class="headerlink" href="#accountManagerApp.serializer.FavoriesSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.FavoriesSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accountManagerApp.serializer.FavoriesSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#accountManagerApp.models.Favories" title="accountManagerApp.models.Favories"><code class="xref py py-class docutils literal notranslate"><span class="pre">Favories</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.ModerateurSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.serializer.</span></span><span class="sig-name descname"><span class="pre">ModerateurSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#ModerateurSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.ModerateurSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.ModerateurSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#ModerateurSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.ModerateurSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.ModerateurSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['user',</span> <span class="pre">'fullname',</span> <span class="pre">'imageUrl']</span></em><a class="headerlink" href="#accountManagerApp.serializer.ModerateurSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.ModerateurSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accountManagerApp.serializer.ModerateurSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#accountManagerApp.models.Moderateur" title="accountManagerApp.models.Moderateur"><code class="xref py py-class docutils literal notranslate"><span class="pre">Moderateur</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.OperationSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.serializer.</span></span><span class="sig-name descname"><span class="pre">OperationSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#OperationSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.OperationSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.OperationSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#OperationSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.OperationSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.OperationSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'moderateurImageUrl',</span> <span class="pre">'moderateurFullName',</span> <span class="pre">'titreArticle',</span> <span class="pre">'typeOperation']</span></em><a class="headerlink" href="#accountManagerApp.serializer.OperationSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.OperationSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accountManagerApp.serializer.OperationSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#accountManagerApp.models.Operation" title="accountManagerApp.models.Operation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Operation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UserSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.serializer.</span></span><span class="sig-name descname"><span class="pre">UserSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#UserSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.UserSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UserSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#UserSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.UserSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UserSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['id',</span> <span class="pre">'username']</span></em><a class="headerlink" href="#accountManagerApp.serializer.UserSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UserSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accountManagerApp.serializer.UserSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UtilisateurSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.serializer.</span></span><span class="sig-name descname"><span class="pre">UtilisateurSerializer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#UtilisateurSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.UtilisateurSerializer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSerializer</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UtilisateurSerializer.Meta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Meta</span></span><a class="reference internal" href="_modules/accountManagerApp/serializer.html#UtilisateurSerializer.Meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.serializer.UtilisateurSerializer.Meta" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UtilisateurSerializer.Meta.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['user',</span> <span class="pre">'fullname',</span> <span class="pre">'favorites']</span></em><a class="headerlink" href="#accountManagerApp.serializer.UtilisateurSerializer.Meta.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.serializer.UtilisateurSerializer.Meta.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#accountManagerApp.serializer.UtilisateurSerializer.Meta.model" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#accountManagerApp.models.Utilisateur" title="accountManagerApp.models.Utilisateur"><code class="xref py py-class docutils literal notranslate"><span class="pre">Utilisateur</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="accountmanagerapp-tests-module">
-<h2>accountManagerApp.tests module<a class="headerlink" href="#accountmanagerapp-tests-module" title="Link to this heading"></a></h2>
+<section id="module-accountManagerApp.tests">
+<span id="accountmanagerapp-tests-module"></span><h2>accountManagerApp.tests module<a class="headerlink" href="#module-accountManagerApp.tests" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestApi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.tests.</span></span><span class="sig-name descname"><span class="pre">TestApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestApi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestApi" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestApi.test_GET">
+<span class="sig-name descname"><span class="pre">test_GET</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestApi.test_GET"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestApi.test_GET" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestUrls">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.tests.</span></span><span class="sig-name descname"><span class="pre">TestUrls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestUrls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestUrls" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestUrls.test_url_currentAuth">
+<span class="sig-name descname"><span class="pre">test_url_currentAuth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestUrls.test_url_currentAuth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestUrls.test_url_currentAuth" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestUtilisateurModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.tests.</span></span><span class="sig-name descname"><span class="pre">TestUtilisateurModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">methodName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'runTest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestUtilisateurModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestUtilisateurModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TestCase</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestUtilisateurModel.setUp">
+<span class="sig-name descname"><span class="pre">setUp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestUtilisateurModel.setUp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestUtilisateurModel.setUp" title="Link to this definition"></a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.tests.TestUtilisateurModel.test_utilisateurfullname_field">
+<span class="sig-name descname"><span class="pre">test_utilisateurfullname_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/tests.html#TestUtilisateurModel.test_utilisateurfullname_field"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.tests.TestUtilisateurModel.test_utilisateurfullname_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="accountmanagerapp-urls-module">
-<h2>accountManagerApp.urls module<a class="headerlink" href="#accountmanagerapp-urls-module" title="Link to this heading"></a></h2>
+<section id="module-accountManagerApp.urls">
+<span id="accountmanagerapp-urls-module"></span><h2>accountManagerApp.urls module<a class="headerlink" href="#module-accountManagerApp.urls" title="Link to this heading"></a></h2>
 </section>
-<section id="accountmanagerapp-views-module">
-<h2>accountManagerApp.views module<a class="headerlink" href="#accountmanagerapp-views-module" title="Link to this heading"></a></h2>
+<section id="module-accountManagerApp.views">
+<span id="accountmanagerapp-views-module"></span><h2>accountManagerApp.views module<a class="headerlink" href="#module-accountManagerApp.views" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.AjouterAuFavoriesView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">AjouterAuFavoriesView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#AjouterAuFavoriesView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.AjouterAuFavoriesView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.AjouterAuFavoriesView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idArticle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#AjouterAuFavoriesView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.AjouterAuFavoriesView.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.CreateModerateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">CreateModerateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#CreateModerateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.CreateModerateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.CreateModerateurView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#CreateModerateurView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.CreateModerateurView.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.CreerOperationView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">CreerOperationView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#CreerOperationView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.CreerOperationView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.CreerOperationView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titreArticle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">typeOperation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#CreerOperationView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.CreerOperationView.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetAdministrateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetAdministrateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetAdministrateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetAdministrateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetAdministrateurView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetAdministrateurView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetAdministrateurView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetAllModerateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetAllModerateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetAllModerateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetAllModerateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetAllModerateurView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetAllModerateurView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetAllModerateurView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetAllOperationsView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetAllOperationsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetAllOperationsView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetAllOperationsView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetAllOperationsView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetAllOperationsView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetAllOperationsView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetFavoriesView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetFavoriesView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetFavoriesView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetFavoriesView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetFavoriesView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetFavoriesView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetFavoriesView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetModerateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetModerateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetModerateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetModerateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetModerateurView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetModerateurView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetModerateurView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetNbModerateursView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetNbModerateursView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetNbModerateursView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetNbModerateursView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetNbModerateursView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetNbModerateursView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetNbModerateursView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetNbUtilisateursView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetNbUtilisateursView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetNbUtilisateursView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetNbUtilisateursView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetNbUtilisateursView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetNbUtilisateursView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetNbUtilisateursView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetUtilisateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">GetUtilisateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetUtilisateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetUtilisateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.GetUtilisateurView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#GetUtilisateurView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.GetUtilisateurView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.LogInView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">LogInView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#LogInView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.LogInView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.LogInView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#LogInView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.LogInView.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.LogOutView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">LogOutView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#LogOutView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.LogOutView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.LogOutView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#LogOutView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.LogOutView.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.ModifierModerateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">ModifierModerateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#ModifierModerateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.ModifierModerateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.ModifierModerateurView.put">
+<span class="sig-name descname"><span class="pre">put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idModerateur</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#ModifierModerateurView.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.ModifierModerateurView.put" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.SignUpView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">SignUpView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#SignUpView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.SignUpView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.SignUpView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#SignUpView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.SignUpView.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.SupprimerDuFavoriesView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">SupprimerDuFavoriesView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#SupprimerDuFavoriesView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.SupprimerDuFavoriesView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.SupprimerDuFavoriesView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idArticle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#SupprimerDuFavoriesView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.SupprimerDuFavoriesView.post" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.SupprimerModerateur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">SupprimerModerateur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#SupprimerModerateur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.SupprimerModerateur" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APIView</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="accountManagerApp.views.SupprimerModerateur.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idModerateur</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#SupprimerModerateur.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.SupprimerModerateur.delete" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="accountManagerApp.views.UtilisateurView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">UtilisateurView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#UtilisateurView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.UtilisateurView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ListCreateAPIView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.views.UtilisateurView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;QuerySet</span> <span class="pre">[&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">2</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">2</span> <span class="pre">,</span> <span class="pre">raouf1&#64;raouf1.com</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">raouf1&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">3</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">3</span> <span class="pre">,</span> <span class="pre">aa&#64;aa</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">aa&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">4</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">4</span> <span class="pre">,</span> <span class="pre">vv</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">vvv&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">5</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">5</span> <span class="pre">,</span> <span class="pre">cc&#64;cc</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">cc&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">6</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">6</span> <span class="pre">,</span> <span class="pre">mm</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">mm&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">7</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">7</span> <span class="pre">,</span> <span class="pre">xx</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">xx&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">8</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">8</span> <span class="pre">,</span> <span class="pre">qq</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">qq&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">9</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">9</span> <span class="pre">,</span> <span class="pre">fds&#64;fds</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">fds&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">10</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">10</span> <span class="pre">,</span> <span class="pre">jamal</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">jamal&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">11</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">11</span> <span class="pre">,</span> <span class="pre">mahmoud</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">mahmoud&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">12</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">12</span> <span class="pre">,</span> <span class="pre">hakim</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">hakim&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">13</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">13</span> <span class="pre">,</span> <span class="pre">bad</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">bad&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">14</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">14</span> <span class="pre">,</span> <span class="pre">abdo</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">abd0&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">15</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">15</span> <span class="pre">,</span> <span class="pre">hakimo</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">hakimo&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">16</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">16</span> <span class="pre">,</span> <span class="pre">il</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">il&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">17</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">17</span> <span class="pre">,</span> <span class="pre">nim</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">nim&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">21</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">21</span> <span class="pre">,</span> <span class="pre">fds</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">fd&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">22</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">22</span> <span class="pre">,</span> <span class="pre">raouf&#64;raouf</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">raouf&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">23</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">23</span> <span class="pre">,</span> <span class="pre">hakou</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">hakou&gt;,</span> <span class="pre">&lt;Utilisateur:</span> <span class="pre">(id</span> <span class="pre">Utilisateur)</span> <span class="pre">:</span> <span class="pre">28</span> <span class="pre">,</span> <span class="pre">Account</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">28</span> <span class="pre">,</span> <span class="pre">essay&#64;essay</span> <span class="pre">]</span> <span class="pre">,</span> <span class="pre">fullname</span> <span class="pre">:</span> <span class="pre">essay&gt;]&gt;</span></em><a class="headerlink" href="#accountManagerApp.views.UtilisateurView.queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="accountManagerApp.views.UtilisateurView.serializer_class">
+<span class="sig-name descname"><span class="pre">serializer_class</span></span><a class="headerlink" href="#accountManagerApp.views.UtilisateurView.serializer_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#accountManagerApp.serializer.UtilisateurSerializer" title="accountManagerApp.serializer.UtilisateurSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UtilisateurSerializer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="accountManagerApp.views.test">
+<span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="accountManagerApp.views.userIsAuthenticated">
+<span class="sig-prename descclassname"><span class="pre">accountManagerApp.views.</span></span><span class="sig-name descname"><span class="pre">userIsAuthenticated</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idCurrentUser</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/accountManagerApp/views.html#userIsAuthenticated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#accountManagerApp.views.userIsAuthenticated" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-accountManagerApp">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-accountManagerApp" title="Link to this heading"></a></h2>

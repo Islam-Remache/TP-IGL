@@ -47,15 +47,19 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">backend</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html">ArticlesManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html">accountManagerApp package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="django_app.html">django_app package</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">func_extract package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-func_extract.extruct">func_extract.extruct module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_content_in_range"><code class="docutils literal notranslate"><span class="pre">extract_content_in_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_references"><code class="docutils literal notranslate"><span class="pre">extract_references()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_sections_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_sections_from_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_sections_from_pdf_gpt3"><code class="docutils literal notranslate"><span class="pre">extract_sections_from_pdf_gpt3()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_text_from_first_page_of_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_first_page_of_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_text_from_last_page_of_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_last_page_of_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_text_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_title_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_title_from_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.getInnerText"><code class="docutils literal notranslate"><span class="pre">getInnerText()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.get_thumbnail_from_pdf"><code class="docutils literal notranslate"><span class="pre">get_thumbnail_from_pdf()</span></code></a></li>
@@ -110,6 +114,11 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_references">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_references" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="func_extract.extruct.extract_sections_from_pdf">
 <span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_sections_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_sections_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_sections_from_pdf" title="Link to this definition"></a></dt>
 <dd><p>this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
@@ -142,6 +151,14 @@ loop through the pages of the pdf file and extract the text from the text contai
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_text_from_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_text_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_text_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_text_from_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string
+it uses the pdfminer library to extract the text from the pdf file
+loop through the pages of the pdf file and extract the text from the text containers and the characters</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="func_extract.extruct.extract_title_from_pdf">
 <span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_title_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_title_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_title_from_pdf" title="Link to this definition"></a></dt>
 <dd><p>this function to get the title of the pdf file
@@ -152,7 +169,7 @@ note that in some pdf files the title is not the biggest text in the pdf file or
 
 <dl class="py function">
 <dt class="sig sig-object py" id="func_extract.extruct.getInnerText">
-<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">getInnerText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#getInnerText"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.getInnerText" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">getInnerText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abstract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#getInnerText"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.getInnerText" title="Link to this definition"></a></dt>
 <dd><p>this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string
 it uses the pdfminer library to extract the text from the pdf file
 loop through the pages of the pdf file and extract the text from the text containers and the characters</p>
