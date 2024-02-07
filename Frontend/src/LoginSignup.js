@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-export const LoginSignupUser = () => {
+export const LoginSignup = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
@@ -21,6 +21,12 @@ export const LoginSignupUser = () => {
           pauseOnHover: true,
         }
       );
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      toast.error("Format d'email invalide. Veuillez le saisir à nouveau !", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     } else if (!pass) {
       toast.error("Veuillez entrer votre mot de pass pour vous connecter !", {
         autoClose: 3000,
@@ -37,15 +43,19 @@ export const LoginSignupUser = () => {
           localStorage.setItem("responseId", res.data.id);
           console.log(localStorage.getItem("responseId"));
           if (res.status == "200") {
-            toast.success(
-              "Félicitations ! Vous avez authentifié avec succès",
-              {
-                autoClose: 3000,
-                closeOnClick: true,
-                pauseOnHover: true,
-              }
-            );
-            navigate("/user");
+            toast.success("Félicitations ! Vous avez authentifié avec succès", {
+              autoClose: 3000,
+              closeOnClick: true,
+              pauseOnHover: true,
+            });
+            console.log(res.data.id)
+            if (res.data.role == 0) {
+              navigate("/user");
+            } else if (res.data.role == 1) {
+              navigate("/moderateur");
+            } else {
+              navigate("/admin");
+            }
           }
         })
         .catch(function (error) {
@@ -66,9 +76,7 @@ export const LoginSignupUser = () => {
         closeOnClick: true,
         pauseOnHover: true,
       });
-    }
-    else
-    if (!email) {
+    } else if (!email) {
       toast.error(
         "Veuillez entrer votre email de pass pour pouvoir vous inscrire !",
         {
@@ -77,8 +85,13 @@ export const LoginSignupUser = () => {
           pauseOnHover: true,
         }
       );
-    } else
-    if (!pass) {
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      toast.error("Format d'email invalide. Veuillez le saisir à nouveau !", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+    } else if (!pass) {
       toast.error(
         "Veuillez entrer votre mot de pass pour pouvoir vous inscrire !",
         {
@@ -87,7 +100,7 @@ export const LoginSignupUser = () => {
           pauseOnHover: true,
         }
       );
-    }  else {
+    } else {
       axios
         .post("http://127.0.0.1:8000/signUp/", {
           fullname: name,

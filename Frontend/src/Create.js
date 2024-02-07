@@ -16,9 +16,17 @@ export const Create = () => {
         closeOnClick: true,
         pauseOnHover: true,
       });
-    } 
-    else if (!email) {
-      toast.error("Veuillez entrer l'adresse e-mail du modérateur à ajouter !", {
+    } else if (!email) {
+      toast.error(
+        "Veuillez entrer l'adresse e-mail du modérateur à ajouter !",
+        {
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        }
+      );
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      toast.error("Format d'email invalide. Veuillez le saisir à nouveau !", {
         autoClose: 3000,
         closeOnClick: true,
         pauseOnHover: true,

@@ -4,8 +4,7 @@ import { Recherche } from "./Recherche";
 import { Correction } from "./Correction";
 import { Statistics } from "./Statistics";
 import { Home } from "./Home";
-import { LoginSignupUser } from "./LoginSignupUser";
-import { LoginModerateur } from "./LoginModerateur";
+import { LoginSignup } from "./LoginSignup";
 import { Favorits } from "./Favorits";
 import {useMediaQuery} from "react-responsive";
 import { Moderateur } from "./Moderateur";
@@ -19,7 +18,6 @@ import User from "./User";
 import {UploadedArticles} from "./UploadedArticles"
 import {Details} from "./Details"
 import Popup from "./Popup";
-import { LoginAdmin } from "./LoginAdmin";
 
 
 function App() {
@@ -38,13 +36,12 @@ function App() {
             {/* <Route path="/Edit" element={<Edit />} /> */}
           </Route>
 
-          <Route path='/modirateur' >
+          <Route path='/moderateur' >
             <Route index element={<Correction />} />
           </Route>
 
           <Route path="/user" element={<User />}>
             <Route index element={<Recherche />} />
-            <Route path="Details/:id" element={<Details />}/>
             <Route path="Favorits" >
               <Route index element={<Favorits />} />  
               <Route path="Details/:id" element={<Details />}/>
@@ -52,9 +49,7 @@ function App() {
             <Route path="Popup" element={<Popup />}/>
           </Route>
           <Route path="/" element={<Home />} />
-          <Route path="/LoginSignupUser" element={<LoginSignupUser />} />
-          <Route path="/LoginModerateur" element={<LoginModerateur />} />
-          <Route path="/LoginAdmin" element={<LoginAdmin />} />
+          <Route path="/LoginSignup" element={<LoginSignup />} />
 
           <Route path="*" element={<h1>page not found</h1>} />
 
