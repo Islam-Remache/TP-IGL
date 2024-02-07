@@ -4,7 +4,7 @@ import "./correction.css"; //import the css file
 import { FiDelete } from "react-icons/fi"; //import the delete icon
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { axios } from "axios";
+import axios from './api/axios'
 
 export const Correction = () => {
   //  delele handle function

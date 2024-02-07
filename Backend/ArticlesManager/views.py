@@ -27,7 +27,6 @@ import json
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-load_dotenv()
 from .extruct import process_pdf_file
 
 
