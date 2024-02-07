@@ -465,7 +465,7 @@ def get_thumbnail_from_pdf(pdf_file_path):
 # Function to upload a PDF file to dropbox
 def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
     #upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder="/", overwrite=False):
-    dbx = dropbox.Dropbox('sl.BvE3o9qw9XjKiPbsA1qIyw1zlHuMZ7rNpVSIDhCqBTmqLJLHPBHCcSp4X3urA9mfRg-ezn9DzNKUg_vqCIhJMEtSiO8L2AZRT_yxk6a4uwkZAjyrlfNeJrueTQe9XjK4Rn4SEOATBgzbFVCWaWKkyaY')
+    dbx = dropbox.Dropbox('sl.BvJXxWt6TrgUfPwESjBD8AddGqQI5s2gXImA_Ko_Ey9qZ3ZOmbtxoeHFHlAxIpJpXGigEajiAlqBSdPT84ayCPuQ88e1L0NfsXCJllnl3YNm5wk7WWCVCMILoiSjrlmj4FpsOU-SSSiFTIOc8J_cGVA')
     file_name = os.path.basename(file_path)
     file_path = os.path.abspath(file_path)
     dropbox_path = dropbox_folder + "/" + file_name
@@ -504,12 +504,3 @@ def process_pdf_file(pdf_file_path):
         return sections
     except Exception as e:
         return {"error": str(e)}
-
-
-
-
-
-
-
-
-
