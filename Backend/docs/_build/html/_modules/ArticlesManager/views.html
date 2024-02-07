@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArticlesManager.views &mdash; scisearch  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            scisearch
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">backend</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scisearch</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ArticlesManager.views</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ArticlesManager.views</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">this module contains the views for the ArticlesManager app</span>
+<span class="sd">it contains the following classes:</span>
+<span class="sd">    - save_uploaded_article_View: a class to save the uploaded articles to the elastic search server</span>
+<span class="sd">    - search_elastic_docs_by_txt_View: a class to search articles by text</span>
+<span class="sd">    - search_elastic_docs_by_id_View: a class to search articles by document id</span>
+<span class="sd">    - get_non_valid_elastic_docs_View: a class to get the not valid articles for the moderateur</span>
+<span class="sd">    - delete_elastic_doc_View: a class to delete an article with its Id</span>
+<span class="sd">    - update_elastic_doc_View: a class to update some article fields (or all of them) and estValidee &lt;--- 1</span>
+<span class="sd">    - get_nb_articles: a class to get the number of articles in the elastic search server</span>
+<span class="sd">    - ConnectToES: a function to connect to the elastic search server</span>
+<span class="sd">    - process_pdf_file: a function to extract the data from a pdf file</span>
+<span class="sd">    - get_env_variables: a function to get the environment variables</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">elasticsearch</span> <span class="kn">import</span> <span class="n">Elasticsearch</span><span class="p">,</span> <span class="n">exceptions</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Auteur</span>
+<span class="kn">from</span> <span class="nn">.documents</span> <span class="kn">import</span> <span class="n">ArticleDocument</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="c1">#from dotenv import Dotenv</span>
+<span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">main</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">create_default_context</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+<span class="kn">from</span> <span class="nn">rest_framework.response</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">status</span>
+<span class="kn">from</span> <span class="nn">.extruct</span> <span class="kn">import</span> <span class="n">process_pdf_file</span>
+
+
+
+<span class="c1">#######   get env variables    #######</span>
+<span class="n">main</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
+
+<span class="n">ELASTIC_USER_NAME</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;ELASTIC_USER_NAME&#39;</span><span class="p">)</span>
+<span class="n">ELASTIC_USER_PASSWORD</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;ELASTIC_USER_PASSWORD&#39;</span><span class="p">)</span>
+<span class="n">ELASTIC_HOST</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;ELASTIC_HOST&#39;</span><span class="p">)</span>
+<span class="n">CERT_PATH</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CERT_PATH&#39;</span><span class="p">)</span>
+<span class="n">INDEX_NAME</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;INDEX_NAME&#39;</span><span class="p">)</span>
+
+
+
+<span class="c1">###### Connect to Elastic Search server #####</span>
+
+<div class="viewcode-block" id="ConnectToES">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.ConnectToES">[docs]</a>
+<span class="k">def</span> <span class="nf">ConnectToES</span><span class="p">():</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="n">create_default_context</span><span class="p">(</span><span class="n">cafile</span><span class="o">=</span><span class="n">CERT_PATH</span><span class="p">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">check_hostname</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">verify_mode</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">CERT_NONE</span>
+    <span class="n">es</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">(</span>
+        
+        <span class="n">hosts</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ELASTIC_HOST</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">],</span>
+        <span class="n">basic_auth</span><span class="o">=</span><span class="p">(</span><span class="n">ELASTIC_USER_NAME</span><span class="p">,</span> <span class="n">ELASTIC_USER_PASSWORD</span><span class="p">),</span>
+        <span class="n">ssl_context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+        <span class="n">verify_certs</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">es</span></div>
+
+
+
+<span class="c1">######   Save Uploaded articles To Elastic Search #######</span>
+
+<div class="viewcode-block" id="save_uploaded_article_View">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.save_uploaded_article_View">[docs]</a>
+<span class="k">class</span> <span class="nc">save_uploaded_article_View</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="save_uploaded_article_View.post">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.save_uploaded_article_View.post">[docs]</a>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+            <span class="n">data</span><span class="o">=</span> <span class="n">process_pdf_file</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>  <span class="c1"># Actually here will go the extraction function</span>
+            <span class="n">auteur_instances</span><span class="o">=</span> <span class="p">[]</span>
+        
+            <span class="k">for</span> <span class="n">auteur</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Auteurs&#39;</span><span class="p">]:</span>
+                <span class="n">auteur_instance</span> <span class="o">=</span> <span class="n">Auteur</span><span class="p">(</span>
+                    <span class="n">NomComplet</span><span class="o">=</span><span class="n">auteur</span><span class="p">[</span><span class="s1">&#39;NomComplet&#39;</span><span class="p">],</span>
+                    <span class="n">Institutions</span> <span class="o">=</span> <span class="n">auteur</span><span class="p">[</span><span class="s1">&#39;Institutions&#39;</span><span class="p">]</span>
+                    
+                    <span class="p">)</span>
+
+                <span class="n">instance_dict</span><span class="o">=</span><span class="n">auteur_instance</span><span class="o">.</span><span class="vm">__dict__</span>  
+                <span class="n">instance_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;_state&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">instance_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                
+                
+                <span class="n">auteur_instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">)</span>
+            
+            <span class="n">article_document</span> <span class="o">=</span> <span class="n">ArticleDocument</span><span class="p">(</span>
+                <span class="n">Titre</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Titre&#39;</span><span class="p">],</span>
+                <span class="n">Resume</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Resume&#39;</span><span class="p">],</span>
+                <span class="n">TextIntegral</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;TextIntegral&#39;</span><span class="p">],</span>
+                <span class="n">Url</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Url&#39;</span><span class="p">],</span>
+                <span class="n">DatePublication</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;DatePublication&#39;</span><span class="p">],</span>
+                <span class="n">estValidee</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;estValidee&#39;</span><span class="p">],</span>
+                <span class="n">Auteurs</span> <span class="o">=</span> <span class="n">auteur_instances</span><span class="p">,</span>
+                <span class="n">MotsCle</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;MotsCle&#39;</span><span class="p">],</span>
+                <span class="n">References</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;References&#39;</span><span class="p">]</span>
+            
+            <span class="p">)</span>
+
+            <span class="n">create</span> <span class="o">=</span> <span class="n">article_document</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">refresh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">create</span> <span class="o">==</span> <span class="s1">&#39;created&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s1">&#39;Document created successfully.&#39;</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="s2">&quot;Failed to create document&quot;</span><span class="p">})</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+</div>
+
+
+
+<span class="c1">###### Search articles by text #########</span>
+
+<div class="viewcode-block" id="search_elastic_docs_by_txt_View">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_txt_View">[docs]</a>
+<span class="k">class</span> <span class="nc">search_elastic_docs_by_txt_View</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="search_elastic_docs_by_txt_View.get">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_txt_View.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+            <span class="n">query</span><span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">query_list</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">query_list</span><span class="p">,</span><span class="s1">&#39; ,text: &#39;</span><span class="p">,</span><span class="n">query</span><span class="p">)</span>
+
+            <span class="k">if</span><span class="p">(</span><span class="n">query</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                <span class="n">search_body</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;match_all&quot;</span><span class="p">:</span> <span class="p">{}</span>
+                <span class="p">},</span>
+                <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span>
+                    <span class="s2">&quot;DatePublication&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;desc&quot;</span>
+                    <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span><span class="mi">1000</span>
+                <span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">search_body</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;query&quot;</span><span class="p">:{</span>
+                        <span class="s2">&quot;bool&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;filter&quot;</span><span class="p">:</span> <span class="p">[</span>
+                                    <span class="p">{</span>
+                                    <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                                <span class="s2">&quot;estValidee&quot;</span><span class="p">:</span> <span class="mi">1</span>
+                                    <span class="p">}</span>
+                                    <span class="p">}</span>
+                            <span class="p">],</span>
+
+                            <span class="s2">&quot;must&quot;</span><span class="p">:[{</span>
+                                <span class="s2">&quot;bool&quot;</span><span class="p">:{</span>
+                                    <span class="s2">&quot;should&quot;</span><span class="p">:</span> <span class="p">[</span>
+                                        <span class="p">{</span>
+                                        <span class="s2">&quot;multi_match&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span>
+                                            <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Titre&quot;</span><span class="p">,</span> <span class="s2">&quot;Resume&quot;</span><span class="p">,</span> <span class="s2">&quot;TextIntegral&quot;</span><span class="p">,</span> <span class="s2">&quot;Auteurs.NomComplet&quot;</span><span class="p">]</span>
+                                        <span class="p">}</span>
+                                        <span class="p">},</span>
+                                        <span class="p">{</span>
+                                        <span class="s2">&quot;terms&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                            <span class="s2">&quot;MotsCle&quot;</span><span class="p">:</span> <span class="n">query_list</span>
+                                        <span class="p">}</span>
+                                        <span class="p">},</span>
+                                        <span class="p">{</span>
+                                        <span class="s1">&#39;nested&#39;</span><span class="p">:</span> <span class="p">{</span>
+                                            <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;Auteurs&#39;</span><span class="p">,</span>
+                                            <span class="s1">&#39;query&#39;</span><span class="p">:</span> <span class="p">{</span>
+                                                <span class="s1">&#39;match&#39;</span><span class="p">:</span> <span class="p">{</span>
+                                                    <span class="s1">&#39;Auteurs.NomComplet&#39;</span><span class="p">:</span> <span class="n">query</span>
+                                                <span class="p">}</span>
+                                            <span class="p">}</span>
+                                        <span class="p">}</span>
+                                        <span class="p">},</span>
+                                        
+                                    <span class="p">]</span>
+                                <span class="p">}</span>
+                            <span class="p">}]</span>
+                        <span class="p">}</span>
+                <span class="p">},</span>
+
+                <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                        <span class="s2">&quot;DatePublication&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="s2">&quot;desc&quot;</span>
+                        <span class="p">}</span>
+                        <span class="p">}</span>
+                    <span class="p">],</span>
+
+                <span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="mi">1000</span>
+            <span class="p">}</span>
+
+            <span class="n">results</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">INDEX_NAME</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">search_body</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span> <span class="s1">&#39;Articles Found&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;hits&#39;</span><span class="p">][</span><span class="s1">&#39;hits&#39;</span><span class="p">]})</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+</div>
+
+
+
+<span class="c1">###### Search articles by document id // return Favories #####</span>
+
+<div class="viewcode-block" id="search_elastic_docs_by_id_View">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_id_View">[docs]</a>
+<span class="k">class</span> <span class="nc">search_elastic_docs_by_id_View</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="search_elastic_docs_by_id_View.get">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_id_View.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s1">&#39;ids[]&#39;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">search_body</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;query&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;terms&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;_id&quot;</span> <span class="p">:</span> <span class="n">ids</span>
+                        <span class="p">}</span>
+                    <span class="p">},</span>
+                    <span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="mi">1000</span>
+            <span class="p">}</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+            
+
+        <span class="n">results</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">INDEX_NAME</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">search_body</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">({</span> <span class="s1">&#39;Articles Found&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;hits&#39;</span><span class="p">][</span><span class="s1">&#39;hits&#39;</span><span class="p">]})</span></div>
+</div>
+
+
+
+<span class="c1">###### get the not valid articles for the moderateur #######</span>
+
+<div class="viewcode-block" id="get_non_valid_elastic_docs_View">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.get_non_valid_elastic_docs_View">[docs]</a>
+<span class="k">class</span> <span class="nc">get_non_valid_elastic_docs_View</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="get_non_valid_elastic_docs_View.get">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.get_non_valid_elastic_docs_View.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+
+            <span class="n">search_body</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;match&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;estValidee&quot;</span><span class="p">:</span> <span class="mi">0</span>
+                        <span class="p">}</span>
+            
+                    <span class="p">},</span>
+                    <span class="s1">&#39;size&#39;</span><span class="p">:</span><span class="mi">100</span>
+                <span class="p">}</span>
+                
+
+            <span class="n">results</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">INDEX_NAME</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">search_body</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span> <span class="s1">&#39;Articles Found&#39;</span><span class="p">:</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;hits&#39;</span><span class="p">][</span><span class="s1">&#39;hits&#39;</span><span class="p">]})</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+</div>
+
+
+
+<span class="c1">###### delete an article with its Id ########</span>
+
+<div class="viewcode-block" id="delete_elastic_doc_View">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.delete_elastic_doc_View">[docs]</a>
+<span class="k">class</span> <span class="nc">delete_elastic_doc_View</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="delete_elastic_doc_View.delete">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.delete_elastic_doc_View.delete">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">,</span><span class="n">IdArticle</span><span class="p">):</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+            <span class="n">delet</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">INDEX_NAME</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">IdArticle</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">delet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;deleted&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Document with ID </span><span class="si">{</span><span class="n">IdArticle</span><span class="si">}</span><span class="s1"> deleted successfully.&#39;</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;Failed to delete document with ID </span><span class="si">{</span><span class="n">IdArticle</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+
+        <span class="k">except</span> <span class="n">exceptions</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;Document with ID </span><span class="si">{</span><span class="n">IdArticle</span><span class="si">}</span><span class="s2"> not found.&quot;</span><span class="p">})</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+</div>
+
+
+<span class="c1">##### Update some article fields (or all of them) and estValidee &lt;--- 1 ######</span>
+
+<div class="viewcode-block" id="update_elastic_doc_View">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.update_elastic_doc_View">[docs]</a>
+<span class="k">class</span> <span class="nc">update_elastic_doc_View</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="update_elastic_doc_View.post">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.update_elastic_doc_View.post">[docs]</a>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">,</span><span class="n">IdArticle</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+            <span class="n">updated_data</span> <span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span> 
+
+            <span class="n">update_script_source</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;ctx._source.&quot;</span>
+
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">updated_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    
+                    <span class="n">update_script_source</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2"> = params.</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    
+                    <span class="n">update_script_source</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}{</span><span class="n">key</span><span class="si">}</span><span class="s2"> = params.</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">;&quot;</span>
+                
+            <span class="n">update_script</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;script&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">update_script_source</span><span class="p">,</span>
+                    <span class="s2">&quot;lang&quot;</span><span class="p">:</span> <span class="s2">&quot;painless&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="n">updated_data</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        
+            <span class="n">response</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">INDEX_NAME</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">IdArticle</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">update_script</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;updated&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;Document with ID </span><span class="si">{</span><span class="n">IdArticle</span><span class="si">}</span><span class="s2"> updated successfully.&quot;</span><span class="p">})</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;Failed to update document with ID </span><span class="si">{</span><span class="n">IdArticle</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">})</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="get_nb_articles">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.get_nb_articles">[docs]</a>
+<span class="k">class</span> <span class="nc">get_nb_articles</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+<div class="viewcode-block" id="get_nb_articles.get">
+<a class="viewcode-back" href="../../ArticlesManager.html#ArticlesManager.views.get_nb_articles.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">es</span> <span class="o">=</span> <span class="n">ConnectToES</span><span class="p">()</span>
+            <span class="n">nb</span> <span class="o">=</span> <span class="n">es</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">INDEX_NAME</span><span class="p">)[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;nb&quot;</span><span class="p">:</span> <span class="n">nb</span><span class="p">})</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s2">&quot;message&quot;</span><span class="p">:</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Equipe 1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
