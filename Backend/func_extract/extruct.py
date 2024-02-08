@@ -13,6 +13,18 @@ import os
 from dotenv import main
 import re
 import string
+from dropbox import DropboxOAuth2FlowNoRedirect
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import requests
+import base64
+import aiohttp
+import asyncio
+
 
 
 
@@ -462,14 +474,96 @@ def get_thumbnail_from_pdf(pdf_file_path):
     
     return image.tobytes()
 
-# Function to upload a PDF file to dropbox
-def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
-    #upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder="/", overwrite=False):
+# Function that uses selenium to get the access token from the dropbox
+def get_dropbox_access_token(authorize_url):
+    # Create a new instance of the chrome driver
+    driver = webdriver.Chrome()
+    driver.get(authorize_url)
+    #choose login with google 
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "nsm7Bb-HzV7m-LgbsSe-BPrWId")))
+    span = driver.find_element(By.CLASS_NAME, "nsm7Bb-HzV7m-LgbsSe-BPrWId")
+    span.click()
+    email = 'sterbenrk987'
+    password = 'Sterben 123'
+    driver.find_element(By.XPATH, '//*[@id="identifierId"]').send_keys(email)
+    driver.find_element(By.XPATH, '//*[@id="identifierNext"]/div/button/span').click()
+    time.sleep(5)
+    driver.find_element(By.XPATH, '//*[@id="password"]/div[1]/div/div[1]/input').send_keys(password)
+    driver.find_element(By.XPATH, '//*[@id="passwordNext"]/div/button/span').click()
+    time.sleep(10)                        
+    #allow the app to access the dropbox
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "auth-button")))
+    button = driver.find_element(By.CLASS_NAME, "auth-button")
+    button.click()
+    #get the access token
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, "access-token")))
+    access_token = driver.find_element(By.CLASS_NAME, "access-token").text
+    driver.quit()
+    return access_token
+# Function to auth the user to dropbox
+def auth_dropbox():
+    # get the dropbox token from the environment variables
     APP_KEY = "kz7rk8k7lm1y67g"
     APP_SECRET = "ap7su462vg6bn68"
-    access_token = 'sl.BvNyqJT3zmDbpPd3Aa-PfIZgnga8ObLaeI-30Y2re2Eixmkt2yu-LwRa_wGvzm75nYzxw4Jm-cUjb46dj_r16JdpxMVbqirSpE2FXrWLnuVFU4P_O2UClhUfCnRN0AVo0J4HmMUBbJ8sl24NIbZ1OuQ'
-    refresh_token = '63p2FvDiGWIAAAAAAAAAAaIfehdUEWTMhnxrc8MSPOmTvC3PyruMvX2pp1mvVBnj'
-    dbx = dropbox.Dropbox(oauth2_access_token=access_token, oauth2_refresh_token=refresh_token,app_key=APP_KEY,app_secret=APP_SECRET)
+    flow = DropboxOAuth2FlowNoRedirect(APP_KEY, APP_SECRET ,token_access_type='offline')
+    authorize_url = flow.start()
+    print('1. Go to: ' + authorize_url)
+    print('2. Click "Allow" (you might have to log in first)')
+    print('3. Copy the authorization code.')
+    auth_code = input("Enter the authorization code here: ").strip()
+    try:
+        oauth_result = flow.finish(auth_code)
+    except Exception as e:
+        print('Error: %s' % (e,))   
+      
+    return oauth_result.access_token , oauth_result.refresh_token
+
+
+
+async def refresh_dropbox_token():
+    # Define your app key and app secret
+    app_key = "kz7rk8k7lm1y67g"
+    app_secret = "ap7su462vg6bn68"
+
+    # Define your refresh token
+    refresh_token = 'BWNfDcMljgsAAAAAAAAAAbhsAJwnl46wp-phiH9bzH7-pbZBVQWmgsySEvoHQ3bW'
+
+    # Encode the app key and app secret
+    credentials = f"{app_key}:{app_secret}"
+    base64authorization = base64.b64encode(credentials.encode()).decode()
+
+    # Define the endpoint URL
+    url = "https://api.dropbox.com/oauth2/token"
+
+    # Define the payload
+    payload = {
+        "refresh_token": refresh_token,
+        "grant_type": "refresh_token"
+    }
+
+    # Define headers
+    headers = {
+        "Authorization": f"Basic {base64authorization}",
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    # Make the POST request
+    response = requests.post(url, data=payload, headers=headers)
+    # Process the response
+    if response.status_code == 200:
+        print("Token refreshed successfully.")
+        print(response.json())  # or process the JSON response as needed
+    else:
+        print("Error refreshing token:")
+        print(response.status_code)
+        print(response.text)  # or process the error response as needed
+    data = response.json()
+    return data
+# Function to upload a PDF file to dropbox
+def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
+    data = asyncio.run(refresh_dropbox_token())
+    access_token = data["access_token"]
+    dbx = dropbox.Dropbox(oauth2_access_token=access_token)
     file_name = os.path.basename(file_path)
     file_path = os.path.abspath(file_path)
     dropbox_path = dropbox_folder + "/" + file_name
@@ -493,7 +587,6 @@ def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=Fals
     pdf_viewer_link = download_link.replace("www.dropbox.com", "dl.dropboxusercontent.com")
     return pdf_viewer_link, download_link
 
-
 def process_pdf_file(pdf_file_path):
     """
     this function takes the file , extracts the sections and uploads the file to dropbox
@@ -509,4 +602,15 @@ def process_pdf_file(pdf_file_path):
         return sections
     except Exception as e:
         return {"error": str(e)}
-    
+
+
+path = './tests/Article_11.pdf'
+print(upload_file_to_dropbox(path))
+
+
+
+
+
+
+
+
