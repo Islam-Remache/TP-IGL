@@ -465,7 +465,11 @@ def get_thumbnail_from_pdf(pdf_file_path):
 # Function to upload a PDF file to dropbox
 def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=False):
     #upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder="/", overwrite=False):
-    dbx = dropbox.Dropbox('sl.BvIu-_XzXcMOIMjQ2w-NU4mVsru4GuGDNUFAxUYbr-5oHIu3WCr3nYk4S70ha1PGArX4C4ZfvZJcvf3hZmzRwQ9kkNMqWt8gre4kJR0cRnZZ5C3snjk-0uSHBYzu6d-307ooUBF9S49DKkaC7QmMWbU')
+    APP_KEY = "kz7rk8k7lm1y67g"
+    APP_SECRET = "ap7su462vg6bn68"
+    access_token = 'sl.BvNyqJT3zmDbpPd3Aa-PfIZgnga8ObLaeI-30Y2re2Eixmkt2yu-LwRa_wGvzm75nYzxw4Jm-cUjb46dj_r16JdpxMVbqirSpE2FXrWLnuVFU4P_O2UClhUfCnRN0AVo0J4HmMUBbJ8sl24NIbZ1OuQ'
+    refresh_token = '63p2FvDiGWIAAAAAAAAAAaIfehdUEWTMhnxrc8MSPOmTvC3PyruMvX2pp1mvVBnj'
+    dbx = dropbox.Dropbox(oauth2_access_token=access_token, oauth2_refresh_token=refresh_token,app_key=APP_KEY,app_secret=APP_SECRET)
     file_name = os.path.basename(file_path)
     file_path = os.path.abspath(file_path)
     dropbox_path = dropbox_folder + "/" + file_name
@@ -488,6 +492,7 @@ def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=Fals
     #create a pdf viewer link for the file
     pdf_viewer_link = download_link.replace("www.dropbox.com", "dl.dropboxusercontent.com")
     return pdf_viewer_link, download_link
+
 
 def process_pdf_file(pdf_file_path):
     """
