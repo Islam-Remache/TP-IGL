@@ -6,6 +6,7 @@ import { LuDownload } from "react-icons/lu";
 import image from "./images/articleCover.PNG"; //import the image articleCover
 import { useParams } from 'react-router-dom';
 import { useState } from "react";
+import axios from "./api/axios";
 export const Details = () => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -14,13 +15,41 @@ export const Details = () => {
     setIsClicked(!isClicked);
   };
 
-  const [showPdf,setShowPdf]=useState(false)
-  const storedJsonString = localStorage.getItem('myObjectKey');
-  const storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
-  const storedObject = [...storedObject1['data']]
-  const from = storedObject1['from'] 
+  const addToFavorits = ()=>{
+    axios.post(`http://127.0.0.1:8000/ajouterAuFavories/${doc["_id"]}/${localStorage.getItem("responseId")}/`,{})
+  }
 
-  const { id } = useParams();
+  const RemoveOfFavorits = ()=>{
+    axios.post(`http://127.0.0.1:8000/supprimerDuFavories/${doc["_id"]}/${localStorage.getItem("responseId")}/`,{})
+  }
+  const { f,id } = useParams();
+  const [showPdf,setShowPdf]=useState(false)
+  let storedJsonString 
+  let storedObject1 
+  let storedObject 
+  let from 
+  let fav1 
+   if(f === undefined){
+    storedJsonString = localStorage.getItem('myObjectKey');
+    storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
+    storedObject = [...storedObject1['data']]
+    from = storedObject1['from']
+    fav1 = storedObject1['fav']
+   }else{
+    localStorage.removeItem('myObjectKey')
+    storedJsonString = localStorage.getItem('myObjectKey2');
+    storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
+    storedObject = [...storedObject1['data']]
+    from = storedObject1['from']
+   }
+
+
+
+  //fav1?.map(id => {fav.push(id);console.log(id)})
+  //console.log(typeof fav)
+
+
+  
   const doc = storedObject.find(obj => obj._id === id);
 
   let titre = "Online Accounting Softwaring";
@@ -96,17 +125,25 @@ export const Details = () => {
           <span className="articleIcons">
           {from === 'F' && isClicked &&  (
             
-            <CiHeart className="icon" onClick={handleClick} />
+            <CiHeart className="heartDownload" onClick={()=>{handleClick();addToFavorits()}} />
       ) || from === 'F' && !isClicked &&  (
-        <FaHeart className="heartDownload"  onClick={handleClick} 
+        <FaHeart className="icon"  onClick={()=>{handleClick();RemoveOfFavorits()}} 
         />
         
-      ) || from ==='R' && isClicked &&  (
-        <FaHeart className="icon" onClick={handleClick} />
+      ) || from ==='R' && isClicked && !(fav1.indexOf(doc["_id"])>-1) && (
+        <FaHeart className="icon" onClick={()=>{handleClick();RemoveOfFavorits()}} />
      
         
-      ) || from ==='R' && !isClicked &&  (
-        <CiHeart className="heartDownload"  onClick={handleClick} 
+      ) || from ==='R' && isClicked && (fav1.indexOf(doc["_id"])>-1) &&  (
+        <CiHeart className="heartDownload" onClick={()=>{handleClick();addToFavorits()}} />
+     
+        
+      ) || from ==='R' && !isClicked && !(fav1.indexOf(doc["_id"])>-1) &&  (
+        <CiHeart className="heartDownload"  onClick={()=>{handleClick();addToFavorits()}} 
+        />
+        
+      )|| from ==='R' && !isClicked && (fav1.indexOf(doc["_id"])>-1) &&  (
+        <FaHeart className="icon"  onClick={()=>{handleClick();RemoveOfFavorits()}} 
         />
         
       )}
