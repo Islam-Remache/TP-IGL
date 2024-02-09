@@ -109,7 +109,8 @@
 .favorits .card-container .info .more:hover {
     background-color: #191ab0;
 }
-.favorits .card-container .info div {
+
+.favorits .card-container .info .tag {
     font-size: 13px;
     line-height: 1.5;
     color: #777;
@@ -118,10 +119,27 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.favorits .card-container .info div .tags {
+.favorits .card-container .info .tag .tags {
     color: black;
     font-size: 16px;
     font-weight: 600;
     margin-top: 5px;
     margin-right: 8px;
+}
+.favorits .card-container .info .moreDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.favorits .card-container .info .moreDetails .arrow {
+    color: #000080;
+    font-size: 17px;
+}
+.favorits .card-container .info .moreDetails:hover .arrow {
+    animation: more .6s linear infinite;
+}
+@keyframes more {
+    100% {
+        translate: 10px;
+    }
 }
