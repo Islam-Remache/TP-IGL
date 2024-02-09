@@ -32,10 +32,12 @@ nav ul {
     display: flex;
 }
 nav ul.open {
+    padding: 0;
     display: flex;
     transition: .3s;
 }
 nav ul li {
+    width: fit-content;
     list-style: none;
 }
 nav ul li a {
@@ -72,13 +74,13 @@ nav .menu {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 42px;
-    height: 33px;
+    width: 34px;
+    height: 28px;
     cursor: pointer;
     display: none;
 }
 nav .menu span {
-    height: 6px;
+    height: 5px;
     width: 100%;
     background-color: #CCCCCC;
     border-radius: 3px;
@@ -98,7 +100,7 @@ nav .menu span {
         width: 100%;
     }
     nav ul li {
-        width: 50%;
+        width: fit-content;
         text-align: center;
     }
     nav ul li a {

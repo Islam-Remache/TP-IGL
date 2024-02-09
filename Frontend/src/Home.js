@@ -3,17 +3,10 @@ import './Home.css'
 export const Home = () => {
   return (
     <div>
-      {/* <!-- Start Header --> */}
-      <header className="header">
         <Link to={"/"} className="logo">
           <span>Sci</span>Search
         </Link>
-      </header>
-      {/* <!-- End Header --> */}
-      {/* <!-- Start Landing --> */}
       <div className="landing">
-        <div className="container">
-          <div className="overlay"></div>
           <div className="text">
             <h2>
               Rechercher Votre
@@ -30,10 +23,7 @@ export const Home = () => {
               </Link>
             </div>
           </div>
-        </div>
       </div>
-      {/* Main Js File  */}
-      <script src="js/script.js"></script>
     </div>
   );
 };
