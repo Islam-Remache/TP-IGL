@@ -13,11 +13,36 @@ import axios from "./api/axios";
 import { FaRegHeart } from "react-icons/fa";
 
 export const Recherche = () => {
-  ///
-  const [result2, setResult2] = useState([]);
-  const [result, setResult] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
 
+  useEffect(() => {
+    async function fetchData() {
+      // Retrieve myObjectKey from local storage
+      const storedJsonString = localStorage.getItem('myObjectKey');
+  
+      // Check if myObjectKey exists in local storage
+      if (storedJsonString) {
+        const storedObject = JSON.parse(storedJsonString);
+  
+        // Fetch data and update myObjectKey
+        const resp = await axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`);
+  
+        localStorage.setItem("myObjectKey", JSON.stringify({
+          data: storedObject.data || [],  // Ensure data is an array
+          from: "R",
+          fav: resp.data.listIdsArticles
+        }));
+      }
+    }
+  
+    fetchData();
+  }, []);
+  
+  
+  ///
+  const [result2, setResult2] = useState(localStorage.getItem('myObjectKey')?[... JSON.parse(localStorage.getItem('myObjectKey'))['data']]:[]);
+  const [result, setResult] = useState(localStorage.getItem('myObjectKey')?[... JSON.parse(localStorage.getItem('myObjectKey'))['data']]:[])
+  const [searchInput, setSearchInput] = useState("");
+  const [Fav,setFav]=useState([])
   const handleChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -29,9 +54,14 @@ export const Recherche = () => {
     );
     setResult(res.data["Articles Found"]);
     setResult2(res.data["Articles Found"]);
+    const resp = await axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`)
+    setFav(resp.data.listIdsArticles)
+    console.log(resp.data.listIdsArticles)
+
     const jsonString = JSON.stringify({
       data: [...res.data["Articles Found"]],
       from: "R",
+      fav : resp.data.listIdsArticles
     });
     localStorage.setItem("myObjectKey", jsonString);
   };

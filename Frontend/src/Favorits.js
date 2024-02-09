@@ -12,35 +12,39 @@ import axios from "./api/axios";
 import { FaArrowRight } from "react-icons/fa";
 //Heart icon
 export const Favorits = (props) => {
-  const [favorites, setFavorites] = useState([]);
-  useEffect(() => {
-    console.log(localStorage.getItem("responseId"));
-    axios
-      .get(
-        `http://127.0.0.1:8000/getFavories/${localStorage.getItem(
-          "responseId"
-        )}/`
-      )
-      .then((resp) => {
-        const queryParams = resp.data.listIdsArticles
-          ?.map((id) => `ids[]=${encodeURIComponent(id)}`)
-          .join("&");
-        console.log("gg", queryParams);
-        axios
-          .get(
-            `http://localhost:8000/ArticlesManager/getFavories/?${queryParams}`
-          )
-          .then((res) => {
-            setFavorites(res.data);
-            const jsonString = JSON.stringify({
-              data: [...res.data["Articles Found"]],
-              from: "F",
-            });
-            localStorage.setItem("myObjectKey", jsonString);
-            console.log(res.data);
-          });
+
+  const [favorites ,setFavorites]=useState([]);
+  useEffect(()=>{
+    console.log(localStorage.getItem('responseId'));
+    axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`).then((resp)=>{
+    const queryParams = resp.data.listIdsArticles?.map(id => `ids[]=${encodeURIComponent(id)}`).join('&')
+    console.log("gg",queryParams);
+    axios.get(`http://localhost:8000/ArticlesManager/getFavories/?${queryParams}`).then((res) => {
+      setFavorites(res.data);
+      const jsonString = JSON.stringify({data:[...res.data['Articles Found']],from:'F'});
+      localStorage.setItem('myObjectKey2', jsonString);
+      console.log(res.data)
+    });
+  })
+  },[])
+
+
+  const RemoveOfFavorits = (id)=>{
+    axios.post(`http://127.0.0.1:8000/supprimerDuFavories/${id}/${localStorage.getItem("responseId")}/`,{}).then(()=>{
+      console.log(localStorage.getItem('responseId'));
+      axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`).then((resp)=>{
+      const queryParams = resp.data.listIdsArticles?.map(id => `ids[]=${encodeURIComponent(id)}`).join('&')
+      console.log("gg",queryParams);
+      axios.get(`http://localhost:8000/ArticlesManager/getFavories/?${queryParams}`).then((res) => {
+        setFavorites(res.data);
+        const jsonString = JSON.stringify({data:[...res.data['Articles Found']],from:'F'});
+        localStorage.setItem('myObjectKey', jsonString);
+        console.log(res.data)
       });
-  }, []);
+    })  
+    })
+  }
+
   return (
     <>
       <h2 className="titleFavoris">Favoris</h2>
@@ -52,7 +56,7 @@ export const Favorits = (props) => {
           return (
             <div className="card-container">
               <div className="heart">
-                <FaHeart className="icon" />
+                <FaHeart className="icon" onClick={()=>{RemoveOfFavorits(id)}} />
               </div>
               <img
                 className="articleImg"
@@ -74,12 +78,13 @@ export const Favorits = (props) => {
                     {record.MotsCle.join(" , ")}
                   </div>
                   <div className="moreDetails">
-                  <Link className="more" to={`Details/${record.id}`}>
+                  <Link className="more" to={`Details/${1}/${id}`}>
                     Plus
                   </Link>
                   <FaArrowRight className="arrow" />
                 </div>
               </div>
+
             </div>
           );
         })}

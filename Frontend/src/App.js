@@ -48,7 +48,7 @@ function App() {
             <Route path="Details/:id" element={<Details />}/>
             <Route path="Favorits" >
               <Route index element={<Favorits />} />  
-              <Route path="Details/:id" element={<Details />}/>
+              <Route path="Details/:f/:id" element={<Details />}/>
             </Route>
             <Route path="Popup" element={<Popup />}/>
           </Route>
