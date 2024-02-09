@@ -24,6 +24,9 @@ import requests
 import base64
 import aiohttp
 import asyncio
+from Google import Create_Service
+from googleapiclient.http import MediaFileUpload
+
 
 
 
@@ -586,6 +589,8 @@ def upload_file_to_dropbox(file_path, dropbox_folder="/articles", overwrite=Fals
     #create a pdf viewer link for the file
     pdf_viewer_link = download_link.replace("www.dropbox.com", "dl.dropboxusercontent.com")
     return pdf_viewer_link, download_link
+# Function to upload a PDF file to Google Drive 
+
 
 def process_pdf_file(pdf_file_path):
     """
@@ -602,11 +607,41 @@ def process_pdf_file(pdf_file_path):
         return sections
     except Exception as e:
         return {"error": str(e)}
+    
 
+# Function to upload a pdf file to google drive
+def upload_file_to_google_drive(path):
+    CLEINT_SECRET_FILE = "client.json"
+    API_NAME = "drive"
+    API_VERSION = "v3"
+    SCOPES = ["https://www.googleapis.com/auth/drive"]
+    servive = Create_Service(CLEINT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+    folder_id = "1kEakhWK95nNoeAVY-ncm5z_2GYW978JO"
+    file_name = os.path.basename(path)
+    mime_type = "application/pdf"
 
-path = './tests/Article_11.pdf'
-print(upload_file_to_dropbox(path))
+    file_metadata = {
+        "name": file_name,
+        "parents": [folder_id]
+    }
 
+    media = MediaFileUpload(path, mimetype=mime_type)
+    servive.files().create(
+        body=file_metadata,
+        media_body=media,
+        fields="id"
+    ).execute()
+    #get the download link and the pdf viewer link of the file
+    file_id = servive.files().list(q=f"name='{file_name}'").execute()["files"][0]["id"]
+    download_link = f"https://drive.google.com/uc?id={file_id}"
+    pdf_viewer_link = f"https://drive.google.com/file/d/{file_id}/preview"
+    return download_link, pdf_viewer_link
+
+    
+    
+
+path = './tests/Article_02.pdf'
+print(upload_file_to_google_drive(path))
 
 
 
