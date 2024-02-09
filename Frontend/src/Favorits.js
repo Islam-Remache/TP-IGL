@@ -9,6 +9,7 @@ import "./images/article8.png";
 import "./images/article9.webp";
 import { FaHeart } from "react-icons/fa";
 import axios from "./api/axios";
+import { FaArrowRight } from "react-icons/fa";
 //Heart icon
 export const Favorits = (props) => {
   const [favorites, setFavorites] = useState([]);
@@ -68,13 +69,16 @@ export const Favorits = (props) => {
                 </div>
               </div>
               <div className="info">
-              <div title={record.MotsCle}>
+              <div title={record.MotsCle} className="tag">
                     <span className="tags">Tags:</span>
                     {record.MotsCle.join(" , ")}
                   </div>
-                <Link className="more" to={`Details/${id}`}>
-                  Plus
-                </Link>
+                  <div className="moreDetails">
+                  <Link className="more" to={`Details/${record.id}`}>
+                    Plus
+                  </Link>
+                  <FaArrowRight className="arrow" />
+                </div>
               </div>
             </div>
           );
