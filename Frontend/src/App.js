@@ -13,6 +13,7 @@ import { Create } from "./Create";
 import { Edit } from "./Edit";
 import Dashboard from "./Dashboard";
 import User from "./User";
+import All2 from "./All2";
 
 
 import {UploadedArticles} from "./UploadedArticles"
@@ -37,11 +38,14 @@ function App() {
           </Route>
 
           <Route path='/moderateur' >
-            <Route index element={<Correction />} />
+          <Route index element={<All2 />} />
+           <Route path='Edit/:id' element={<Correction />} />
+            
           </Route>
 
           <Route path="/user" element={<User />}>
             <Route index element={<Recherche />} />
+            <Route path="Details/:id" element={<Details />}/>
             <Route path="Favorits" >
               <Route index element={<Favorits />} />  
               <Route path="Details/:id" element={<Details />}/>

@@ -65,7 +65,10 @@ class save_uploaded_article_View(APIView):
     def post(self,request):
         try:
             es = ConnectToES()
-            data= process_pdf_file("path")  # Actually here will go the extraction function
+            pdf_url =json.loads(request.body.decode('utf-8')) 
+            print(pdf_url['Url'])
+            data= process_pdf_file(pdf_url['Url'])  # Actually here will go the extraction function
+            print(data)
             auteur_instances= []
         
             for auteur in data['Auteurs']:

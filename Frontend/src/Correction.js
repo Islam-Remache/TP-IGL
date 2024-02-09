@@ -7,55 +7,63 @@ import { Link } from "react-router-dom";
 import axios from "./api/axios";
 import { useParams } from "react-router-dom";
 
-export const Correction = ({ match, articles }) => {
-  const { id } = useParams();
-  const articleId = parseInt(id, 10);
-  const article = Object.values(articles).find(
-    (article) => article.id === articleId
-  );
-  console.log(articleId);
-  console.log(article.id);
-
-  //the title of the article
-  const [title, setTitle] = useState(article ? article["_source"].Titre : "");
+export const Correction = () => {
+  const [title, setTitle] = useState("");
   //the content of the article
-  const [integratedText, setIntegratedText] = useState(
-    article ? article["_source"].TextIntegral : ""
-  );
+  const [integratedText, setIntegratedText] = useState("");
   //the resume of the article
-  const [resume, setResume] = useState(
-    article ? article["_source"].resume : ""
-  );
+  const [resume, setResume] = useState("");
   //all the keyWords extracted from the article
-  const [list, setList] = useState(article ? article["_source"].MotsCle : []);
+  const [list, setList] = useState([]);
+  
   //all the references of the article
-  const [list2, setList2] = useState(
-    article ? article["_source"].References : []
-  );
+  const [list2, setList2] = useState( []);
+
   //state that represents the reference that we want to add
   const [reference, setReference] = useState("");
   //state that represents the keyword that we want to add
   const [keyWord, setKeyWord] = useState("");
   //create the html elements related to each key word
 
-  const [list3, setList3] = useState(article["_source"].Auteurs);
+  const [keyWord2, setKeyWord2] = useState("");
+
+  const [list3, setList3] = useState([]);
+  console.log(list3)
   const [author, setAuthor] = useState("");
   const [institution, setInstitution] = useState("");
+  const { id } = useParams();
+  //const articleId = parseInt(id, 10);
+  const [article,setArticle] = useState({})
+  useEffect(() => {
+  const storedJsonString = localStorage.getItem('myObjectKey');
+  const storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
+  setArticle(Object.values(storedObject1).find(
+    (article) => article["_id"] === id
+  ))
+}, [id]);
+ // console.log(articleId);
+ // console.log(article.id);
 
-  let doc = {
-    id: article["_id"],
-    Titre: title,
-    resume: resume,
-    TextIntegral: integratedText,
-    Url: article.Url,
-    DatePublication: article.DatePublication,
-    estValidee: 1,
-    Auteurs: list3,
-    MotsCle: list,
-    References: list2,
-  };
+  //the title of the article
 
-  // //  delele handle function
+  useEffect(()=>{
+    if (article && article["_source"]){
+    setTitle(article["_source"].Titre)
+    setResume(article["_source"].Resume)
+    setIntegratedText(article["_source"].TextIntegral)
+    setList(article["_source"].MotsCle)
+    setList2(article["_source"].References)
+    setList3(article["_source"].Auteurs)
+    }
+  }
+    ,[article])
+
+
+ 
+
+
+
+  //  delele handle function
   // const handleDelete = async ()=>{
   //   let jj = "2bUZ1owB6FhGCMPlXy6E"
   //   const res = await axios.delete(`http://localhost:8000/ArticlesManager/Delete/${jj}/`)
@@ -63,23 +71,39 @@ export const Correction = ({ match, articles }) => {
   // }
 
   //   //  update handle function
-  //   const handleUpdate = async ()=>{
+    const handleUpdate = async ()=>{
+    let doc = {
+      
+      Titre: title,
+      Resume: resume,
+      TextIntegral: integratedText,
+      Url: article["_source"].Url,
+      DatePublication: article["_source"].DatePublication,
+      estValidee: 0,
+      Auteurs: list3,
+      MotsCle: list,
+      References: list2,
+    };
 
-  //     let jj = "2rUe1owB6FhGCMPlTy41"
-  //     console.log(doc)
-  //     const res = await axios.post(`http://localhost:8000/ArticlesManager/Update/${jj}/`,doc,{
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         // Add any other headers as needed
-  //       },})
-  //     console.log(res)
-  //   }
+      let jj = "2rUe1owB6FhGCMPlTy41"
+      console.log(doc)
+      const res = await axios.post(`http://localhost:8000/ArticlesManager/Update/${article["_id"]}/`,doc,{
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as needed
+        },})
+      console.log(res)
+    }
 
   const createAuthorsAndInstitutions = () => {
     return list3.map((element, index) => (
       <div className="authAnDinst">
-        <article id="auth">{element.NomComplet}</article>
-        <article id="inst">{element.Institutions[0].Nom}</article>
+        <input type="text" value={element.NomComplet} onChange={(event)=>{setList3((prevList) =>
+  prevList.map((ele, ind) => (index === ind ? {NomComplet:event.target.value,Institutions:ele.Institutions} : ele))
+);}}></input>
+        <input type="text" value={element.Institutions[0].Nom} onChange={(event)=>{setList3((prevList) =>
+  prevList.map((ele, ind) => (index === ind ? {NomComplet:ele.NomComplet,Institutions:[{Email:ele.Institutions[0].Email,Nom:event.target.value}]}  : ele))
+);}}></input>
         <FiDelete //delete icon
           className="Deleteicon"
           onClick={() => remove3(element.NomComplet)}
@@ -119,11 +143,13 @@ export const Correction = ({ match, articles }) => {
   };
 
   const createKeyWords = (i) => {
-    return list.map((element) => (
+    return list.map((element,index) => (
       <article>
-        <p>{element}</p>
+        <input type="text" value={element} onChange={(event)=>{setList((prevList) =>
+  prevList.map((ele, ind) => (index === ind ? event.target.value : ele))
+);}}></input>
         <FiDelete //delete icon
-          className="iconDelete"
+          className="iconDelete1"
           onClick={() => remove(element)}
         />
       </article>
@@ -133,9 +159,11 @@ export const Correction = ({ match, articles }) => {
   const createReferences = () => {
     return list2.map((element, index) => (
       <article key={index} className="ref">
-        <p>{element}</p>
+       <input type="text" value={element} onChange={(event)=>{setList2((prevList) =>
+  prevList.map((ele, ind) => (index === ind ? event.target.value : ele))
+);}}></input>
         <FiDelete //delete icon
-          className="iconDelete"
+          className="iconDelete2"
           onClick={() => remove2(element)}
         />
       </article>
@@ -166,8 +194,8 @@ export const Correction = ({ match, articles }) => {
     setReference(event.target.value);
   };
   //remove a keyWord from list using its id
-  const remove = (id) => {
-    setList(list.filter((ele) => ele.id !== id));
+  const remove = (element) => {
+    setList(list.filter((ele) => ele!== element));
   };
   //remove a reference from list using its id
   const remove2 = (element) => {
@@ -230,6 +258,7 @@ export const Correction = ({ match, articles }) => {
         <div className="secondDiv">
           <label className="integ">texte intégrale :</label>
           <textarea
+          value={integratedText}
             className="integ"
             onChange={(event) => {
               setIntegratedText(event.target.value);
@@ -242,6 +271,7 @@ export const Correction = ({ match, articles }) => {
           </button>
           <label>Résumé :</label>
           <textarea
+          value={resume}
             id="resume"
             onChange={(event) => {
               setResume(event.target.value);
@@ -311,7 +341,7 @@ export const Correction = ({ match, articles }) => {
         </div>
 
         <div className="decision">
-          <button id="st">Valider</button>
+          <button id="st" onClick={handleUpdate}>Valider</button>
           <button id="nd">Supprimer</button>
         </div>
       </form>

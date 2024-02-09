@@ -3,10 +3,23 @@ import "./Uploaded.css";
 // import React, { useEffect, Link } from "react";
 // // import axios from "./api/axios";
 import { Link } from "react-router-dom";
-import { articles } from "./Uploaded.json";
+//import { articles } from "./Uploaded.json";
 // import { useState } from "react";
+import axios from "./api/axios";
+import { useState } from "react";
 
-export default function All2() {
+export default  function All2() {
+  const [articles,setArticles] = useState([])
+  axios.get('http://localhost:8000/ArticlesManager/getNonValid/').then((res)=>{
+    setArticles(res.data["Articles Found"])
+    const jsonString = JSON.stringify(res.data["Articles Found"]);
+    localStorage.setItem("myObjectKey", jsonString);
+  }
+  
+
+  )
+
+
   return (
     <div id="all2">
       <div className="head">
@@ -14,6 +27,8 @@ export default function All2() {
       </div>
       <div className="Uploaded">
         {Object.values(articles).map((record) => {
+              let id = record["_id"];
+              record = record["_source"];
           return (
             <div className="card-container">
               <img alt="article-img" src={require("./file.png")} />
@@ -24,8 +39,8 @@ export default function All2() {
                 ))}
               </div>
               <div className="info">
-                <Link className="more" to={`/Modirateur/${record.id}`}>
-                  Plus
+                <Link className="more" to={`Edit/${id}`}>
+                 Vérifier l'article
                 </Link>
               </div>
             </div>

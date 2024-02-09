@@ -5,7 +5,16 @@ import { FaHeart } from "react-icons/fa";
 import { LuDownload } from "react-icons/lu";
 import image from "./images/articleCover.PNG"; //import the image articleCover
 import { useParams } from 'react-router-dom';
+import { useState } from "react";
 export const Details = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    // Your logic here
+    setIsClicked(!isClicked);
+  };
+
+  const [showPdf,setShowPdf]=useState(false)
   const storedJsonString = localStorage.getItem('myObjectKey');
   const storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
   const storedObject = [...storedObject1['data']]
@@ -85,12 +94,23 @@ export const Details = () => {
           <img src={image} alt="not found" id="imgDetails" />{" "}
           {/*article's cover*/}
           <span className="articleIcons">
-          {from === 'F' ? (
-            <FaHeart className="icon"/>
-      ) : (
-        <CiHeart className="heartDownload" />
+          {from === 'F' && isClicked &&  (
+            
+            <CiHeart className="icon" onClick={handleClick} />
+      ) || from === 'F' && !isClicked &&  (
+        <FaHeart className="heartDownload"  onClick={handleClick} 
+        />
+        
+      ) || from ==='R' && isClicked &&  (
+        <FaHeart className="icon" onClick={handleClick} />
+     
+        
+      ) || from ==='R' && !isClicked &&  (
+        <CiHeart className="heartDownload"  onClick={handleClick} 
+        />
+        
       )}
-            <LuDownload className="heartDownload" />
+            <LuDownload className="heartDownload"  />
           </span>
         </div>
 
@@ -108,7 +128,15 @@ export const Details = () => {
       </div>
       <div className="secondDiv">
         <label>Text intégral :</label>
-        <p id="Txt">{doc['_source']['TextIntegral']}</p>
+
+        <div id="integ">
+          <div id="pdfButtons">
+            <button onClick={()=>{setShowPdf(false)}}>Format Text</button>
+            <button onClick={()=>{setShowPdf(true)}}>Format PDF</button>
+          </div>
+         {!showPdf ? <p id="Txt">{doc['_source']['TextIntegral']}</p> :  <iframe className="pdf" src="https://drive.google.com/file/d/1eYjZWAqdQ3fBZRxOg8RmjgV2gUGsnfK0/preview" width="70%"  height="100%" allow="autoplay"></iframe>}
+        </div>
+        
         {/* <embed
           src="/Chapitre 4-flots_ROP_23.pdf"
           type="application/pdf"

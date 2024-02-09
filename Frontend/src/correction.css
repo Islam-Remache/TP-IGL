@@ -75,10 +75,10 @@ h7 {
   margin-top: 20px;
 }
 .kWords article {
-  height: 43.5px;
-  border: solid 2px #000080;
-  border-radius: 10px;
-  width: 25%;
+  height: 53.5px;
+  
+  
+  width: 29%;
   display: flex;
 
   flex-direction: row;
@@ -86,19 +86,26 @@ h7 {
   align-items: center;
   margin-bottom: 10px;
   margin-top: 10px;
-  box-shadow: 0px 0px 1.75px #000080;
-  padding-left: 15px;
-  padding-right: 15px;
+  margin-right: 10px;
+  
+  
 }
+.kWords article input{padding-left: 15px;margin-right: 10px;
+  height: 50px;
+  padding-right: 15px;border: solid 2px #000080;font-size: 23px;overflow: hidden;border-radius: 10px;box-shadow: 0px 0px 1.75px #000080;}
+
 .kWords article p {
   text-shadow: 0px 0px 0.75px grey;
   font-size: 25px;
 }
-.iconDelete {
-  cursor: grab;
-  font-size: 25px;
+.iconDelete1 {
+  cursor: pointer;
+  font-size: 55px;
 }
-
+.iconDelete2 {
+  cursor: pointer;
+  font-size: 30px;
+}
 .view {
   display: none;
 }
@@ -113,6 +120,7 @@ h7 {
 }
 .Deleteicon {
   font-size: 30px;
+  cursor: pointer;
 }
 
 .authAnDinst article,
@@ -120,6 +128,7 @@ h7 {
   border: solid 2px #000080;
   border-radius: 10px;
   text-align: left;
+  margin-right: 15px;
   box-shadow: 0px 0px 1.75px #000080;
   padding-left: 15px;
   padding-right: 15px;
@@ -184,7 +193,7 @@ h7 {
   color: #000080;
   background-color: white;
   border: none;
-  cursor: grab;
+  cursor: pointer;
 }
 .add {
   margin-top: 10px;
@@ -209,7 +218,7 @@ h7 {
   border: solid 2px #000080;
   border-radius: 10px;
   height: 550px;
-  overflow: hidden;
+  overflow: auto;
   margin-bottom: 10px;
   box-shadow: 0px 0px 1.75px #000080;
   text-shadow: 0px 0px 0.75px grey;
@@ -221,21 +230,26 @@ h7 {
   margin-top: 10px;
 }
 .ref {
-  height: 50px;
-  border: solid 2px #000080;
-  border-radius: 10px;
+  height: 60px;
+  
   width: 97%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  
+}
+.ref input {
+  font-size: 23px;
+  border: solid 2px #000080;
+  border-radius: 10px;
   box-shadow: 0px 0px 1.75px #000080;
   padding-left: 15px;
   padding-right: 15px;
-}
-.ref p {
-  font-size: 20px;
+  width: 90%;
+  overflow: hidden;
+  height: 50px;
 }
 .decision {
   width: 35%;
@@ -250,7 +264,8 @@ h7 {
   width: 35%;
   height: 50px;
   border-radius: 10px;
-  cursor: grab;
+  margin-bottom: 30px;
+  cursor: pointer;
   box-shadow: 0px 0px 1.75px #000080;
 }
 .decision button:hover {
@@ -300,9 +315,10 @@ h7 {
 
   .integ {
     display: none;
+    
   }
   .view {
-    cursor: grab;
+    cursor: pointer;
     display: block;
     width: 70%;
     margin-left: 15%;
@@ -326,6 +342,7 @@ h7 {
   .kWords article {
     width: 30%;
     height: 50px;
+    
   }
   .authAnDinst {
     flex-direction: column;
