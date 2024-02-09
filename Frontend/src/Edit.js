@@ -31,6 +31,12 @@ export const Edit = (props) => {
           pauseOnHover: true,
         }
       );
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+      toast.error("Format d'email invalide. Veuillez le saisir à nouveau !", {
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
     } else {
       axios
         .put(`http://127.0.0.1:8000/modifierModerateur/${id}/`, {
