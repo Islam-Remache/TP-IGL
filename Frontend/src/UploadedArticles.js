@@ -13,6 +13,26 @@ export const UploadedArticles = (props) => {
       console.log(res.data)
     });
   },[])
+
+  const [pdfLink, setPdfLink] = useState('');
+
+  const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setPdfLink(file.name);
+    
+  }
+};
+
+useEffect(()=>{
+  if(pdfLink !== ''){
+  axios.post("http://localhost:8000/ArticlesManager/save/",{"Url":`C:/Users/DELL/Desktop/Uploads/${pdfLink}`},{
+            headers: {
+              'Content-Type': 'application/json',
+              // Add any other headers as needed
+            },})
+          }
+},[pdfLink])
   return (
     <div id="all">
       <div className="head">
@@ -26,8 +46,7 @@ export const UploadedArticles = (props) => {
             <IoIosAddCircleOutline id="ad" class="fas fa-upload" />
           </div>
         </label>
-        <input type="file" id="file-input" class="file-input" />
-      </div>
+<input type="file" id="file-input" class="file-input" accept=".pdf" onChange={handleFileChange} />      </div>
       <div className="Uploaded">
         {Uploaded['Articles Found']?.map((record) => {
           record = record['_source'];
@@ -36,10 +55,12 @@ export const UploadedArticles = (props) => {
               <img alt="article-img" src={require("./file.png")} />
               <div className="content">
                 <h3>{record.Titre}</h3>
-                <p>{record.Auteurs[0]['NomComplet']}</p>
+                {record.Auteurs.map((ele)=><p>{ele['NomComplet']}</p>)}
+                
               </div>
-              <div className="info">
-                <span title={record.MotsCle[0]}>{record.MotsCle[1]}</span>
+              <div className="infoC">
+                 <span title={record.MotsCle.join(" , ")}>{record.MotsCle.join(" , ")}</span>
+              
               </div>
             </div>
           );

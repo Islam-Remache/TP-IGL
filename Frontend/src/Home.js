@@ -22,10 +22,10 @@ export const Home = () => {
             </h2>
             <p>Explorez le monde de la connaissance scientifique en un clic!</p>
             <div className="links">
-              <Link className="link" to={"/LoginSignupUser"}>
+              <Link className="link" to={"/LoginSignup"}>
                 inscrire
               </Link>
-              <Link className="link" to={"/LoginSignupUser"}>
+              <Link className="link" to={"/LoginSignup"}>
                 connexion
               </Link>
             </div>
