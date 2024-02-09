@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>func_extract package &mdash; scisearch  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="manage module" href="manage.html" />
+    <link rel="prev" title="django_app package" href="django_app.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            scisearch
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">backend</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html">ArticlesManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html">accountManagerApp package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html">django_app package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">func_extract package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-func_extract.extruct">func_extract.extruct module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_content_in_range"><code class="docutils literal notranslate"><span class="pre">extract_content_in_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_references"><code class="docutils literal notranslate"><span class="pre">extract_references()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_sections_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_sections_from_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_sections_from_pdf_gpt3"><code class="docutils literal notranslate"><span class="pre">extract_sections_from_pdf_gpt3()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_text_from_first_page_of_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_first_page_of_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_text_from_last_page_of_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_last_page_of_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_text_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.extract_title_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_title_from_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.getInnerText"><code class="docutils literal notranslate"><span class="pre">getInnerText()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.get_thumbnail_from_pdf"><code class="docutils literal notranslate"><span class="pre">get_thumbnail_from_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.process_pdf_file"><code class="docutils literal notranslate"><span class="pre">process_pdf_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#func_extract.extruct.upload_file_to_dropbox"><code class="docutils literal notranslate"><span class="pre">upload_file_to_dropbox()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-func_extract">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">manage module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">scisearch</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">backend</a></li>
+      <li class="breadcrumb-item active">func_extract package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/func_extract.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="func-extract-package">
+<h1>func_extract package<a class="headerlink" href="#func-extract-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-func_extract.extruct">
+<span id="func-extract-extruct-module"></span><h2>func_extract.extruct module<a class="headerlink" href="#module-func_extract.extruct" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_content_in_range">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_content_in_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_content_in_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_content_in_range" title="Link to this definition"></a></dt>
+<dd><p>Extracts text content within a specified vertical range on a page.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_references">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_references"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_references" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_sections_from_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_sections_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_sections_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_sections_from_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
+it uses the pdfminer library to extract the text from the pdf file
+so the identification of the sections is based on the position of the text on the page and all the work is been done manually
+it is very efficient for pdf files that are in the same format and the same structure</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_sections_from_pdf_gpt3">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_sections_from_pdf_gpt3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_sections_from_pdf_gpt3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_sections_from_pdf_gpt3" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return a dictionary that contains the title , the abstract , the keywords , the authors , the institutions , the references and the inner text of the pdf file
+it uses the openai gpt3.5 to extract the sections from the pdf file while maintaining the structure of the sections</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_text_from_first_page_of_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_text_from_first_page_of_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_text_from_first_page_of_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_text_from_first_page_of_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return the text of the first page of the pdf file as a utf-8 string
+it uses the pdfminer library to extract the text from the pdf file
+loop through the pages of the pdf file and extract the text from the text containers</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_text_from_last_page_of_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_text_from_last_page_of_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_text_from_last_page_of_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_text_from_last_page_of_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return the text of the last 10 pages of the pdf file as a utf-8 string
+it uses the pdfminer library to extract the text from the pdf file
+loop through the pages of the pdf file and extract the text from the text containers</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_text_from_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_text_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_text_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_text_from_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string
+it uses the pdfminer library to extract the text from the pdf file
+loop through the pages of the pdf file and extract the text from the text containers and the characters</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.extract_title_from_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">extract_title_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#extract_title_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.extract_title_from_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function to get the title of the pdf file
+we assume that the title has the biggest font size in the pdf file
+while taking into considiration that the title might be in multiple lines
+note that in some pdf files the title is not the biggest text in the pdf file or the title is not in the first page of the pdf file , in that case the function will not work properly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.getInnerText">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">getInnerText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abstract</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#getInnerText"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.getInnerText" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string
+it uses the pdfminer library to extract the text from the pdf file
+loop through the pages of the pdf file and extract the text from the text containers and the characters</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.get_thumbnail_from_pdf">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">get_thumbnail_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#get_thumbnail_from_pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.get_thumbnail_from_pdf" title="Link to this definition"></a></dt>
+<dd><p>this function take the path of a pdf file and return the thumbnail of the first page of the pdf file as a base64 string
+it uses the fitz library to extract the image of the first page of the pdf file
+the image is then converted to a base64 string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.process_pdf_file">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">process_pdf_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pdf_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#process_pdf_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.process_pdf_file" title="Link to this definition"></a></dt>
+<dd><p>this function takes the file , extracts the sections and uploads the file to dropbox</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="func_extract.extruct.upload_file_to_dropbox">
+<span class="sig-prename descclassname"><span class="pre">func_extract.extruct.</span></span><span class="sig-name descname"><span class="pre">upload_file_to_dropbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropbox_folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/articles'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/func_extract/extruct.html#upload_file_to_dropbox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#func_extract.extruct.upload_file_to_dropbox" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-func_extract">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-func_extract" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="django_app.html" class="btn btn-neutral float-left" title="django_app package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="manage.html" class="btn btn-neutral float-right" title="manage module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Equipe 1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

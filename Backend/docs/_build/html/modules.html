@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>backend &mdash; scisearch  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ArticlesManager package" href="ArticlesManager.html" />
+    <link rel="prev" title="Welcome to scisearch’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            scisearch
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html">ArticlesManager package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html">accountManagerApp package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html">django_app package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_extract.html">func_extract package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="manage.html">manage module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">scisearch</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">backend</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="backend">
+<h1>backend<a class="headerlink" href="#backend" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ArticlesManager.html">ArticlesManager package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.admin">ArticlesManager.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.apps">ArticlesManager.apps module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.apps.ElasticArticlesManagerConfig"><code class="docutils literal notranslate"><span class="pre">ElasticArticlesManagerConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.apps.ElasticArticlesManagerConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">ElasticArticlesManagerConfig.default_auto_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.apps.ElasticArticlesManagerConfig.name"><code class="docutils literal notranslate"><span class="pre">ElasticArticlesManagerConfig.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.documents">ArticlesManager.documents module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument"><code class="docutils literal notranslate"><span class="pre">ArticleDocument</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument.Django"><code class="docutils literal notranslate"><span class="pre">ArticleDocument.Django</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument.Django.fields"><code class="docutils literal notranslate"><span class="pre">ArticleDocument.Django.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument.Django.model"><code class="docutils literal notranslate"><span class="pre">ArticleDocument.Django.model</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument.Index"><code class="docutils literal notranslate"><span class="pre">ArticleDocument.Index</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument.Index.name"><code class="docutils literal notranslate"><span class="pre">ArticleDocument.Index.name</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.documents.ArticleDocument.django"><code class="docutils literal notranslate"><span class="pre">ArticleDocument.django</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.models">ArticlesManager.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article"><code class="docutils literal notranslate"><span class="pre">Article</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.DatePublication"><code class="docutils literal notranslate"><span class="pre">Article.DatePublication</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Article.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Article.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.Resume"><code class="docutils literal notranslate"><span class="pre">Article.Resume</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.TextIntegral"><code class="docutils literal notranslate"><span class="pre">Article.TextIntegral</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.Titre"><code class="docutils literal notranslate"><span class="pre">Article.Titre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.Url"><code class="docutils literal notranslate"><span class="pre">Article.Url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.estValidee"><code class="docutils literal notranslate"><span class="pre">Article.estValidee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.get_next_by_DatePublication"><code class="docutils literal notranslate"><span class="pre">Article.get_next_by_DatePublication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.get_previous_by_DatePublication"><code class="docutils literal notranslate"><span class="pre">Article.get_previous_by_DatePublication()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.id"><code class="docutils literal notranslate"><span class="pre">Article.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.motcle_set"><code class="docutils literal notranslate"><span class="pre">Article.motcle_set</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.objects"><code class="docutils literal notranslate"><span class="pre">Article.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Article.reference_set"><code class="docutils literal notranslate"><span class="pre">Article.reference_set</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur"><code class="docutils literal notranslate"><span class="pre">Auteur</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Auteur.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur.Institutions"><code class="docutils literal notranslate"><span class="pre">Auteur.Institutions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Auteur.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur.NomComplet"><code class="docutils literal notranslate"><span class="pre">Auteur.NomComplet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur.id"><code class="docutils literal notranslate"><span class="pre">Auteur.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Auteur.objects"><code class="docutils literal notranslate"><span class="pre">Auteur.objects</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution"><code class="docutils literal notranslate"><span class="pre">Institution</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Institution.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution.Email"><code class="docutils literal notranslate"><span class="pre">Institution.Email</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Institution.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution.Nom"><code class="docutils literal notranslate"><span class="pre">Institution.Nom</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution.id"><code class="docutils literal notranslate"><span class="pre">Institution.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Institution.objects"><code class="docutils literal notranslate"><span class="pre">Institution.objects</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle"><code class="docutils literal notranslate"><span class="pre">MotCle</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.Article"><code class="docutils literal notranslate"><span class="pre">MotCle.Article</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.Article_id"><code class="docutils literal notranslate"><span class="pre">MotCle.Article_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.Designation"><code class="docutils literal notranslate"><span class="pre">MotCle.Designation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">MotCle.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">MotCle.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.id"><code class="docutils literal notranslate"><span class="pre">MotCle.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.MotCle.objects"><code class="docutils literal notranslate"><span class="pre">MotCle.objects</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference"><code class="docutils literal notranslate"><span class="pre">Reference</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.Article"><code class="docutils literal notranslate"><span class="pre">Reference.Article</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.Article_id"><code class="docutils literal notranslate"><span class="pre">Reference.Article_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.Designation"><code class="docutils literal notranslate"><span class="pre">Reference.Designation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Reference.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Reference.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.id"><code class="docutils literal notranslate"><span class="pre">Reference.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.models.Reference.objects"><code class="docutils literal notranslate"><span class="pre">Reference.objects</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.tests">ArticlesManager.tests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.urls">ArticlesManager.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager.views">ArticlesManager.views module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.ConnectToES"><code class="docutils literal notranslate"><span class="pre">ConnectToES()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.delete_elastic_doc_View"><code class="docutils literal notranslate"><span class="pre">delete_elastic_doc_View</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.delete_elastic_doc_View.delete"><code class="docutils literal notranslate"><span class="pre">delete_elastic_doc_View.delete()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.get_nb_articles"><code class="docutils literal notranslate"><span class="pre">get_nb_articles</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.get_nb_articles.get"><code class="docutils literal notranslate"><span class="pre">get_nb_articles.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.get_non_valid_elastic_docs_View"><code class="docutils literal notranslate"><span class="pre">get_non_valid_elastic_docs_View</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.get_non_valid_elastic_docs_View.get"><code class="docutils literal notranslate"><span class="pre">get_non_valid_elastic_docs_View.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.save_uploaded_article_View"><code class="docutils literal notranslate"><span class="pre">save_uploaded_article_View</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.save_uploaded_article_View.post"><code class="docutils literal notranslate"><span class="pre">save_uploaded_article_View.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_id_View"><code class="docutils literal notranslate"><span class="pre">search_elastic_docs_by_id_View</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_id_View.get"><code class="docutils literal notranslate"><span class="pre">search_elastic_docs_by_id_View.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_txt_View"><code class="docutils literal notranslate"><span class="pre">search_elastic_docs_by_txt_View</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.search_elastic_docs_by_txt_View.get"><code class="docutils literal notranslate"><span class="pre">search_elastic_docs_by_txt_View.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.update_elastic_doc_View"><code class="docutils literal notranslate"><span class="pre">update_elastic_doc_View</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ArticlesManager.html#ArticlesManager.views.update_elastic_doc_View.post"><code class="docutils literal notranslate"><span class="pre">update_elastic_doc_View.post()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ArticlesManager.html#module-ArticlesManager">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="accountManagerApp.html">accountManagerApp package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.admin">accountManagerApp.admin module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.apps">accountManagerApp.apps module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.apps.AccountmanagerappConfig"><code class="docutils literal notranslate"><span class="pre">AccountmanagerappConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.apps.AccountmanagerappConfig.default_auto_field"><code class="docutils literal notranslate"><span class="pre">AccountmanagerappConfig.default_auto_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.apps.AccountmanagerappConfig.name"><code class="docutils literal notranslate"><span class="pre">AccountmanagerappConfig.name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.models">accountManagerApp.models module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur"><code class="docutils literal notranslate"><span class="pre">Administrateur</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Administrateur.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Administrateur.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.fullname"><code class="docutils literal notranslate"><span class="pre">Administrateur.fullname</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.id"><code class="docutils literal notranslate"><span class="pre">Administrateur.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.objects"><code class="docutils literal notranslate"><span class="pre">Administrateur.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.user"><code class="docutils literal notranslate"><span class="pre">Administrateur.user</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Administrateur.user_id"><code class="docutils literal notranslate"><span class="pre">Administrateur.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories"><code class="docutils literal notranslate"><span class="pre">Favories</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Favories.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Favories.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories.id"><code class="docutils literal notranslate"><span class="pre">Favories.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories.listIdsArticles"><code class="docutils literal notranslate"><span class="pre">Favories.listIdsArticles</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories.objects"><code class="docutils literal notranslate"><span class="pre">Favories.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Favories.utilisateur"><code class="docutils literal notranslate"><span class="pre">Favories.utilisateur</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur"><code class="docutils literal notranslate"><span class="pre">Moderateur</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Moderateur.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Moderateur.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.fullname"><code class="docutils literal notranslate"><span class="pre">Moderateur.fullname</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.id"><code class="docutils literal notranslate"><span class="pre">Moderateur.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.imageUrl"><code class="docutils literal notranslate"><span class="pre">Moderateur.imageUrl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.objects"><code class="docutils literal notranslate"><span class="pre">Moderateur.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.user"><code class="docutils literal notranslate"><span class="pre">Moderateur.user</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Moderateur.user_id"><code class="docutils literal notranslate"><span class="pre">Moderateur.user_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation"><code class="docutils literal notranslate"><span class="pre">Operation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Operation.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Operation.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.id"><code class="docutils literal notranslate"><span class="pre">Operation.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.moderateurFullName"><code class="docutils literal notranslate"><span class="pre">Operation.moderateurFullName</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.moderateurImageUrl"><code class="docutils literal notranslate"><span class="pre">Operation.moderateurImageUrl</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.objects"><code class="docutils literal notranslate"><span class="pre">Operation.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.titreArticle"><code class="docutils literal notranslate"><span class="pre">Operation.titreArticle</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Operation.typeOperation"><code class="docutils literal notranslate"><span class="pre">Operation.typeOperation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur"><code class="docutils literal notranslate"><span class="pre">Utilisateur</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Utilisateur.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Utilisateur.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.favorites"><code class="docutils literal notranslate"><span class="pre">Utilisateur.favorites</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.favorites_id"><code class="docutils literal notranslate"><span class="pre">Utilisateur.favorites_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.fullname"><code class="docutils literal notranslate"><span class="pre">Utilisateur.fullname</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.id"><code class="docutils literal notranslate"><span class="pre">Utilisateur.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.objects"><code class="docutils literal notranslate"><span class="pre">Utilisateur.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.user"><code class="docutils literal notranslate"><span class="pre">Utilisateur.user</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.models.Utilisateur.user_id"><code class="docutils literal notranslate"><span class="pre">Utilisateur.user_id</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.serializer">accountManagerApp.serializer module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.AdministrateurSerializer"><code class="docutils literal notranslate"><span class="pre">AdministrateurSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.AdministrateurSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">AdministrateurSerializer.Meta</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.AdministrateurSerializer.Meta.fields"><code class="docutils literal notranslate"><span class="pre">AdministrateurSerializer.Meta.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.AdministrateurSerializer.Meta.model"><code class="docutils literal notranslate"><span class="pre">AdministrateurSerializer.Meta.model</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.FavoriesSerializer"><code class="docutils literal notranslate"><span class="pre">FavoriesSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.FavoriesSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">FavoriesSerializer.Meta</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.FavoriesSerializer.Meta.fields"><code class="docutils literal notranslate"><span class="pre">FavoriesSerializer.Meta.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.FavoriesSerializer.Meta.model"><code class="docutils literal notranslate"><span class="pre">FavoriesSerializer.Meta.model</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.ModerateurSerializer"><code class="docutils literal notranslate"><span class="pre">ModerateurSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.ModerateurSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">ModerateurSerializer.Meta</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.ModerateurSerializer.Meta.fields"><code class="docutils literal notranslate"><span class="pre">ModerateurSerializer.Meta.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.ModerateurSerializer.Meta.model"><code class="docutils literal notranslate"><span class="pre">ModerateurSerializer.Meta.model</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.OperationSerializer"><code class="docutils literal notranslate"><span class="pre">OperationSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.OperationSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">OperationSerializer.Meta</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.OperationSerializer.Meta.fields"><code class="docutils literal notranslate"><span class="pre">OperationSerializer.Meta.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.OperationSerializer.Meta.model"><code class="docutils literal notranslate"><span class="pre">OperationSerializer.Meta.model</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UserSerializer"><code class="docutils literal notranslate"><span class="pre">UserSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UserSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">UserSerializer.Meta</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UserSerializer.Meta.fields"><code class="docutils literal notranslate"><span class="pre">UserSerializer.Meta.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UserSerializer.Meta.model"><code class="docutils literal notranslate"><span class="pre">UserSerializer.Meta.model</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UtilisateurSerializer"><code class="docutils literal notranslate"><span class="pre">UtilisateurSerializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UtilisateurSerializer.Meta"><code class="docutils literal notranslate"><span class="pre">UtilisateurSerializer.Meta</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UtilisateurSerializer.Meta.fields"><code class="docutils literal notranslate"><span class="pre">UtilisateurSerializer.Meta.fields</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.serializer.UtilisateurSerializer.Meta.model"><code class="docutils literal notranslate"><span class="pre">UtilisateurSerializer.Meta.model</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.tests">accountManagerApp.tests module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestApi"><code class="docutils literal notranslate"><span class="pre">TestApi</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestApi.test_GET"><code class="docutils literal notranslate"><span class="pre">TestApi.test_GET()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestUrls"><code class="docutils literal notranslate"><span class="pre">TestUrls</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestUrls.test_url_currentAuth"><code class="docutils literal notranslate"><span class="pre">TestUrls.test_url_currentAuth()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestUtilisateurModel"><code class="docutils literal notranslate"><span class="pre">TestUtilisateurModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestUtilisateurModel.setUp"><code class="docutils literal notranslate"><span class="pre">TestUtilisateurModel.setUp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.tests.TestUtilisateurModel.test_utilisateurfullname_field"><code class="docutils literal notranslate"><span class="pre">TestUtilisateurModel.test_utilisateurfullname_field()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.urls">accountManagerApp.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp.views">accountManagerApp.views module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.AjouterAuFavoriesView"><code class="docutils literal notranslate"><span class="pre">AjouterAuFavoriesView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.AjouterAuFavoriesView.post"><code class="docutils literal notranslate"><span class="pre">AjouterAuFavoriesView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.CreateModerateurView"><code class="docutils literal notranslate"><span class="pre">CreateModerateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.CreateModerateurView.post"><code class="docutils literal notranslate"><span class="pre">CreateModerateurView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.CreerOperationView"><code class="docutils literal notranslate"><span class="pre">CreerOperationView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.CreerOperationView.post"><code class="docutils literal notranslate"><span class="pre">CreerOperationView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetAdministrateurView"><code class="docutils literal notranslate"><span class="pre">GetAdministrateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetAdministrateurView.get"><code class="docutils literal notranslate"><span class="pre">GetAdministrateurView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetAllModerateurView"><code class="docutils literal notranslate"><span class="pre">GetAllModerateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetAllModerateurView.get"><code class="docutils literal notranslate"><span class="pre">GetAllModerateurView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetAllOperationsView"><code class="docutils literal notranslate"><span class="pre">GetAllOperationsView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetAllOperationsView.get"><code class="docutils literal notranslate"><span class="pre">GetAllOperationsView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetFavoriesView"><code class="docutils literal notranslate"><span class="pre">GetFavoriesView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetFavoriesView.get"><code class="docutils literal notranslate"><span class="pre">GetFavoriesView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetModerateurView"><code class="docutils literal notranslate"><span class="pre">GetModerateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetModerateurView.get"><code class="docutils literal notranslate"><span class="pre">GetModerateurView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetNbModerateursView"><code class="docutils literal notranslate"><span class="pre">GetNbModerateursView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetNbModerateursView.get"><code class="docutils literal notranslate"><span class="pre">GetNbModerateursView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetNbUtilisateursView"><code class="docutils literal notranslate"><span class="pre">GetNbUtilisateursView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetNbUtilisateursView.get"><code class="docutils literal notranslate"><span class="pre">GetNbUtilisateursView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetUtilisateurView"><code class="docutils literal notranslate"><span class="pre">GetUtilisateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.GetUtilisateurView.get"><code class="docutils literal notranslate"><span class="pre">GetUtilisateurView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.LogInView"><code class="docutils literal notranslate"><span class="pre">LogInView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.LogInView.post"><code class="docutils literal notranslate"><span class="pre">LogInView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.LogOutView"><code class="docutils literal notranslate"><span class="pre">LogOutView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.LogOutView.get"><code class="docutils literal notranslate"><span class="pre">LogOutView.get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.ModifierModerateurView"><code class="docutils literal notranslate"><span class="pre">ModifierModerateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.ModifierModerateurView.put"><code class="docutils literal notranslate"><span class="pre">ModifierModerateurView.put()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.SignUpView"><code class="docutils literal notranslate"><span class="pre">SignUpView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.SignUpView.post"><code class="docutils literal notranslate"><span class="pre">SignUpView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.SupprimerDuFavoriesView"><code class="docutils literal notranslate"><span class="pre">SupprimerDuFavoriesView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.SupprimerDuFavoriesView.post"><code class="docutils literal notranslate"><span class="pre">SupprimerDuFavoriesView.post()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.SupprimerModerateur"><code class="docutils literal notranslate"><span class="pre">SupprimerModerateur</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.SupprimerModerateur.delete"><code class="docutils literal notranslate"><span class="pre">SupprimerModerateur.delete()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.UtilisateurView"><code class="docutils literal notranslate"><span class="pre">UtilisateurView</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.UtilisateurView.queryset"><code class="docutils literal notranslate"><span class="pre">UtilisateurView.queryset</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.UtilisateurView.serializer_class"><code class="docutils literal notranslate"><span class="pre">UtilisateurView.serializer_class</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.test"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="accountManagerApp.html#accountManagerApp.views.userIsAuthenticated"><code class="docutils literal notranslate"><span class="pre">userIsAuthenticated()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="accountManagerApp.html#module-accountManagerApp">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="django_app.html">django_app package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html#module-django_app.asgi">django_app.asgi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html#module-django_app.settings">django_app.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html#module-django_app.urls">django_app.urls module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html#module-django_app.wsgi">django_app.wsgi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django_app.html#module-django_app">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="func_extract.html">func_extract package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="func_extract.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="func_extract.html#module-func_extract.extruct">func_extract.extruct module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_content_in_range"><code class="docutils literal notranslate"><span class="pre">extract_content_in_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_references"><code class="docutils literal notranslate"><span class="pre">extract_references()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_sections_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_sections_from_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_sections_from_pdf_gpt3"><code class="docutils literal notranslate"><span class="pre">extract_sections_from_pdf_gpt3()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_text_from_first_page_of_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_first_page_of_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_text_from_last_page_of_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_last_page_of_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_text_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.extract_title_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_title_from_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.getInnerText"><code class="docutils literal notranslate"><span class="pre">getInnerText()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.get_thumbnail_from_pdf"><code class="docutils literal notranslate"><span class="pre">get_thumbnail_from_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.process_pdf_file"><code class="docutils literal notranslate"><span class="pre">process_pdf_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="func_extract.html#func_extract.extruct.upload_file_to_dropbox"><code class="docutils literal notranslate"><span class="pre">upload_file_to_dropbox()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="func_extract.html#module-func_extract">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="manage.html">manage module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="manage.html#manage.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to scisearch’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ArticlesManager.html" class="btn btn-neutral float-right" title="ArticlesManager package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Equipe 1.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

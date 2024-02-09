@@ -50,8 +50,8 @@
     right: 10px;
 }
 .favorits .card-container {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     background-color: white;
     box-shadow: 0 2px 15px 0px rgba(0,0,0,.1);
     border-radius: 6px;
@@ -71,7 +71,7 @@
 }
 .favorits .card-container .content h3 {
     margin: 0;
-    font-size: 29px;
+    font-size: 22px;
     color: #000080;
 }
 .favorits .card-container .content p {
@@ -80,13 +80,14 @@
     color: #777;
 }
 .favorits .card-container .info {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     padding: 20px;
     border-top: 1px solid #e6e6e7;
-    position: relative;
+    /* position: relative; */
 }
 .favorits .card-container .info .more {
+    display: block;
     width: fit-content;
     text-decoration: none;
     color: white;
@@ -101,12 +102,14 @@
     background-color: #191ab0;
 }
 .favorits .card-container .info div {
-    flex: 1;
     font-size: 13px;
     line-height: 1.5;
     color: #777;
     margin-bottom: 20px;
-    white-space: nowrap;
+    /* white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
+}
+.favorits .card-container .info div div {
+    display: inline-block;
 }

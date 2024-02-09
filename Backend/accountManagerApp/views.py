@@ -1,3 +1,4 @@
+
 from django.http import HttpResponse
 from .models import *
 from django.contrib.auth import authenticate, login, logout
@@ -11,12 +12,11 @@ from rest_framework import status
 ############################################
 # Create your views here.
 
-'''
-1- Add status to all rest Responses (in case of error)
-2- Add verifications to the User input.
-3- Add Operation stuff
-4- If they don't need message in response then delete it
-'''
+def userIsAuthenticated(idCurrentUser):
+    users = Utilisateur.objects.get(id = idCurrentUser)
+    if (len(users) == 0):
+        return True
+    else : return False
 
 def test(request): #********************************************************************************
     if request.user.is_authenticated:
@@ -29,22 +29,16 @@ class UtilisateurView(ListCreateAPIView): #*************************************
     serializer_class = UtilisateurSerializer
 
 class GetUtilisateurView(APIView): #****************************************************************
-    def get(self, request):
-        if (request.user.is_authenticated) :
-            utilisateur = Utilisateur.objects.get(id= request.user.id)
-            serializer = UtilisateurSerializer(utilisateur)
-            return Response(serializer.data,status=status.HTTP_200_OK)
-        else :
-            return Response({'message' : 'User is not Authenticated'})
+    def get(self, request, idCurrentUser):
+        utilisateur = Utilisateur.objects.get(id= idCurrentUser)
+        serializer = UtilisateurSerializer(utilisateur)
+        return Response(serializer.data,status=status.HTTP_200_OK)
     
 class GetFavoriesView(APIView): #*******************************************************************
-    def get(self, request):
-        if (request.user.is_authenticated) :
-            utilisateur = Utilisateur.objects.get(id= request.user.id)
-            listIdArticles = utilisateur.favorites.listIdsArticles
-            return Response({'listIdsArticles': listIdArticles},status=status.HTTP_200_OK)
-        else :
-            return Response({'message' : 'User is not Authenticated'})
+    def get(self, request, idCurrentUser):
+        utilisateur = Utilisateur.objects.get(id= idCurrentUser)
+        listIdArticles = utilisateur.favorites.listIdsArticles
+        return Response({'listIdsArticles': listIdArticles},status=status.HTTP_200_OK)
 
 class SignUpView(APIView): #**********************************************************************
     def post(self, request):
@@ -56,13 +50,12 @@ class SignUpView(APIView): #****************************************************
             return Response({'message': 'Invalid data. Please provide fullname, email, and password.'}, status=status.HTTP_400_BAD_REQUEST)
 
         user_to_auth = User.objects.create_user(email, email, password)
-        favorites = Favories.objects.create(listIdsArticles=[])
+        favorites = Favories.objects.create(id=user_to_auth.id,listIdsArticles=[])
         utilisateur = Utilisateur.objects.create(id=user_to_auth.id, user=user_to_auth, fullname=fullname, favorites=favorites)
-        utilisateur_serializer = UtilisateurSerializer(utilisateur)
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            return Response({'message': 'Sign up successful', 'user': utilisateur_serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Sign up successful', 'id': user.id}, status=status.HTTP_201_CREATED)
         else : 
             return Response({'message': 'Sign up successful but you need to do logIn'})
     
@@ -89,9 +82,9 @@ class LogOutView(APIView): #****************************************************
 
 
 class AjouterAuFavoriesView(APIView): #**************************************************************************
-    def post(self, request, idArticle):
+    def post(self, request, idArticle, idCurrentUser):
         try:
-            user_id = request.user.id
+            user_id = idCurrentUser
             utilisateur = Utilisateur.objects.get(id=user_id)
             fav_item = utilisateur.favorites
             if not idArticle in fav_item.listIdsArticles:
@@ -108,9 +101,9 @@ class AjouterAuFavoriesView(APIView): #*****************************************
             return Response({'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
 class SupprimerDuFavoriesView(APIView): #***********************************************************************
-    def post(self, request, idArticle):
+    def post(self, request, idArticle, idCurrentUser):
         try:
-            user_id = request.user.id
+            user_id = idCurrentUser
             utilisateur = Utilisateur.objects.get(id=user_id)
             fav_item = utilisateur.favorites
             if idArticle in fav_item.listIdsArticles:
@@ -129,22 +122,16 @@ class SupprimerDuFavoriesView(APIView): #***************************************
 
 # this function will show the Moderatuer it self his data (in the Side bar), so the Moderateur is authenticated
 class GetModerateurView(APIView):
-    def get(self, request):
-        if (request.user.is_authenticated) :
-            moderateur = Moderateur.objects.get(id= request.user.id)
-            serializer = ModerateurSerializer(moderateur)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else :
-            return Response({'message' : 'Moderateur is not Authenticated'})
+    def get(self, request, idCurrentUser):
+        moderateur = Moderateur.objects.get(id= idCurrentUser)
+        serializer = ModerateurSerializer(moderateur)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     
 class GetAdministrateurView(APIView): #*************************************************************************
-    def get(self, request):
-        if (request.user.is_authenticated) :
-            administrateur = Administrateur.objects.get(id= request.user.id)
-            serializer = AdministrateurSerializer(administrateur)
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        else :
-            return Response({'message' : 'Administrateur is not Authenticated'})
+    def get(self, request, idCurrentUser):
+        administrateur = Administrateur.objects.get(id= idCurrentUser)
+        serializer = AdministrateurSerializer(administrateur)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 # get all the Moderateurs and display them in the Administrateur page to be able to see, modify or delete them
@@ -205,40 +192,15 @@ class ModifierModerateurView(APIView): #****************************************
         return Response({'message': f'Moderatuer with id : {idModerateur} Updated successful'}, status=status.HTTP_200_OK)
 
 class CreerOperationView(APIView):
-    def post(self, request, titreArticle, typeOperation):
-        if request.user.is_authenticated:
-            idModerateur = request.user.id
-            moderateur = Moderateur.objects.get(id = idModerateur)
-            operation = Operation.objects.create(moderateurImageUrl = moderateur.imageUrl, moderateurFullName = moderateur.fullname, titreArticle = titreArticle, typeOperation = typeOperation)
-            operation_serializer = OperationSerializer(operation)
-            return Response({'message': 'Create Operation successful', 'operation': operation_serializer.data}, status=status.HTTP_201_CREATED)
-        else :
-            return Response({'message': 'Moderateur is not authenticated'}, status=status.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED)
+    def post(self, request, titreArticle, typeOperation, idCurrentUser):
+        idModerateur = idCurrentUser
+        moderateur = Moderateur.objects.get(id = idModerateur)
+        operation = Operation.objects.create(moderateurImageUrl = moderateur.imageUrl, moderateurFullName = moderateur.fullname, titreArticle = titreArticle, typeOperation = typeOperation)
+        operation_serializer = OperationSerializer(operation)
+        return Response({'message': 'Create Operation successful', 'operation': operation_serializer.data}, status=status.HTTP_201_CREATED)
     
 class GetAllOperationsView(APIView):
     def get(self, request):
         allOperations = Operation.objects.all()
         serializer = OperationSerializer(allOperations, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-'''
-
-#Just to create a moderateur
-class SignUpView2(APIView): 
-    def post(self, request):
-        fullname = request.data.get('fullname')
-        email = request.data.get('email')
-        password = request.data.get('password')
-        
-        if not all([fullname, email, password]):
-            return Response({'message': 'Invalid data. Please provide fullname, email, and password.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        user_to_auth = User.objects.create_user(email, email, password)
-        moderateur = Moderateur.objects.create(id=user_to_auth.id, user=user_to_auth, fullname=fullname)
-        administrateur_serializer = ModerateurSerializer(moderateur)
-        user = authenticate(request, username=email, password=password)
-        if user is not None:
-            login(request, user)
-        return Response({'message': 'Sign up successful', 'Moderateur': administrateur_serializer.data}, status=status.HTTP_201_CREATED)
-'''
