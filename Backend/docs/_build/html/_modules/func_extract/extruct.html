@@ -84,6 +84,10 @@
 <span class="kn">import</span> <span class="nn">dropbox</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">main</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+
 
 <span class="n">main</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
 <div class="viewcode-block" id="extract_title_from_pdf">
@@ -167,6 +171,7 @@
     <span class="n">title</span> <span class="o">=</span> <span class="n">extract_title_from_pdf</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">)</span>
     <span class="n">title_boundig_box</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">authors_inst</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inner_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     
     <span class="c1"># Iterate through the pages</span>
     <span class="k">for</span> <span class="n">page_num</span><span class="p">,</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pages</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -228,6 +233,12 @@
                         <span class="n">keywords</span> <span class="o">=</span> <span class="kc">True</span>
                         <span class="n">keywords_boundig_box</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">bbox</span>
                         <span class="k">continue</span>
+                    
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">page</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">LTTextContainer</span><span class="p">):</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+                    <span class="n">inner_text</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
     <span class="c1">#find the word &quot;Abstract&quot; or &quot;ABSTRACT&quot; or &quot;abstract&quot; in begining of the abstract_content</span>
     <span class="c1">#and remove it </span>
     <span class="k">if</span> <span class="n">abstract_content</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
@@ -272,14 +283,12 @@
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">page</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">LTTextContainer</span><span class="p">):</span>
                     <span class="n">text</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;first cond&quot;</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">title_boundig_box</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;second cond&quot;</span><span class="p">,</span><span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_y</span><span class="p">))</span>
-
                     <span class="c1"># the bbox of the title is in the form of (x0, y0, x1, y1)</span>
                     <span class="c1"># while x0 and y0 are the coordinates of the bottom left corner of the bbox</span>
                     <span class="c1"># and x1 and y1 are the coordinates of the top right corner of the bbox</span>
                     <span class="c1"># we will check if the y coordinate of the element is between the y coordinate of the title and the max y coordinate between the abstract or the keywords</span>
                     <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">title_boundig_box</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="n">max_y</span><span class="p">):</span> 
+                        
                         <span class="n">authors_inst</span> <span class="o">+=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="c1">#remove any empty authors</span>
     <span class="n">authors_inst</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">authors_inst</span><span class="p">))</span>
@@ -319,8 +328,9 @@
         <span class="n">institutions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">institutions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="c1">#remove any empty authors</span>
     <span class="n">authors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">authors</span><span class="p">))</span>
-        
-    <span class="k">return</span> <span class="n">abstract_content</span><span class="p">,</span> <span class="n">keywords_content</span> <span class="p">,</span> <span class="n">authors</span><span class="p">,</span> <span class="n">institutions</span></div>
+   
+    <span class="k">return</span> <span class="p">[</span><span class="n">abstract_content</span><span class="p">,</span> <span class="n">keywords_content</span><span class="p">,</span> <span class="n">authors</span><span class="p">,</span> <span class="n">institutions</span><span class="p">,</span> <span class="n">inner_text</span><span class="p">]</span></div>
+
 
 <div class="viewcode-block" id="extract_content_in_range">
 <a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.extract_content_in_range">[docs]</a>
@@ -358,7 +368,7 @@
             <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-3.5-turbo&quot;</span><span class="p">,</span>
             <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
                 <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">},</span>
-                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> this is the text : </span><span class="se">\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+                <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;get without any changes to the original text </span><span class="se">\n</span><span class="s2"> this is the text : </span><span class="se">\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
             <span class="p">],</span>
         <span class="p">)</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
 
@@ -377,18 +387,24 @@
     <span class="c1">#Get the email of the institution</span>
     <span class="n">email_prompt</span> <span class="o">=</span> <span class="s2">&quot;get the email of the institution of the authors of this article , don&#39;t add any title to the response , just the email of the institution of the article separated by &#39;</span><span class="se">\n</span><span class="s2">&#39; , they must be in order with the institutions , those are the institutions&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">institutions</span><span class="p">)</span>
     <span class="n">emails</span> <span class="o">=</span> <span class="n">get_openai_response</span><span class="p">(</span><span class="n">email_prompt</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    # Get the abstract section of the article</span>
+<span class="sd">    abstract_prompt = &quot;get the abstract section from this article without any changes , don&#39;t add any title to the responce , just the abstract section of the article without any changes word by word&quot;</span>
+<span class="sd">    abstract = get_openai_response(abstract_prompt)</span>
 
-    <span class="c1"># Get the abstract section of the article</span>
-    <span class="n">abstract_prompt</span> <span class="o">=</span> <span class="s2">&quot;get the abstract section from this article without any changes , don&#39;t add any title to the response , just the abstract section of the article &quot;</span>
-    <span class="n">abstract</span> <span class="o">=</span> <span class="n">get_openai_response</span><span class="p">(</span><span class="n">abstract_prompt</span><span class="p">)</span>
-
-    <span class="c1"># Get the keywords section of the article</span>
-    <span class="n">keywords_prompt</span> <span class="o">=</span> <span class="s2">&quot;get the keywords section from this article without any changes  , don&#39;t add any title to the response , just the keywords section of the article  &quot;</span>
-    <span class="n">keywords</span> <span class="o">=</span> <span class="n">get_openai_response</span><span class="p">(</span><span class="n">keywords_prompt</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-    <span class="c1">#get the references section of the article</span>
+<span class="sd">    # Get the keywords section of the article</span>
+<span class="sd">    keywords_prompt = &quot;get the keywords section from this article without any changes  , don&#39;t add any title to the response , just the keywords section of the article  &quot;</span>
+<span class="sd">    keywords = get_openai_response(keywords_prompt).split(&quot;,&quot;)</span>
+<span class="sd">    #get the references section of the article</span>
+<span class="sd">    references_prompt = &#39;we have this challenge where we need to extract the refreces section from the text , note that we know that this section is titles REFRENCES and all of the refrences are enumerated , get theme separated by &quot;\n&quot; , don\&#39;t add any title to the response , just the references section of the article&#39;</span>
+<span class="sd">    references = get_openai_response(references_prompt).split(&quot;\n&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_last_page_of_pdf</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">)</span>
     
-    <span class="n">references_prompt</span> <span class="o">=</span> <span class="s2">&quot;get the references section from this article without any changes ,  don&#39;t add any title to the response , just the references section of the article separated by &#39;</span><span class="se">\n</span><span class="s2">&#39;  &quot;</span>
-    <span class="n">references</span> <span class="o">=</span> <span class="n">get_openai_response</span><span class="p">(</span><span class="n">references_prompt</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">references</span> <span class="o">=</span> <span class="n">extract_references</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">extract_sections_from_pdf</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">)</span>
+    <span class="n">abstract</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="n">content</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;===============================================&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;title : &quot;</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
@@ -409,7 +425,7 @@
             <span class="n">auth_inst</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">aiobj</span><span class="p">)</span>
     
 
-    <span class="n">innerText</span> <span class="o">=</span> <span class="n">getInnerText</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">)</span>
+    <span class="n">innerText</span> <span class="o">=</span> <span class="n">getInnerText</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">,</span> <span class="n">abstract</span><span class="p">)</span>
     <span class="n">thumbnail</span> <span class="o">=</span> <span class="n">get_thumbnail_from_pdf</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">)</span>
     <span class="n">return_dict</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;Titre&quot;</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span>
@@ -435,14 +451,11 @@
 <span class="sd">    it uses the pdfminer library to extract the text from the pdf file</span>
 <span class="sd">    loop through the pages of the pdf file and extract the text from the text containers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">pdf_file_path</span>
-    <span class="n">pages</span> <span class="o">=</span> <span class="n">extract_pages</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">page</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">pages</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">page</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">LTTextContainer</span><span class="p">):</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">text</span></div>
+    <span class="k">with</span> <span class="n">fitz</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pdf_file_path</span> <span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+        <span class="n">first_page</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="n">first_page</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">text</span></div>
 
 <span class="c1"># Function to extract text from the last 10 pages of a PDF file</span>
 <div class="viewcode-block" id="extract_text_from_last_page_of_pdf">
@@ -454,46 +467,85 @@
 <span class="sd">    loop through the pages of the pdf file and extract the text from the text containers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">path</span> <span class="o">=</span> <span class="n">pdf_file_path</span>
-    <span class="n">pages</span> <span class="o">=</span> <span class="n">extract_pages</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-    <span class="n">last_ten_pages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pages</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">last_ten_pages</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">page</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">LTTextContainer</span><span class="p">):</span>
-                <span class="n">text</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">text</span></div>
+    <span class="k">with</span> <span class="n">fitz</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pdf_file_path</span> <span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+        <span class="c1">#if the pdf file has less than 10 pages then we will get the text from all the pages</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdf</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pdf</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">+=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">text</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">last_page</span> <span class="o">=</span> <span class="n">pdf</span><span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">last_page</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">text</span></div>
 
+    
 <span class="c1">#get innerText , just read it in utf-8</span>
-<div class="viewcode-block" id="getInnerText">
-<a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.getInnerText">[docs]</a>
-<span class="k">def</span> <span class="nf">getInnerText</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">):</span>
+<div class="viewcode-block" id="extract_text_from_pdf">
+<a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.extract_text_from_pdf">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_text_from_pdf</span><span class="p">(</span><span class="n">pdf_file_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string</span>
 <span class="sd">    it uses the pdfminer library to extract the text from the pdf file</span>
 <span class="sd">    loop through the pages of the pdf file and extract the text from the text containers and the characters</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">pdf_file_path</span>
-    <span class="n">pages</span> <span class="o">=</span> <span class="n">extract_pages</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pages</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">page</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">LTTextContainer</span><span class="p">):</span>
-                <span class="n">text</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">LTChar</span><span class="p">):</span>
-                <span class="n">text</span> <span class="o">+=</span> <span class="n">element</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
-                <span class="k">for</span> <span class="n">subelement</span> <span class="ow">in</span> <span class="n">element</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subelement</span><span class="p">,</span> <span class="n">LTTextContainer</span><span class="p">):</span>
-                        <span class="n">text</span> <span class="o">+=</span> <span class="n">subelement</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subelement</span><span class="p">,</span> <span class="n">LTChar</span><span class="p">):</span>
-                        <span class="n">text</span> <span class="o">+=</span> <span class="n">subelement</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span>
-    <span class="c1">#remove any &quot;\n&quot; and replace it with &quot; &quot;</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="c1">#get rid off double and triple spaces</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
-    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="n">fitz</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pdf_file_path</span> <span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pdf</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="s2">&quot;text&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
 
+    <span class="k">return</span> <span class="n">text</span></div>
+
+<span class="c1"># Function to extract the inner text of the PDF file</span>
+<div class="viewcode-block" id="getInnerText">
+<a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.getInnerText">[docs]</a>
+<span class="k">def</span> <span class="nf">getInnerText</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">abstract</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;this function take the path of a pdf file and return the inner text of the pdf file as a utf-8 string</span>
+<span class="sd">    it uses the pdfminer library to extract the text from the pdf file</span>
+<span class="sd">    loop through the pages of the pdf file and extract the text from the text containers and the characters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">inner_text</span> <span class="o">=</span> <span class="n">extract_text_from_pdf</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>  
+    <span class="n">inner_text</span> <span class="o">=</span> <span class="n">inner_text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;REFERENCES&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">inner_text</span> <span class="o">=</span> <span class="n">inner_text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;- &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">last_three_words_of_abstract</span> <span class="o">=</span> <span class="n">abstract</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+    <span class="n">index_of_last_three_words_of_abstract</span> <span class="o">=</span> <span class="n">inner_text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">last_three_words_of_abstract</span><span class="p">))</span>
+    <span class="n">last_three_words_of_abstract</span> <span class="o">=</span> <span class="n">abstract</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+    <span class="n">inner_text</span> <span class="o">=</span> <span class="n">inner_text</span><span class="p">[</span><span class="n">index_of_last_three_words_of_abstract</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">last_three_words_of_abstract</span><span class="p">)):]</span>
+    <span class="k">return</span> <span class="n">inner_text</span></div>
+
+
+<span class="c1">#Function to get the references of the article</span>
+<div class="viewcode-block" id="extract_references">
+<a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.extract_references">[docs]</a>
+<span class="k">def</span> <span class="nf">extract_references</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># Find the index of the &quot;REFERENCES&quot; title</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;- &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">references_index</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;REFERENCES&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Check if &quot;REFERENCES&quot; title is found</span>
+    <span class="k">if</span> <span class="n">references_index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Find the index of the first occurrence of a reference number</span>
+        <span class="n">first_reference_index</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\[\d+\]&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">[</span><span class="n">references_index</span><span class="p">:])</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> <span class="o">+</span> <span class="n">references_index</span>
+        
+        <span class="c1"># Extract the references section</span>
+        <span class="n">references_section</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">first_reference_index</span><span class="p">:]</span>
+         <span class="c1"># Remove encoded characters</span>
+        <span class="n">references_section</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">x[0-9a-fA-F]</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">references_section</span><span class="p">)</span>
+        
+        
+        <span class="c1"># Split the references section based on reference numbers</span>
+        <span class="n">references_array</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\[\d+\]&#39;</span><span class="p">,</span> <span class="n">references_section</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+        
+        <span class="c1"># Remove any leading or trailing whitespace from each reference</span>
+        <span class="n">references_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">reference</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">reference</span> <span class="ow">in</span> <span class="n">references_array</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">references_array</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;References section not found in the text.&quot;</span></div>
+
+    
+
+    
 <span class="c1">#Function to get the thumbnail of the file</span>
 <div class="viewcode-block" id="get_thumbnail_from_pdf">
 <a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.get_thumbnail_from_pdf">[docs]</a>
@@ -517,7 +569,7 @@
 <a class="viewcode-back" href="../../func_extract.html#func_extract.extruct.upload_file_to_dropbox">[docs]</a>
 <span class="k">def</span> <span class="nf">upload_file_to_dropbox</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dropbox_folder</span><span class="o">=</span><span class="s2">&quot;/articles&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="c1">#upload the file to dropboxdef upload_file_to_dropbox(file_path, dropbox_folder=&quot;/&quot;, overwrite=False):</span>
-    <span class="n">dbx</span> <span class="o">=</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">Dropbox</span><span class="p">(</span><span class="s1">&#39;sl.BvDGRjJJDaW-gWWWdeQGh7p64YsZlsZqOAXWL6yKuhK9BlHZzba3Qm169I08j2aD4rzT9uXmcIdrrMObIXQ_NAg-gS-jrnDXbSz-BR9iFZJuZCKbrW0Wey4mWs1H66g3xEoqTV-1aaz0YCogXg0me2I&#39;</span><span class="p">)</span>
+    <span class="n">dbx</span> <span class="o">=</span> <span class="n">dropbox</span><span class="o">.</span><span class="n">Dropbox</span><span class="p">(</span><span class="s1">&#39;sl.BvE3o9qw9XjKiPbsA1qIyw1zlHuMZ7rNpVSIDhCqBTmqLJLHPBHCcSp4X3urA9mfRg-ezn9DzNKUg_vqCIhJMEtSiO8L2AZRT_yxk6a4uwkZAjyrlfNeJrueTQe9XjK4Rn4SEOATBgzbFVCWaWKkyaY&#39;</span><span class="p">)</span>
     <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
     <span class="n">dropbox_path</span> <span class="o">=</span> <span class="n">dropbox_folder</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">file_name</span>
@@ -553,7 +605,10 @@
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span></div>
 
-    
+
+
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;./tests/Article_08.pdf&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">process_pdf_file</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
 
 

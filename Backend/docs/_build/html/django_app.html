@@ -53,7 +53,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-django_app.asgi">django_app.asgi module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-django_app.settings">django_app.settings module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#django-app-urls-module">django_app.urls module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-django_app.urls">django_app.urls module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-django_app.wsgi">django_app.wsgi module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-django_app">Module contents</a></li>
 </ul>
@@ -110,8 +110,33 @@
 <p>For the full list of settings and their values, see
 <a class="reference external" href="https://docs.djangoproject.com/en/5.0/ref/settings/">https://docs.djangoproject.com/en/5.0/ref/settings/</a></p>
 </section>
-<section id="django-app-urls-module">
-<h2>django_app.urls module<a class="headerlink" href="#django-app-urls-module" title="Link to this heading"></a></h2>
+<section id="module-django_app.urls">
+<span id="django-app-urls-module"></span><h2>django_app.urls module<a class="headerlink" href="#module-django_app.urls" title="Link to this heading"></a></h2>
+<p>URL configuration for django_app project.</p>
+<dl class="simple">
+<dt>The <cite>urlpatterns</cite> list routes URLs to views. For more information please see:</dt><dd><p><a class="reference external" href="https://docs.djangoproject.com/en/5.0/topics/http/urls/">https://docs.djangoproject.com/en/5.0/topics/http/urls/</a></p>
+</dd>
+</dl>
+<p>Examples:
+Function views</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Add an import:  from my_app import views</p></li>
+<li><p>Add a URL to urlpatterns:  path(‘’, views.home, name=’home’)</p></li>
+</ol>
+</div></blockquote>
+<dl class="simple">
+<dt>Class-based views</dt><dd><ol class="arabic simple">
+<li><p>Add an import:  from other_app.views import Home</p></li>
+<li><p>Add a URL to urlpatterns:  path(‘’, Home.as_view(), name=’home’)</p></li>
+</ol>
+</dd>
+<dt>Including another URLconf</dt><dd><ol class="arabic simple">
+<li><p>Import the include() function: from django.urls import include, path</p></li>
+<li><p>Add a URL to urlpatterns:  path(‘blog/’, include(‘blog.urls’))</p></li>
+</ol>
+</dd>
+</dl>
 </section>
 <section id="module-django_app.wsgi">
 <span id="django-app-wsgi-module"></span><h2>django_app.wsgi module<a class="headerlink" href="#module-django_app.wsgi" title="Link to this heading"></a></h2>
