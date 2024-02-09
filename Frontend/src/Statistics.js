@@ -66,17 +66,17 @@ export const Statistics = () => {
     window.innerWidth < 700 ? setBefore(true) : setBefore(false);
   };
   //using the state the icon will be whether before the statistic of after
-  const art1 = before && <IoDocumentTextOutline className="icon" />;
-  const art2 = !before && <IoDocumentTextOutline className="icon" />;
-  const use1 = before && <FaUsers className="icon" />;
-  const use2 = !before && <FaUsers className="icon" />;
+  const art1 = before && <IoDocumentTextOutline className="icon2" />;
+  const art2 = !before && <IoDocumentTextOutline className="icon2" />;
+  const use1 = before && <FaUsers className="icon2" />;
+  const use2 = !before && <FaUsers className="icon2" />;
   //control the initial position of the icon
   useEffect(() => {
     window.innerWidth < 700 ? setBefore(true) : setBefore(false);
   }, []);
   return (
     <div id="body3">
-      {/* <header>Statistiques</header> */}
+      <header id="stats">Statistiques</header>
       <section className="stats">
         <div>
           {art1}
@@ -100,7 +100,7 @@ export const Statistics = () => {
           {use2}
         </div>
       </section>
-      {/* <header>Acitivité récente des modérateurs</header> */}
+      <header id="acts">Acitivité récente des modérateurs</header>
       {createActivities()} {/* activities displayes */}
     </div>
   );

@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "react-toastify": "^10.0.4"
+  },
+  "devDependencies": {
+    "eslint-plugin-react": "^7.33.2"
   }
 }

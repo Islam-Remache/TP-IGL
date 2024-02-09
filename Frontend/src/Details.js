@@ -5,13 +5,51 @@ import { FaHeart } from "react-icons/fa";
 import { LuDownload } from "react-icons/lu";
 import image from "./images/articleCover.PNG"; //import the image articleCover
 import { useParams } from 'react-router-dom';
+import { useState } from "react";
+import axios from "./api/axios";
 export const Details = () => {
-  const storedJsonString = localStorage.getItem('myObjectKey');
-  const storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
-  const storedObject = [...storedObject1['data']]
-  const from = storedObject1['from'] 
+  const [isClicked, setIsClicked] = useState(false);
 
-  const { id } = useParams();
+  const handleClick = () => {
+    // Your logic here
+    setIsClicked(!isClicked);
+  };
+
+  const addToFavorits = ()=>{
+    axios.post(`http://127.0.0.1:8000/ajouterAuFavories/${doc["_id"]}/${localStorage.getItem("responseId")}/`,{})
+  }
+
+  const RemoveOfFavorits = ()=>{
+    axios.post(`http://127.0.0.1:8000/supprimerDuFavories/${doc["_id"]}/${localStorage.getItem("responseId")}/`,{})
+  }
+  const { f,id } = useParams();
+  const [showPdf,setShowPdf]=useState(false)
+  let storedJsonString 
+  let storedObject1 
+  let storedObject 
+  let from 
+  let fav1 
+   if(f === undefined){
+    storedJsonString = localStorage.getItem('myObjectKey');
+    storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
+    storedObject = [...storedObject1['data']]
+    from = storedObject1['from']
+    fav1 = storedObject1['fav']
+   }else{
+    localStorage.removeItem('myObjectKey')
+    storedJsonString = localStorage.getItem('myObjectKey2');
+    storedObject1 = storedJsonString ? JSON.parse(storedJsonString) : null;
+    storedObject = [...storedObject1['data']]
+    from = storedObject1['from']
+   }
+
+
+
+  //fav1?.map(id => {fav.push(id);console.log(id)})
+  //console.log(typeof fav)
+
+
+  
   const doc = storedObject.find(obj => obj._id === id);
 
   let titre = "Online Accounting Softwaring";
@@ -85,12 +123,31 @@ export const Details = () => {
           <img src={image} alt="not found" id="imgDetails" />{" "}
           {/*article's cover*/}
           <span className="articleIcons">
-          {from === 'F' ? (
-            <FaHeart className="icon"/>
-      ) : (
-        <CiHeart className="heartDownload" />
+          {from === 'F' && isClicked &&  (
+            
+            <CiHeart className="heartDownload" onClick={()=>{handleClick();addToFavorits()}} />
+      ) || from === 'F' && !isClicked &&  (
+        <FaHeart className="icon"  onClick={()=>{handleClick();RemoveOfFavorits()}} 
+        />
+        
+      ) || from ==='R' && isClicked && !(fav1.indexOf(doc["_id"])>-1) && (
+        <FaHeart className="icon" onClick={()=>{handleClick();RemoveOfFavorits()}} />
+     
+        
+      ) || from ==='R' && isClicked && (fav1.indexOf(doc["_id"])>-1) &&  (
+        <CiHeart className="heartDownload" onClick={()=>{handleClick();addToFavorits()}} />
+     
+        
+      ) || from ==='R' && !isClicked && !(fav1.indexOf(doc["_id"])>-1) &&  (
+        <CiHeart className="heartDownload"  onClick={()=>{handleClick();addToFavorits()}} 
+        />
+        
+      )|| from ==='R' && !isClicked && (fav1.indexOf(doc["_id"])>-1) &&  (
+        <FaHeart className="icon"  onClick={()=>{handleClick();RemoveOfFavorits()}} 
+        />
+        
       )}
-            <LuDownload className="heartDownload" />
+            <LuDownload className="heartDownload"  />
           </span>
         </div>
 
@@ -108,7 +165,15 @@ export const Details = () => {
       </div>
       <div className="secondDiv">
         <label>Text intégral :</label>
-        <p id="Txt">{doc['_source']['TextIntegral']}</p>
+
+        <div id="integ">
+          <div id="pdfButtons">
+            <button onClick={()=>{setShowPdf(false)}}>Format Text</button>
+            <button onClick={()=>{setShowPdf(true)}}>Format PDF</button>
+          </div>
+         {!showPdf ? <p id="Txt">{doc['_source']['TextIntegral']}</p> :  <iframe className="pdf" src="https://drive.google.com/file/d/1eYjZWAqdQ3fBZRxOg8RmjgV2gUGsnfK0/preview" width="70%"  height="100%" allow="autoplay"></iframe>}
+        </div>
+        
         {/* <embed
           src="/Chapitre 4-flots_ROP_23.pdf"
           type="application/pdf"

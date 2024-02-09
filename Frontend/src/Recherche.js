@@ -2,6 +2,7 @@ import React from "react";
 import { FaArrowRight, FaArrowDown, FaArrowLeft } from "react-icons/fa"; //import arrows icons
 import { CiSearch } from "react-icons/ci"; //import search icon
 import { Link } from "react-router-dom"; //to use Link tag instead of a tag
+import "./Uploaded.css"
 import "./Recherche.css"; //import css file
 import image from "./images/image1.PNG"; //import the image used in the last div
 import { useEffect, useState } from "react"; //import useState hook
@@ -12,11 +13,36 @@ import axios from "./api/axios";
 import { FaRegHeart } from "react-icons/fa";
 
 export const Recherche = () => {
-  ///
-  const [result2, setResult2] = useState(result);
-  const [result, setResult] = useState(result2);
-  const [searchInput, setSearchInput] = useState("");
 
+  useEffect(() => {
+    async function fetchData() {
+      // Retrieve myObjectKey from local storage
+      const storedJsonString = localStorage.getItem('myObjectKey');
+  
+      // Check if myObjectKey exists in local storage
+      if (storedJsonString) {
+        const storedObject = JSON.parse(storedJsonString);
+  
+        // Fetch data and update myObjectKey
+        const resp = await axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`);
+  
+        localStorage.setItem("myObjectKey", JSON.stringify({
+          data: storedObject.data || [],  // Ensure data is an array
+          from: "R",
+          fav: resp.data.listIdsArticles
+        }));
+      }
+    }
+  
+    fetchData();
+  }, []);
+  
+  
+  ///
+  const [result2, setResult2] = useState(localStorage.getItem('myObjectKey')?[... JSON.parse(localStorage.getItem('myObjectKey'))['data']]:[]);
+  const [result, setResult] = useState(localStorage.getItem('myObjectKey')?[... JSON.parse(localStorage.getItem('myObjectKey'))['data']]:[])
+  const [searchInput, setSearchInput] = useState("");
+  const [Fav,setFav]=useState([])
   const handleChange = (event) => {
     setSearchInput(event.target.value);
   };
@@ -28,9 +54,14 @@ export const Recherche = () => {
     );
     setResult(res.data["Articles Found"]);
     setResult2(res.data["Articles Found"]);
+    const resp = await axios.get(`http://127.0.0.1:8000/getFavories/${localStorage.getItem('responseId')}/`)
+    setFav(resp.data.listIdsArticles)
+    console.log(resp.data.listIdsArticles)
+
     const jsonString = JSON.stringify({
       data: [...res.data["Articles Found"]],
       from: "R",
+      fav : resp.data.listIdsArticles
     });
     localStorage.setItem("myObjectKey", jsonString);
   };
@@ -53,36 +84,36 @@ export const Recherche = () => {
   //
 
   let keys = [];
-  for (let i = 0; i < result.length; i++) {
+  for (let i = 0; i < result2.length; i++) {
     // keys = keys.concat(result[i].MotsCle);
-    result[i]["_source"].MotsCle.map((ele) => {
+    result2[i]["_source"].MotsCle.map((ele) => {
       if (keys.includes(ele) === false) {
         keys.push(ele);
       }
     });
   }
   let dates = [];
-  for (let i = 0; i < result.length; i++) {
-    if (dates.includes(result[i]["_source"].DatePublication) === false)
-      dates.push(result[i]["_source"].DatePublication);
+  for (let i = 0; i < result2.length; i++) {
+    if (dates.includes(result2[i]["_source"].DatePublication) === false)
+      dates.push(result2[i]["_source"].DatePublication);
   }
   let auths = [];
-  for (let i = 0; i < result.length; i++) {
-    let auteurs = result[i]["_source"].Auteurs;
+  for (let i = 0; i < result2.length; i++) {
+    let auteurs = result2[i]["_source"].Auteurs;
     for (let j = 0; j < auteurs.length; j++) {
-      if (auths.includes(auteurs[j]["_source"].NomComplet) === false)
-        auths.push(auteurs[j]["_source"].NomComplet);
+      if (auths.includes(auteurs[j].NomComplet) === false)
+        auths.push(auteurs[j].NomComplet);
     }
   }
   let institutes = [];
 
   // Iterate through the list of authors
   for (let i = 0; i < result.length; i++) {
-    let auteurs = result[i]["_source"].Auteurs;
+    let auteurs = result2[i]["_source"].Auteurs;
     for (let j = 0; j < auteurs.length; j++) {
-      let institutions = auteurs[j]["_source"].Institutions;
+      let institutions = auteurs[j].Institutions;
       for (let k = 0; k < institutions.length; k++) {
-        let institutionName = institutions[k]["_source"].Nom;
+        let institutionName = institutions[k].Nom;
         if (!institutes.includes(institutionName)) {
           institutes.push(institutionName);
         }
@@ -102,7 +133,7 @@ export const Recherche = () => {
   const [show2, setShow2] = useState(false);
 
   const [arrows, setArrows] = useState([
-    { show: true, id: 0, title: "Mots Clés", name: "MotsCle" },
+    { show: false, id: 0, title: "Mots Clés", name: "MotsCle" },
     { show: false, id: 1, title: "Auteurs", name: "Auteurs" },
     { show: false, id: 2, title: "Institutions", name: "Institutions" },
     {
@@ -113,15 +144,15 @@ export const Recherche = () => {
     },
   ]);
 
-  // const change = (i) => {
-  // //   setArrows(
-  // //     arrows.map((ele) =>
-  // //       ele.id === i
-  // //         ? { show: !ele.show, id: i, title: ele.title }
-  // //         : { show: false, id: ele.id, title: ele.title }
-  // //     )
-  // //   );
-  // // };
+  const change = (i) => {
+    setArrows(
+      arrows.map((ele) =>
+        ele.id === i
+          ? { show: true, id: i, title: ele.title }
+          : { show: false, id: ele.id, title: ele.title }
+      )
+    );
+  };
 
   const createArticles = () => {
     return arrows.map((arrow, index) =>
@@ -129,28 +160,34 @@ export const Recherche = () => {
         <select
           name="MotsCle"
           key={index}
+          onClick={()=>{change(0)}}
+         
           onChange={(event) => {
+            
             if (result.lenght !== 0) {
               setResult(
                 result2.filter((ele) =>
                   ele["_source"].MotsCle.includes(event.target.value)
                 )
               );
-            }
+            };
           }}
+         
         >
           <option selected disabled>
             Mot Clés
           </option>
           {keys.map((ele) => (
-            <option>{ele}</option>
+            <option>{arrow.show ? ele : 'Mots Clés' }</option>
           ))}
         </select>
       ) : index === 1 ? (
         <select
           name="Auteurs"
           key={index}
+          onClick={()=>{change(1)}}
           onChange={(event) => {
+       
             if (result.lenght !== 0) {
               setResult(
                 result2.filter((ele) =>
@@ -159,21 +196,23 @@ export const Recherche = () => {
                   )
                 )
               );
-            }
+            };
           }}
         >
           <option selected disabled>
             Auteurs
           </option>
           {auths.map((ele) => (
-            <option>{ele}</option>
+            <option>{arrow.show ? ele : "Auteurs"}</option>
           ))}
         </select>
       ) : index === 2 ? (
         <select
           name="Institutions"
           key={index}
+          onClick={()=>{change(2)}}
           onChange={(event) => {
+         
             if (result.lenght !== 0) {
               setResult(
                 result2.filter((article) =>
@@ -184,14 +223,14 @@ export const Recherche = () => {
                   )
                 )
               );
-            }
+            };
           }}
         >
           <option selected disableds>
             Institutions
           </option>
           {institutes.map((ele) => (
-            <option>{ele}</option>
+            <option>{arrow.show ? ele : 'Institutions'}</option>
           ))}
         </select>
       ) : (
@@ -199,21 +238,23 @@ export const Recherche = () => {
           <select
             name="DatePublication"
             key={index}
+            onClick={()=>{change(3)}}
             onChange={(event) => {
+          
               if (result.lenght !== 0) {
                 setResult(
                   result2.filter((ele) =>
                     ele["_source"].DatePublication.includes(event.target.value)
                   )
                 );
-              }
+              };
             }}
           >
             <option selected disabled>
               Date De publication
             </option>
             {dates.map((ele) => (
-              <option>{ele}</option>
+              <option>{arrow.show ? ele : 'Date De publication'}</option>
             ))}
           </select>
         )
@@ -223,35 +264,26 @@ export const Recherche = () => {
 
   const display_result = () => {
     return (
-      <div className="favorits">
+      <div className="Uploaded">
         {result &&
           result.map((record) => {
             let id = record["_id"];
             record = record["_source"];
-            return (
-              <div className="card-container">
-                <div className="heart">
-                  <FaRegHeart
-                    className="icon"
-                    id="heartIcon"
-                    onClick={() => addToFavorites(id)}
-                  />
-                </div>
-                <img alt="article-img" src={require("./images/file.png")} />
-                <div className="content">
-                  <h3>{record.Titre}</h3>
-                  {record.Auteurs.map((ele) => (
-                    <p>{ele.NomComplet}</p>
-                  ))}
-                </div>
-                <div className="info">
-                  <Link className="more" to={`details/${id}`}>
+            return (  <div className="card-container">
+            <img alt="article-img" src={require("./file.png")} />
+            <div className="content">
+              <h3>{record.Titre}</h3>
+              {record.Auteurs.map((ele)=><p>{ele['NomComplet']}</p>)}
+              
+            </div>
+            <div className="infoC">
+               <span title={record.MotsCle.join(" , ")}>{record.MotsCle.join(" , ")}</span>
+            
+            </div>
+            <Link className="more" to={`Details/${id}`}>
                     Savoir Plus
                   </Link>
-                  {}
-                  <span title={record.Mots}>{record.MotsCle.join(" , ")}</span>
-                </div>
-              </div>
+          </div>
             );
           })}
       </div>
@@ -302,7 +334,7 @@ export const Recherche = () => {
       )}
 
       <div className="categories">{/*les critéres de recherche */}</div>
-      {createArticles()}
+      {result.length !== 0 && createArticles()}
       {result.length !== 0 && display_result()}
 
       {result.length === 0 && (

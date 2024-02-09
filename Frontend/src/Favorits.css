@@ -74,17 +74,25 @@
     font-size: 22px;
     color: #000080;
 }
-.favorits .card-container .content p {
+.favorits .card-container .content div {
     margin: 10px 0 0;
-    line-height: 1.5;
+    line-height: 1.3;
     color: #777;
 }
+.favorits .card-container .content div .auteurs {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 5px;
+    margin-right: 8px;
+}
+.favorits .card-container .content div p {
+    font-size: 15px;
+}
 .favorits .card-container .info {
-    /* display: flex;
-    flex-direction: column; */
     padding: 20px;
     border-top: 1px solid #e6e6e7;
-    /* position: relative; */
 }
 .favorits .card-container .info .more {
     display: block;
@@ -101,15 +109,37 @@
 .favorits .card-container .info .more:hover {
     background-color: #191ab0;
 }
-.favorits .card-container .info div {
+
+.favorits .card-container .info .tag {
     font-size: 13px;
     line-height: 1.5;
     color: #777;
     margin-bottom: 20px;
-    /* white-space: nowrap;
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; */
+    text-overflow: ellipsis;
 }
-.favorits .card-container .info div div {
-    display: inline-block;
+.favorits .card-container .info .tag .tags {
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+    margin-right: 8px;
+}
+.favorits .card-container .info .moreDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.favorits .card-container .info .moreDetails .arrow {
+    color: #000080;
+    font-size: 17px;
+}
+.favorits .card-container .info .moreDetails:hover .arrow {
+    animation: more .6s linear infinite;
+}
+@keyframes more {
+    100% {
+        translate: 10px;
+    }
 }
